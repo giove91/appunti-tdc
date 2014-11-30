@@ -1,0 +1,52 @@
+\chapter{Definizioni}
+
+\section{Sintassi e semantica}
+
+\section{Macchine di Turing}
+
+\section{Codifica e decodifica}
+Sia $L=\{R^{a_1}_1, \ldots, R^{a_s}_s, c_1, \ldots, c_l\}$ un linguaggio.
+Vogliamo fornire un modo standard di codificare una $L$-struttura finita $A$ come
+stringa binaria, che denoteremo $\bin(A)$. Nel seguito supporremo sempre, senza
+perdita di generalità, che
+il dominio di una $L$-struttura finita sia un insieme del tipo
+$\{1,\ldots,n\} \subseteq \N$.
+
+\begin{definizione}
+  Sia $A$ una $L$-struttura, con $|A| = n < +\infty$.
+  Se $R \subseteq A^k$ è una relazione,
+  definiamo $\bin(R): |A|^k \to \{0,1\}$ come:
+  \[\bin(R)(a_1 + a_2*n + a_k * n^{k-1}):=
+    \begin{cases}
+      1 \mbox{ se } R(a_1,\ldots,a_k) \\
+      0 \mbox{ altrimenti}
+    \end{cases}
+  \]
+  Se $a$ è un elemento di $A=\{1,\ldots,n\}$, definiamo $\bin(a)$ essere la
+  scrittura binaria del numero $a$, con eventualmente aggiunti degli zeri a
+  sinistra affinché abbia lunghezza esattamente $\lceil \log_2(n) \rceil$.
+  Definiamo infine
+  \[\bin(A):=\bin(R_1)\string^\ldots\string^\bin(R_s)\string^\bin(c_1)\string^\ldots\string^\bin(c_l).\]
+\end{definizione}
+
+\begin{osservazione}
+\label{oss-bin}
+ Detta $n$ la cardinalità di $A$, la lunghezza della codifica è
+ \[ |\bin(A)|=n^{a_1} + \ldots + n^{a_s} + l \cdot \lceil \log_2(n) \rceil, \]
+ e in particolare è polinomiale in $n$. Inoltre dato che la parte a destra è
+ strettamente crescente in $n$, questo ci dice che, conoscendo solo il linguaggio,
+ e $\bin(A)$, possiamo ricavare $n$ e più in generale possiamo ricostruire tutto $A$.
+ Infatti avremo che vale $R_i^A(x_1,\ldots, x_{a_i})$ se e solo se
+ $\bin(A)(n^{a_1} + \ldots + n^{a_{i-1}} + x_1 + x_2 \cdot n + \ldots + x_{a_i} \cdot n^{a_i-1}) = 1$.
+\end{osservazione}
+Useremo questa procedura principalmente per descrivere modelli all'interno
+di macchine di Turing. Infatti, come notato nell'Osservazione \ref{oss-bin},
+una macchina di Turing può ricostruire
+il valore della relazione $R_i^A(x_1, \ldots, x_{a_i})$ calcolando il valore
+di $n$ e spostando la testina e leggendo il valore nella posizione
+$n^{a_1} + \ldots + n^{a_{i-1}} + x_1 + x_2 \cdot n + \ldots + x_{a_i} \cdot n^{a_i-1}$
+del blocco di memoria corrispondente alla codifica.
+Nello pseudo-codice indicheremo questa procedura con
+$\decode_{R_i}(\bin(A), x_1, \ldots, x_{a_i})$. La corrispondente procedura per
+leggere il valore di una costante sarà indicata con $\decode_{c_i} (\bin(A))$.
+

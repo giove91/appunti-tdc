@@ -1,0 +1,162 @@
+\chapter{Caratterizzazione di $P$}
+
+\section{Sintassi e semantica di $\FO(\LFP)$}
+
+\begin{definizione}
+ Sia $\phi(S^2,x,y)$ una formula.
+ Diremo che $S$ compare in \emph{posizione positiva} in $\phi$ se tutte le volte
+ in cui compare è preceduta da un
+ numero pari di negazioni. Più precisamente, per induzione sulla complessità
+ della formula:
+ \begin{itemize}
+  \item $S$ è in posizione positiva in tutte le formule atomiche (che la contengano o no)
+  \item Se $S$ compare in posizione positiva in $\phi$ e $\theta$, allora compare
+  in posizione positiva in $\phi \land \theta$, $\phi \lor \theta$, $\exists x \phi(x)$,
+  $\forall x \phi(x)$.
+  \item Se $S$ compare in posizione positiva in $\phi$ allora compare in posizione
+  negativa in $\lnot \psi$, $\psi \to \phi$ e in $\lnot \psi \land \phi$.
+  \item Se $S$ compare in posizione positiva in $\phi$ allora compare in posizione
+  negativa in $\lnot \phi$ e viceversa se $S$ compare in posizione negativa in $\phi$
+  allora compare in posizione
+  positiva in $\lnot \phi$.
+ \end{itemize}
+\end{definizione}
+
+\mytodo{Controllare che la definizione sia esaustiva}
+
+\begin{definizione}
+ Estendiamo la sintassi di $\FO$ introducendo un nuovo quantificatore, che
+ indichiamo con $\LFP$. Data una
+ formula del primo ordine $\phi(S^2,x,y)$ in cui $S$ compare in posizione positiva,
+ l'espressione $\LFP_{S,x,y} \phi(S^2,x,y)$ avrà il tipo di una relazione binaria
+ con variabili
+ libere $\FV(\phi) \setminus \{S,x,y\}$.
+ Chiameremo la sintassi così ottenuta $\FO(\LFP)$.
+\end{definizione}
+
+Semanticamente vogliamo interpretare $\LFP_{S,x,y} \phi(S,x,y)$ come la più
+piccola (rispetto all'inclusione) relazione binaria $R$ tale che $R(x,y) \leftrightarrow \phi(R,x,y)$, ma dobbiamo
+prima verificare che esiste una tale relazione.
+
+\begin{teorema}[Tarski-Knaster]
+\label{teo-tarski-knaster}
+ Sia $A$ un insieme finito e sia $f: \P(A^k) \to \P(A^k)$ una
+ funzione monotona rispetto all'inclusione
+ (i.e. se $S \subseteq S'$ allora $f S \subseteq f S'$). Allora esiste un minimo
+ punto fisso di $f$, che indicheremo con $\LFP f$ e per la precisione
+ questo è dato da $f^{|A|^k}(\varnothing)$.
+\end{teorema}
+
+\begin{proof}
+ Dato che $f$ è monotona e $A$ è finito, deve esistere $n$ in $\N$ tale che
+ $f^n(\varnothing) = f^{n+1}(\varnothing)$, e inoltre tale $n$ può essere preso
+ minore di $|A|^k$. Indichiamo $f^n(\varnothing)$ con $\bar{S}$.
+ Per definizione $\bar{S}$ è un punto fisso di $f$.
+ Se $S'$ è un altro punto fisso di $f$, dato che $\varnothing \subseteq S'$ e
+ che $f$ è monotona, avremo $\bar{S} = f^k(\varnothing) \subseteq f^k(S') = S'$.
+ Quindi $\bar{S}$ è il più piccolo punto fisso.
+\end{proof}
+
+\mytodo{Accennare al caso infinito}
+
+
+\begin{corollario}
+\label{cor-f-phi}
+ Sia $\phi(S,x,y)$ una $L$-formula del primo ordine in cui $S$ compare in posizione
+ positiva, e sia $A$ una $L$-struttura.
+ Indichiamo con $f_\phi: \P A \times A \to \P A \times A$ la funzione
+ \[ f_{\phi,A}(R) := \{ (a,b) \in A \times A \mid \semantic{ \phi (S,x,y)}^{A,R,a,b} \}. \]
+ Questa funzione è monotona sulle relazione ordinate per inclusione.
+ Il suo più piccolo punto fisso $\LFP f_{\phi,A}$ è la più piccola relazione
+ $R \subseteq A \times A$ tale che $R(a,b) \leftrightarrow \semantic{\phi(S,x,y)}^{A,R,a,b}$.
+\end{corollario}
+\mytodo{Dimostrazione}
+
+\begin{definizione}
+ Usando le notazioni del Corollario \ref{cor-f-phi}, estendiamo la funzione
+ semantica di $\FO$ ad $\FO(\LFP)$ ponendo
+ \[\semantic{\LFP_{S,x,y} \phi(S,x,y)}^M = \LFP f_{\phi,M}.\]
+\end{definizione}
+
+\section{$\FO(\LFP)$ equivale a $P$}
+
+\begin{lemma}
+ Per ogni $L$-formula chiusa $\phi$ in $\FO$ esiste
+ una macchina di Turing $T_\phi$ in $P$ tale che, data una $L$-struttura $A$,
+ si ha $A \models \phi$ se e solo se $T_\phi(\bin(A))\downarrow$. Inoltre
+ le $T_\phi$ possono essere costruite in modo che siano logaritmiche nello spazio.
+\end{lemma}
+\begin{proof}
+ \mytodo{Pseudocodice da mettere ovunque!}
+ Procediamo per induzione strutturale sulla complessità della formula $\phi$.
+ 
+ Sia $\phi$ atomica nel linguaggio $L=\{ R^{a_1},\ldots,R^{a_k},c_1,\ldots,c_l \}$,
+ allora $\phi$ deve essere nella forma $c_1=c_2$ oppure nella forma $R_s(c_1,\ldots, c_k)$,
+ dove i $c_i$ sono simboli di costante (ricordiamo che per convenzione
+ non ammettiamo simboli di funzione nel linguaggio). Il nastro di input della
+ macchina di Turing $T_\phi$ avrà la seguente struttura
+ \[ \ldots \]
+ La macchina di Turing $T_\phi$ come prima cosa leggerà dal nastro di
+ input i valori $m_i$ corrispondenti alle costanti $c_i$.
+ Se $\phi$ era nella forma $c_1 = c_2$ allora basta controllare l'uguaglianza
+ di $m_1$ ed $m_2$. Se invece $\phi$ era nella forma $R_s(c_1,\ldots,c_k)$,
+ leggiamo il bit in posizione $m_1 + m_2 \cdot n + \ldots + m_k \cdot n^{k-1}$
+ del blocco relativo alla relazione $R_k$ e accettiamo nel caso abbia valore 1.
+ 
+ Se $\phi$ è combinazione booleana di formule $\phi_i$,
+ la macchina di Turing corrispondente si ottiene facilmente mettendo insieme le
+ macchiene di Turing delle singole $\phi_i$.
+ 
+ Sia infine $\phi$ nella forma $\exists x \theta(x)$. Detto $L'$ il linguaggio
+ ottenuto aggiungendo a $L$ un simbolo di costante $c$,
+ la $L'$-formula $\theta(c)$ ha complessità minore di quella di $\phi$
+ e dunque, per ipotesi induttiva, esiste una
+ macchina di Turing $T_{\theta(c)}$ che gli corrisponde.
+ Notiamo che, dato $x$ in $\{0,\ldots, n-1\}$, possiamo trasformare $A$ in una $L'$
+ struttura $(A,x)$ interpretando la costante $c$ con $x$.
+ Costruiamo allora la macchina di Turing $T_\phi$ in modo che $T_\phi(\bin(A))$
+ accetti se e solo se $T_{\theta(c)}(\bin(A,x))$ accetta per qualche $x$.
+ \mytodo{Le macchine che costruiamo si aspettavano di trovare l'input
+ sul nastro di input, ma io non posso modificare il nastro di input per aggiungere $\bin(x)$.}
+ \mytodo{Forse è meglio metterci lo pseudo-codice}.
+\end{proof}
+
+\begin{lemma}
+ Per ogni $L$-formula chiusa $\phi$ in $\FO(LFP)$ esiste
+ una macchina di Turing $T_\phi$ in $P$ tale che, data una $L$-struttura $A$,
+ si ha $A \models \phi$ se e solo se $T_\phi(\bin(A))\downarrow$.
+\end{lemma}
+\begin{proof}
+  Rispetto al lemma precedente dobbiamo solo considerare in più il caso
+  $\phi \equiv \LFP_{S,x,y}\theta(S,x,y)(a,b)$, con $a, b$ costanti.
+  Notiamo che possiamo vedere
+  $\theta(S,x,y)$ come una formula chiusa nel linguaggio $L'=L \cup \{S^2,x,y\}$,
+  dunque ha senso considerare la macchina di Turing $T_{\theta(S,x,y)}$ ad essa
+  corrispondente. Inoltre, usando le notazioni del Corollario \ref{cor-f-phi},
+  si ha $T_{\theta(S,x,y)}(\bin(A,R,a,b))\downarrow$
+  se e solo se $(a,b) \in f_{\theta,A}(R)$. Questa osservazione, insieme alla
+  dimostrazione del Teorema \ref{teo-tarski-knaster}, suggeriscono il seguente
+  algoritmo per $T_\phi$ e ne dimostrano la correttezza.
+%   Riserviamo una zona $R$ in memoria di grandezza $|A|^2$, inizializziamola a zero e
+%   per $|A|^2$ passi iteriamo il seguente procedimento: per ogni coppia $(a,b)$ in $A^2$,
+%   eseguiamo la macchina $T_{\theta(S,x,y)}(\bin(A,R,a,b))$ e se accetta settiamo a 1 il bit
+%   in posizione $a \cdot n + b$ del blocco $R$.
+  
+  \begin{algorithmic}
+  \Function{$T_\phi$}{$bin$}
+    \State $R\gets 0$
+    \For {$i < max^2$}
+      \For {$h,k = 0..max$}
+      \If {$T_{\theta(S,x,y)}(\bin(A)\string^\bin(h)\string^\bin(k))\downarrow$}
+	\State $R[a*max + b] \gets 1$
+      \EndIf
+      \EndFor
+    \EndFor
+    \State $a \gets \decode_a (bin)$
+    \State $b \gets \decode_b (bin)$
+    \State \Return $R[a*max + b]$
+  \EndFunction
+  \end{algorithmic}
+
+ 
+\end{proof}

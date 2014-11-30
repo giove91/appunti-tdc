@@ -12,8 +12,12 @@
 % Magari mettiamolo solo se ci serve - Alex
 %\usepackage{braket}
 \usepackage[retainorgcmds]{IEEEtrantools}
+\usepackage{algorithmicx}
+\usepackage{algpseudocode}
 \usepackage{todonotes}
 \usepackage{enumitem}
+% Le parentesi della funzione semantica
+\usepackage{stmaryrd}
 
 \usepackage{tikz}
 \usetikzlibrary{matrix,arrows,calc}
@@ -32,6 +36,20 @@
 \newtheorem{esercizio}[teorema]{Esercizio}
 
 \allowdisplaybreaks[1]
+
+\DeclareMathOperator{\FO}{FO}
+\DeclareMathOperator{\LFP}{LFP}
+\DeclareMathOperator{\FV}{FV}
+\DeclareMathOperator{\bin}{bin}
+\DeclareMathOperator{\decode}{decode}
+
+\newcommand{\N}{\mathbb{N}}
+\renewcommand{\P}{\mathcal{P}}
+
+\usepackage{mathtools}
+\DeclarePairedDelimiter{\semantic}{\llbracket}{\rrbracket}
+
+\newcommand{\mytodo}[1]{{\color{gray} #1}}
 
 \title{Appunti di Teoria descrittiva della complessità}
 \author{Alessandro Achille, Giovanni Paolini}
