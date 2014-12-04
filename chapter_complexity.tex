@@ -1,0 +1,40 @@
+\chapter{Classi di complessità}
+
+\section{ATIME}
+
+\begin{teorema}
+ $\ATIME(t(n)) \subseteq \DSPACE(t(n))$
+\end{teorema}
+\begin{proof}
+ Sia $A$ una macchina di Turing alternante in $\ATIME(t(n))$, vogliamo trovare
+ una macchina di Turing deterministica $B$ in $\DSPACE(t(n))$ che accetti gli
+ stessi input $w$ di $A$. Supponiamo per semplicità di notazione che ogni stato
+ $A$ non deterministico di $A$ possa fare una transizione in al più due stati.
+ Sia $G_w$ il grafo delle computazioni della macchina $A$ quando riceve input $w$.
+ Per definizione un nodo del grafo è accettante se:
+ \begin{itemize}
+  \item è esistenziale e almeno uno dei suoi figli è accettante, oppure
+  \item è universale e entrambi i suoi figli sono accettanti.
+ \end{itemize}
+ Esibiamo una macchina di Turing in $\DSPACE(t(n))$ che, preso in input un nodo
+ del grafo, decide se quel nodo è accettante o meno. Questo concluderebbe, infatti
+ la macchina $A$ accetta l'input $w$ se e solo se il nodo iniziale
+ di $G_w$ è accettante.
+ 
+ La macchina $B$ deve verificare se il nodo iniziale di $G_w$ sia accettante o
+ meno. Per far questo deve visitare ricorsivamente il grafo, tuttavia questo
+ è troppo grande per essere tenuto tutto in memoria. La soluzione che adottiamo
+ è di memorizzare solo il nodo iniziale $c_0$, il nodo $c$ che stiamo attualmente
+ visitando e il percorso che abbiamo fatto per raggiungerlo a partire dal nodo
+ iniziale, ovvero una stringa binaria $\langle b_1 b_2 \ldots b_n \rangle$
+ che ci dica per ogni nodo alternante
+ che abbiamo incontrato se dobbiamo spostarci sul primo o sul secondo figlio.
+ Teniamo inoltre in memoria un simbolo $D \in \{S, N, ?\}$ che ci dice se
+ abbiamo già verificato che quel nodo è accettante, non accettante oppure
+ se ancora non lo sappiamo.
+ 
+ 
+ 
+ 
+\end{proof}
+
