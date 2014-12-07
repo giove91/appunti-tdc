@@ -3,8 +3,10 @@
 \section{ATIME}
 
 \begin{teorema}
- $\ATIME(t(n)) \subseteq \DSPACE(t(n))$
+  \label{thm:atime-dspace}
+  $\ATIME(t(n)) \subseteq \DSPACE(t(n))$.
 \end{teorema}
+
 \begin{proof}
  Sia $A$ una macchina di Turing alternante in $\ATIME(t(n))$, vogliamo trovare
  una macchina di Turing deterministica $B$ in $\DSPACE(t(n))$ che accetti gli
@@ -80,4 +82,26 @@
  Possiamo quindi concludere che la macchina $B$ lavora effettivamente in $\DSPACE(t(n))$.
  
 \end{proof}
+
+
+\begin{teorema}
+   $\ASPACE(t(n)) = \DTIME(O(1)^{t(n)})$, dove il membro di destra può essere scritto in modo più preciso
+   come
+   \[ \bigcup_{c\,>\,0} \DTIME(c^{t(n)}). \]
+\end{teorema}
+
+\begin{proof}
+  L'inclusione $\ASPACE(t(n)) \subseteq \DTIME(O(1)^{t(n)})$ può essere dimostrata in modo analogo al
+  Teorema~\ref{thm:atime-dspace}. Data una macchina di Turing $A$ che lavora in $\ASPACE(t(n))$,
+  si costruisce una macchina di Turing $B$ che visita il grafo $G_w$ delle computazioni di $A$ su input $w$
+  e determina se $w$ sia o meno accettante per $A$. La dimensione del grafo $G_w$ è $O(1)^{t(n)}$,
+  perché il numero di stati accessibili da un singolo stato è limitato da una costante che dipende
+  solo da $A$, e non da $w$.
+  La visita del grafo può essere effettuata in tempo polinomiale nelle dimensioni del grafo stesso, ad esempio
+  come descritto nella dimostrazione del Teorema~\ref{thm:atime-dspace} (oppure in modo più efficiente,
+  tenendo in memoria la descrizione di tutti i nodi del percorso dalla radice $c_0$ al nodo corrente $c$,
+  cosicché sia più veloce passare da $c$ al padre di $c$).
+  Quindi la macchina $B$ lavora effettivamente in $\DTIME(O(1)^{t(n)})$.
+\end{proof}
+
 
