@@ -9,15 +9,16 @@
  Sia $A$ una macchina di Turing alternante in $\ATIME(t(n))$, vogliamo trovare
  una macchina di Turing deterministica $B$ in $\DSPACE(t(n))$ che accetti gli
  stessi input $w$ di $A$. Supponiamo per semplicità di notazione che ogni stato
- $A$ non deterministico di $A$ possa fare una transizione in al più due stati.
+ non deterministico di $A$ possa fare una transizione in al più due stati.
  Sia $G_w$ il grafo delle computazioni della macchina $A$ quando riceve input $w$.
- Per definizione un nodo del grafo è accettante se:
+ Ricordiamo che, per definizione, un nodo del grafo è accettante se vale una delle
+ seguenti condizioni:
  \begin{itemize}
-  \item è esistenziale e almeno uno dei suoi figli è accettante, oppure
-  \item è universale e entrambi i suoi figli sono accettanti.
+  \item è esistenziale e almeno uno dei suoi figli è accettante;
+  \item è universale ed entrambi i suoi figli sono accettanti.
  \end{itemize}
  Esibiamo una macchina di Turing in $\DSPACE(t(n))$ che, preso in input un nodo
- del grafo, decide se quel nodo è accettante o meno. Questo concluderebbe, infatti
+ del grafo, decide se quel nodo è accettante o meno. Ciò consente di concludere, poiché
  la macchina $A$ accetta l'input $w$ se e solo se il nodo iniziale
  di $G_w$ è accettante.
  
@@ -26,13 +27,39 @@
  è troppo grande per essere tenuto tutto in memoria. La soluzione che adottiamo
  è di memorizzare solo il nodo iniziale $c_0$, il nodo $c$ che stiamo attualmente
  visitando e il percorso che abbiamo fatto per raggiungerlo a partire dal nodo
- iniziale, ovvero una stringa binaria $\langle b_1 b_2 \ldots b_n \rangle$
+ iniziale, ovvero una stringa binaria $P = \langle b_1, b_2, \ldots, b_n \rangle$
  che ci dica per ogni nodo alternante
  che abbiamo incontrato se dobbiamo spostarci sul primo o sul secondo figlio.
- Teniamo inoltre in memoria un simbolo $D \in \{S, N, ?\}$ che ci dice se
+ Teniamo inoltre in memoria un simbolo $D \in \{\texttt{S}, \texttt{N}, \texttt{?}\}$ che ci dice se
  abbiamo già verificato che quel nodo è accettante, non accettante oppure
  se ancora non lo sappiamo.
  
+ Esaminiamo ora i dettagli dell'algoritmo.
+ \begin{itemize}
+  \item  Se $D$ è uguale a $\texttt{?}$, non abbiamo ancora stabilito se il nodo $c$ sia o meno
+  accettante. Pertanto, se $c$ ha dei figli modifichiamo lo stato nel modo seguente:
+  \[ P := \langle b_1, b_2, \ldots, b_n, 0 \rangle, \quad D := \texttt{?}, \quad c := \text{figlio sinistro di $c$}. \]
+  In caso contrario, $c$ è una foglia. Di conseguenza corrisponde a uno stato in cui la macchina $A$
+  ha terminato la computazione, per cui è possibile determinare se si tratti di un
+  nodo accettante o non accettante. Modifichiamo allora lo stato in
+  \[ P := \langle b_1, b_2, \ldots, b_n \rangle, \quad D := \texttt{S}/\texttt{N}, \quad c := c, \]
+  dove $D$ assume il valore \texttt{S} se lo stato $c$ è accettante, mentre assume il valore \texttt{N} se lo stato $c$
+  è non accettante.
+  
+  \item Se $D$ è in $\{\texttt{S}, \texttt{N}\}$ e $P=\langle\rangle$, ci troviamo nel nodo iniziale $c_0$ e sappiamo se tale nodo è accettante. Quindi la computazione di $B$ può terminare, restituendo $D$ come risultato.
+  
+  \item Se $D$ è in $\{\texttt{S}, \texttt{N}\}$ e $P=\langle b_1, b_2, \ldots, b_n\rangle$ con $n\geq 1$, abbiamo determinato se il nodo corrente $c$ è accettante e dobbiamo continuare la visita dell'albero di computazione.
+  \begin{itemize}
+    \item Se $c$ corrisponde ad uno stato esistenziale e $D=\texttt{S}$, allora il padre di $c$ non può che essere accettante, per cui passiamo nello stato
+    \[ P := \langle b_1, b_2, \ldots, b_{n-1} \rangle, \quad D := \texttt{S}, \quad c := \text{padre di $c$}. \]
+    
+    \item Analogamente se $c$ corrisponde ad uno stato universale e $D=\texttt{N}$, il padre di $c$ è sicuramente non accettante, dunque passiamo nello stato
+    \[ P := \langle b_1, b_2, \ldots, b_{n-1} \rangle, \quad D := \texttt{N}, \quad c := \text{padre di $c$}. \]
+    
+    \item ...
+  \end{itemize}
+ \end{itemize}
+
  
  
  

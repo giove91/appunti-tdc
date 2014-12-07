@@ -1,4 +1,4 @@
-TEX_BASENAMES = main preambolo
+TEX_BASENAMES = main preambolo chapter_basics chapter_complexity chapter_p
 
 TEX_SOURCES = $(TEX_BASENAMES:=.tex)
 
