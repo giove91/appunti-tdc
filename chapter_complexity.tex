@@ -102,6 +102,30 @@
   tenendo in memoria la descrizione di tutti i nodi del percorso dalla radice $c_0$ al nodo corrente $c$,
   cosicché sia più veloce passare da $c$ al padre di $c$).
   Quindi la macchina $B$ lavora effettivamente in $\DTIME(O(1)^{t(n)})$.
+  
+  Dimostriamo ora l'inclusione $\DTIME(O(1)^{t(n)}) \subseteq \ASPACE(t(n))$.
+  Sia $A$ una macchina di Turing che lavora in $\DTIME(c^{t(n)})$ per qualche $c>0$; vogliamo definire una macchina di Turing $B$ che lavori in $\ASPACE(t(n))$, accettando gli stessi input che accetta $A$.
+  Possiamo assumere senza perdita di generalità che $A$ abbia un unico nastro.
+  L'idea è di definire una subroutine ricorsiva di $B$, che chiamiamo $C(t,p,a)$, la quale restituisce \texttt{True} se (nell'esecuzione di $A$ su input $w$) al tempo $t$ in posizione $p$ vi è il simbolo $a$, altrimenti restituisce \texttt{False}.
+  Seguiamo la convenzione che $a$ possa appartenere a $\Sigma$ (nel caso in cui non vi sia la testina) oppure a $\Sigma\times Q$ (se vi è la testina, nel qual caso l'elemento di $Q$ indica lo stato attuale della macchina). Vediamo ora i dettagli sull'implementazione di questa subroutine.
+  
+  L'osservazione principale è che $C(t,p,a)$ è univocamente determinata da $C(t-1,p',a')$ al variare di $p'\in\{p-1,\,p,\,p+1\}$ ed $a'\in \Sigma \,\cup\, \Sigma\times Q$.
+%   Più precisamente:
+%   \[ C(t+1,p,a) \equiv \exists\; a_{-1}, a_0, a_1 \in \Sigma \,\cup\, \Sigma\times Q \;\left( \right) \]
+  Introduciamo uno stato $q_C^\exists$ in cui la macchina $B$ deve iniziare ad eseguire la subroutine $C$.
+  Supponiamo che $B$ sia nello stato $q_C^\exists$, e che abbia in memoria (su un apposito nastro di lavoro dedicato all'inizializzazione della subroutine $C$) la terna $(t, p, a)$.
+  Se $t=0$, la subroutine restituisce \texttt{True} se e solo se nella posizione $p$ dell'input $w$ (tenendo conto dell'eventuale presenza della testina) vi è il simbolo $a$.
+  Se invece $t>0$, $B$ esegue le seguenti operazioni.
+  \begin{itemize}
+    \item Sceglie (non deterministicamente) tre elementi $a_{-1},a_0,a_1$ in $\Sigma \,\cup\, \Sigma\times Q$.
+    \item Verifica se la macchina $A$ con i simboli $a_{-1}, a_0, a_1$ in posizioni $p-1,\,p,\,p+1$ (rispettivamente) avrebbe al passo successivo il simbolo $a$ in posizione $p$.
+    In caso affermativo continua, altrimenti ritorna \texttt{False}.
+    \item Si porta in uno stato universale e sceglie (non deterministicamente) $i\in\{-1,0,1\}$.
+    \item Scrive sul nastro dedicato all'inizializzazione di $C$ la terna $(t-1,p+i,a_i)$ e si riporta nello stato $q_C^\exists$, in modo da chiamare ricorsivamente la subroutine $C$.
+  \end{itemize}
+  
+  L'implementazione della subroutine $C$ è sufficiente per determinare se un qualsiasi input $w$ venga accettato da $A$: basta controllare che al tempo $c^{t(n)}$ la macchina $A$ si trovi nello stato accettante.
+  Osserviamo infine che la macchina $B$ che abbiamo definito lavora effettivamente in $\ASPACE(t(n))$, poiché oltre all'input $w$ deve memorizzare solamente le seguenti variabili: un intero $t$ (compreso tra $0$ e $c^{t(n)}$, che quindi occupa $O(t(n))$ bit), un intero $p$ (di modulo $\leq c^{t(n)}$), dei simboli $a,a_{-1},a_0,a_1$ (che occupano $O(1)$ bit), un intero $i$ compreso tra $-1$ e $1$ (che occupa 2 bit).
 \end{proof}
 
 
