@@ -81,7 +81,7 @@ prima verificare che esiste una tale relazione.
 \section{$\FO(\LFP)$ equivale a $P$}
 
 \begin{lemma}
- Per ogni $L$-formula chiusa $\phi$ in $\FO$ esiste
+ $\FO \subseteq P$, ovvero, per ogni $L$-formula chiusa $\phi$ in $\FO$ esiste
  una macchina di Turing $T_\phi$ in $P$ tale che, data una $L$-struttura $A$,
  si ha $A \models \phi$ se e solo se $T_\phi(\bin(A))\downarrow$. Inoltre
  le $T_\phi$ possono essere costruite in modo che siano logaritmiche nello spazio.
@@ -121,11 +121,11 @@ prima verificare che esiste una tale relazione.
  \mytodo{Forse è meglio metterci lo pseudo-codice}.
 \end{proof}
 
-\begin{lemma}
- Per ogni $L$-formula chiusa $\phi$ in $\FO(LFP)$ esiste
+\begin{proposizione}
+ $\FO(\LFP) \subseteq P$, ovvero, per ogni $L$-formula chiusa $\phi$ in $\FO(LFP)$ esiste
  una macchina di Turing $T_\phi$ in $P$ tale che, data una $L$-struttura $A$,
  si ha $A \models \phi$ se e solo se $T_\phi(\bin(A))\downarrow$.
-\end{lemma}
+\end{proposizione}
 \begin{proof}
   Rispetto al lemma precedente dobbiamo solo considerare in più il caso
   $\phi \equiv \LFP_{S,x,y}\theta(S,x,y)(a,b)$, con $a, b$ costanti.
@@ -157,6 +157,96 @@ prima verificare che esiste una tale relazione.
     \State \Return $R[a*max + b]$
   \EndFunction
   \end{algorithmic}
-
- 
 \end{proof}
+
+Dimostriamo ora l'inclusione inversa, ovvero $P \subseteq \FO(\LFP)$. La
+dimostrazione si basa sui seguenti claim:
+\begin{description}
+ \item[Claim 1]\label{p_eq_a} $P = \ASPACE(\lg(n))$;
+ \item[Claim 2]\label{ralt_in_p} $\Ralt \in \FO(\LFP)$;
+ \item[Claim 3]\label{reduct_fo} Se $S$ è un problema in $\ASPACE(\lg(n))$, allora $S \leq_{\FO} \Ralt$.
+\end{description}
+Dimostrati questi tre claim, per concludere, basta notare che un problema che si
+riduce $\FO$ a un problema in $\FO(\LFP)$ è a sua volta in $\FO(\LFP)$.
+Il Claim 1 segue dal Teorema \ref{thm:aspace-dtime} prendendo $t(n) = \ln(n)$.
+Dimostriamo dunque gli altri due.
+\begin{proposizione}
+  $\Ralt \in \FO(\LFP)$;
+\end{proposizione}
+\begin{proof}
+ \mytodo{Da scrivere, ma prima è meglio scrivere la definizione di macchina di
+ Turing alternante}
+\end{proof}
+
+\begin{proposizione}
+ Se $S$ è un problema in $\ASPACE(\lg(n))$, allora $S \leq_{\FO} \Ralt$.
+\end{proposizione}
+\begin{proof}
+ Sia $\sigma = \{R^{a_1}_1,\ldots,R^{a_r}_r,c_1, \ldots, c_s\}$ un linguaggio
+ e $M$ una macchina di Turing in $\ASPACE(c \lg(n))$ che accetta come input
+ la codifica binaria di una $\sigma$-struttura. Dobbiamo mostrare che esiste un
+ modo per associare ad ogni $\sigma$-struttura $A$ un grafo alternante
+ $I(A) = (V^A, G_\exists^A, G_\forall^a, E^a, s^A,t^A)$,
+ definibile al primo ordine in $A$, tale che:
+ \[ M(\bin(A)) \iff I(A) \in \Ralt. \]
+ L'idea è di associare alla struttura $A$ proprio il grafo della computazione
+ di $M$ su input $\bin(A)$, in questo modo la nostra richiesta sarà
+ automaticamente soddisfatta.
+ A tal fine identifichiamo il dominio di $A$ con l'insieme $\{1,2,\ldots, |A|\}$ e
+ scegliamo come insieme di vertici $V^A$ l'insieme $A^{4+a+c}$,
+ dove $a=\max(a_1, \ldots, a_r)$. In questo modo
+ un vertice $\ID$ del grafo può essere identificato con una tupla di numeri naturali
+ minori di $n$:
+ \[\ID=\langle p_1, \ldots, p_4, r_1, \ldots, r_a, w_1, \ldots, w_c \rangle\]
+ Ciascuna di queste tuple rappresenterà una possibile configurazione della
+ macchina $M$, per la precesione:
+ \begin{itemize}
+  \item $p_1 \in \{1,\ldots, r\}$ rappresenta la relazione che la
+  macchina sta leggendo sul nastro di input, come verrà spiegato più tardi;
+  \item $p_2 \in Q_M$ rappresenta lo stato in cui si trova la macchina di Turing;
+  \item $p_3 \in \{0, \ldots, c \lg(n)\}$ rappresenta la posizione della testina
+  sul nastro di lavoro;
+  \item $p_4 \in \{\forall, \exists\}$ indica se lo stato attuale è esistenziale
+  o universale;
+  \item $\langle w_1, \ldots, w_c \rangle \in n^c = 2^{c \lg (n)}$ rappresenta
+  una possibile configurazione del nastro di lavoro (stiamo usando
+  il fatto che $M$ sia in $\ASPACE(c \ln(n))$;
+  \item $\langle r_1, \ldots, r_c \rangle \in n^c = r_1 + r_2 n + \ldots + r_a n^{a-1} < n^a$
+  rappresenta la posizione della testina sul nastro di input.
+ \end{itemize}
+  
+  Ora che abbiamo definito il dominio $V^A$ del grafo dobbiamo definire le
+  relazioni $E^A$, $G_\exists^A$, $G_\forall^A$, $s$ e $t$. Di queste, $G_\exists$
+  e $G_\forall$ sono immediate
+  (basta guardare il valore di $p_4$), per quanto riguarda $S$, può essere
+  definita come
+  \[s(\ID) \equiv (p_1=1 \land p_2 = q_{init} \land p_3=0 \land \overrightarrow{r}=0 \land \overrightarrow{w}=0),\]
+  e similmente $t$.
+  Concentriamoci dunque su $E^A$: dobbiamo
+  fare in modo che valga $E(\ID, \ID')$ se e solo se nel grafo delle
+  computazioni di $M$ con input $\bin(A)$ c'è un arco tra la configurazione
+  corrisponente a $\ID$ quella corrispondente a $\ID'$.
+  Per farlo, ad ogni regola $R$ della macchina di Turing $M$ nella forma
+  \[\langle q_R, T_R, wk_R, in_R \rangle \vdash
+   \langle q'_R, T'_R, out_R, wksh_R, insh_R \rangle
+  \]
+  associamo la relazione
+  \[C_R(\ID, \ID') \equiv \ldots \]
+  Notiamo che vale $C_R(\ID, \ID')$ se e solo se la configurazione corrispondente
+  a $\ID$ può passare alla configurazione corrispondente a $\ID'$ mediante la regola
+  $R$. Per concludere definiamo allora
+  \[ E(\ID, \ID') \equiv \bigvee_R C_R(\ID, \ID'). \]
+\end{proof}
+
+\begin{osservazione}
+  Nella dimostrazione precedente potevamo
+  memorizzare tutte le possibili configurazione del nastro di lavoro all'interno
+  del grafo (grazie all'ipotesi $M \in \ASPACE(c \lg(n))$), tuttavia non possiamo
+  fare lo stesso per il nastro di input che ha lunghezza
+  polinomiale in $n$ (e quindi il numero di possibili configurazioni non è limitato da un polinomio).
+  Tuttavia, come visto, possiamo limitarci a memorizzare soltanto la posizione
+  della testina sul nastro di input.
+\end{osservazione}
+
+
+
