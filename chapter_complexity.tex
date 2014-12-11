@@ -1,6 +1,21 @@
 \chapter{Classi di complessità}
 
-\section{ATIME}
+\section{Introduzione}
+
+In questo capitolo dimostreremo diverse inclusioni interessanti tra le varie classi di complessità. Tali inclusioni possono essere riassunte nel seguente schema:
+\begin{IEEEeqnarray*}{CCCCCCC}
+  & \DTIME(t(n)) & \subseteq & \NTIME(t(n)) & \subseteq & \ATIME(t(n)) & \subseteq \\
+  \subseteq & \DSPACE(t(n)) & \subseteq & \NSPACE(t(n)) & \subseteq & \ASPACE(t(n)) & = \\
+  = & \DTIME(O(1)^{t(n)}) & \subseteq & \dots &&&
+\end{IEEEeqnarray*}
+dove con la notazione $\DTIME(O(1)^{t(n)})$ indichiamo
+\[ \bigcup_{c\,>\,0} \DTIME(c^{t(n)}). \]
+Oltre a quelle precedentemente rappresentate, vale anche l'inclusione $\NSPACE(t(n)) \subseteq \ATIME(t(n)^2)$.
+
+Le inclusioni presenti sulle righe dello schema sopra sono tutte ovvie: ciò che può essere fatto con una macchina deterministica può essere fatto anche con una macchina non deterministica, e ciò che può essere fatto con una macchina non deterministica può essere fatto anche con una macchina alternante.
+Nel resto del capitolo dimostreremo le inclusioni e le uguaglianze rimanenti.
+
+\section{Inclusione tra $\ATIME(t(n))$ e $\DSPACE(t(n))$}
 
 \begin{teorema}
   \label{thm:atime-dspace}
@@ -84,11 +99,11 @@
 \end{proof}
 
 
+\section{Uguaglianza tra $\ASPACE(t(n))$ e $\DTIME(O(1)^{t(n)})$}
+
 \begin{teorema}
 \label{thm:aspace-dtime}
-  $\ASPACE(t(n)) = \DTIME(O(1)^{t(n)})$, dove il membro di destra può essere scritto in modo più preciso
-   come
-   \[ \bigcup_{c\,>\,0} \DTIME(c^{t(n)}). \]
+  $\ASPACE(t(n)) = \DTIME(O(1)^{t(n)})$.
 \end{teorema}
 
 \begin{proof}
