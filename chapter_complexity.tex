@@ -102,7 +102,7 @@ Nel resto del capitolo dimostreremo le inclusioni e le uguaglianze rimanenti.
 \section{Uguaglianza tra $\ASPACE(t(n))$ e $\DTIME(O(1)^{t(n)})$}
 
 \begin{teorema}
-\label{thm:aspace-dtime}
+  \label{thm:aspace-dtime}
   $\ASPACE(t(n)) = \DTIME(O(1)^{t(n)})$.
 \end{teorema}
 
@@ -143,5 +143,61 @@ Nel resto del capitolo dimostreremo le inclusioni e le uguaglianze rimanenti.
   L'implementazione della subroutine $C$ è sufficiente per determinare se un qualsiasi input $w$ venga accettato da $A$: basta controllare che al tempo $c^{t(n)}$ la macchina $A$ si trovi nello stato accettante.
   Osserviamo infine che la macchina $B$ che abbiamo definito lavora effettivamente in $\ASPACE(t(n))$, poiché oltre all'input $w$ deve memorizzare solamente le seguenti variabili: un intero $t$ (compreso tra $0$ e $c^{t(n)}$, che quindi occupa $O(t(n))$ bit), un intero $p$ (di modulo $\leq c^{t(n)}$), dei simboli $a,a_{-1},a_0,a_1$ (che occupano $O(1)$ bit), un intero $i$ compreso tra $-1$ e $1$ (che occupa 2 bit).
 \end{proof}
+
+
+\section{Inclusione tra $\NSPACE(t(n))$ e $\ATIME(t(n)^2)$}
+
+Se $G_w$ è il grafo delle computazioni di una macchina di Turing (deterministica, non deterministica o alternante) su input $w$, dati due nodi $x,y$ di $G_w$ scriviamo che $x\vdash y$ se esiste un arco da $x$ a $y$ in $G_w$.
+In altre parole, $x\vdash y$ se e solo se è possibile passare dalla configurazione $x$ alla configurazione $y$ usando la tabella di transizione di $A$.
+
+\begin{teorema}
+  \label{thm:nspace-atime}
+  $\NSPACE(t(n)) = \ATIME(t(n)^2)$, sotto l'ipotesi $t(n) = \Omega(n)$.
+\end{teorema}
+
+\begin{proof}
+  Sia $A$ una macchina di Turing che lavora in $\NSPACE(t(n))$. Vogliamo definire una macchina $B$ che lavori in $\ATIME(t(n)^2)$ e che accetti gli stessi input che accetta $A$.
+  Sia $w$ un input, e sia $G_w$ il grafo delle computazioni di $A$ su input $w$.
+  L'idea è di fare in modo che $B$ implementi una subroutine ricorsiva $P(d,x,y)$, al termine della quale $B$ accetta se in $G_w$ esiste un cammino lungo al più $2^d$ dal nodo $x$ al nodo $y$, altrimenti rifiuta.
+  
+  Entriamo ora maggiormente nei dettagli. Introduciamo uno stato esistenziale $q_P^\exists$, in cui $B$ inizia l'esecuzione della subroutine $P$ leggendo le variabili $d,x,y$ da un apposito nastro.
+  Se $d=0$, la macchina $B$ accetta nel caso in cui $x=y$ oppure $x\vdash y$, altrimenti rifiuta.
+  Se invece $d>0$, $B$ esegue le seguenti operazioni.
+  \begin{itemize}
+    \item Si porta in uno stato esistenziale e sceglie (non deterministicamente) un nodo $z$ di $G_w$.
+    Tale $z$ rappresenta un possibile nodo intermedio in un eventuale percorso da $x$ a $y$.
+    \item Si porta in uno stato universale e sceglie (non deterministicamente) un bit $b\in\{0,1\}$.
+    Tale bit determina se verificare l'esistenza di un percorso da $x$ a $z$ oppure se verificare l'esistenza di un percorso da $z$ a $y$.
+    \item Se $b=0$, si porta nello stato $q_P^\exists$ inizializzando $P$ con le variabili $(d,x,z)$. Se invece $b=1$, si porta nel medesimo stato ma inizializzando $P$ con le variabili $(d,z,y)$.
+    Da questo momento in avanti, l'esecuzione continua ricorsivamente.
+  \end{itemize}
+  La procedura descritta ha l'effetto desiderato, perché l'esistenza di un percorso da $x$ a $y$ in $\leq 2^d$ passi è equivalente all'esistenza di un nodo intermedio $z$ per cui si possa andare da $x$ a $z$ in $\leq 2^{d-1}$ passi e da $z$ a $y$ in $\leq 2^{d-1}$ passi.
+  
+  La subroutine $P$ è sufficiente per decidere se un input $w$ venga accettato da $A$, poiché basta che $B$ chiami $P$ con i seguenti parametri:
+  \begin{itemize}
+    \renewcommand{\labelitemi}{--}
+    \item $x = $ configurazione iniziale di $A$ su input $w$;
+    \item $y = $ configurazione finale accettante di $A$;
+    \item $d = $ logaritmo della profondità del grafo $G_w$.
+  \end{itemize}
+  Si noti che la profondità del grafo $G_w$ è al massimo $c^{t(n)}$ per qualche costante $c>0$ (che dipende da $A$ ma non da $w$), quindi $d=O(t(n))$.
+  
+  Verifichiamo infine che $B$ lavori effettivamante in $\ATIME(t(n)^2)$.
+  Per quanto appena osservato, il numero di chiamate alla subroutine $P$ è $O(t(n))$.
+  Ciascuna delle chiamate (compresa quella finale con $d=0$) impiega tempo $O(t(n))$, perché la lunghezza della codifica di un qualsiasi nodo di $G_w$ è $O(t(n))$.
+  Quindi il tempo totale di esecuzione è effettivamente $O(t(n)^2)$.
+\end{proof}
+
+
+\section{Alcune conseguenze}
+
+\begin{corollario}
+  $\NPSPACE \subseteq \APTIME$.
+\end{corollario}
+
+\begin{proof}
+  È sufficiente applicare il Teorema \ref{thm:nspace-atime}, osservando che il quadrato di un polinomio è ancora un polinomio.
+\end{proof}
+
 
 
