@@ -68,3 +68,12 @@
 
 \newcommand{\mytodo}[1]{{\color{gray} #1}}
 
+\usepackage{fancyhdr}
+
+\setlength{\headheight}{16pt}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LE,RO]{\thepage}
+\fancyhead[RE,LO]{\leftmark}
+ 
+\renewcommand{\headrulewidth}{0.5pt}
