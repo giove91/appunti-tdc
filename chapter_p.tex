@@ -185,16 +185,16 @@ Dimostriamo dunque gli altri due.
  Sia $\sigma = \{R^{a_1}_1,\ldots,R^{a_r}_r,c_1, \ldots, c_s\}$ un linguaggio
  e $M$ una macchina di Turing in $\ASPACE(c \lg(n))$ che accetta come input
  la codifica binaria di una $\sigma$-struttura. Dobbiamo mostrare che esiste un
- modo per associare ad ogni $\sigma$-struttura $A$ un grafo alternante
+ modo per associare ad ogni $\sigma$-struttura $A$ di cardinalità $n$ un grafo alternante
  $I(A) = (V^A, G_\exists^A, G_\forall^a, E^a, s^A,t^A)$,
  definibile al primo ordine in $A$, tale che:
  \[ M(\bin(A)) \iff I(A) \in \Ralt. \]
- L'idea è di associare alla struttura $A$ proprio il grafo della computazione
+ L'idea è di associare alla struttura $A$ il grafo della computazione
  di $M$ su input $\bin(A)$, in questo modo la nostra richiesta sarà
  automaticamente soddisfatta.
- A tal fine identifichiamo il dominio di $A$ con l'insieme $\{1,2,\ldots, |A|\}$ e
+ A tal fine identifichiamo il dominio di $A$ con l'insieme $\{1,2,\ldots, n\}$ e
  scegliamo come insieme di vertici $V^A$ l'insieme $A^{4+a+c}$,
- dove $a=\max(a_1, \ldots, a_r)$. In questo modo
+ con $a=\max(a_1, \ldots, a_r)$. In questo modo
  un vertice $\ID$ del grafo può essere identificato con una tupla di numeri naturali
  minori di $n$:
  \[\ID=\langle p_1, \ldots, p_4, r_1, \ldots, r_a, w_1, \ldots, w_c \rangle\]
@@ -210,7 +210,7 @@ Dimostriamo dunque gli altri due.
   o universale;
   \item $\langle w_1, \ldots, w_c \rangle \in n^c = 2^{c \lg (n)}$ rappresenta
   una possibile configurazione del nastro di lavoro (stiamo usando
-  il fatto che $M$ sia in $\ASPACE(c \ln(n))$;
+  il fatto che $M$ è in $\ASPACE(c \ln(n))$;
   \item $\langle r_1, \ldots, r_c \rangle \in n^c = r_1 + r_2 n + \ldots + r_a n^{a-1} < n^a$
   rappresenta la posizione della testina sul nastro di input.
  \end{itemize}
@@ -220,13 +220,14 @@ Dimostriamo dunque gli altri due.
   e $G_\forall$ sono immediate
   (basta guardare il valore di $p_4$), per quanto riguarda $S$, può essere
   definita come
-  \[s(\ID) \equiv (p_1=1 \land p_2 = q_{init} \land p_3=0 \land \overrightarrow{r}=0 \land \overrightarrow{w}=0),\]
-  e similmente $t$.
+  \[s(\ID) \equiv (p_1=1 \land p_2 = q_{init} \land p_3=0 \land \vec{r}=0 \land \vec{w}=0),\]
+  e anche $t$ può essere definita in maniera simile.
   Concentriamoci dunque su $E^A$: dobbiamo
-  fare in modo che valga $E(\ID, \ID')$ se e solo se nel grafo delle
+  trovare una relazione $E(\vec{x},\vec{y})$ tale che
+  valga $E(\ID, \ID')$ se e solo se nel grafo delle
   computazioni di $M$ con input $\bin(A)$ c'è un arco tra la configurazione
   corrisponente a $\ID$ quella corrispondente a $\ID'$.
-  Per farlo, ad ogni regola $R$ della macchina di Turing $M$ nella forma
+  Come prima cosa ad ogni regola $R$ della macchina di Turing $M$ nella forma
   \[\langle q_R, T_R, wk_R, in_R \rangle \vdash
    \langle q'_R, T'_R, out_R, wksh_R, insh_R \rangle
   \]
@@ -241,9 +242,9 @@ Dimostriamo dunque gli altri due.
 \begin{osservazione}
   Nella dimostrazione precedente potevamo
   memorizzare tutte le possibili configurazione del nastro di lavoro all'interno
-  del grafo (grazie all'ipotesi $M \in \ASPACE(c \lg(n))$), tuttavia non possiamo
+  del grafo grazie all'ipotesi $M \in \ASPACE(c \lg(n))$, tuttavia non possiamo
   fare lo stesso per il nastro di input che ha lunghezza
-  polinomiale in $n$ (e quindi il numero di possibili configurazioni non è limitato da un polinomio).
+  polinomiale in $n$ (e quindi il numero di possibili configurazioniè esponenziale in $n$).
   Tuttavia, come visto, possiamo limitarci a memorizzare soltanto la posizione
   della testina sul nastro di input.
 \end{osservazione}
