@@ -5,7 +5,7 @@ TEX_SOURCES = $(TEX_BASENAMES:=.tex)
 
 .PHONY: clean all
 
-main.pdf: $(TEX_SOURCES)
+main.pdf: $(TEX_SOURCES) default-style.sty
 	rubber --pdf main.tex
 
 all: main.pdf

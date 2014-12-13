@@ -1,4 +1,4 @@
-\chapter{Caratterizzazione di $P$}
+\chapter{Caratterizzazione di $\P$}
 
 \section{Sintassi e semantica di $\FO(\LFP)$}
 
@@ -40,7 +40,7 @@ prima verificare che esiste una tale relazione.
 
 \begin{teorema}[Tarski-Knaster]
 \label{teo-tarski-knaster}
- Sia $A$ un insieme finito e sia $f: \P(A^k) \to \P(A^k)$ una
+ Sia $A$ un insieme finito e sia $f: \powerset(A^k) \to \powerset(A^k)$ una
  funzione monotona rispetto all'inclusione
  (i.e. se $S \subseteq S'$ allora $f S \subseteq f S'$). Allora esiste un minimo
  punto fisso di $f$, che indicheremo con $\LFP f$ e per la precisione
@@ -64,7 +64,7 @@ prima verificare che esiste una tale relazione.
 \label{cor-f-phi}
  Sia $\phi(S,x,y)$ una $L$-formula del primo ordine in cui $S$ compare in posizione
  positiva, e sia $A$ una $L$-struttura.
- Indichiamo con $f_\phi: \P (A \times A) \to \P (A\times A)$ la funzione
+ Indichiamo con $f_\phi: \powerset (A \times A) \to \powerset (A\times A)$ la funzione
  \[ f_{\phi,A}(R) := \{ (a,b) \in A \times A \mid \semantic{ \phi (S,x,y)}^{A,R,a,b} \}. \]
  Questa funzione è monotona sulle relazione ordinate per inclusione.
  Il suo più piccolo punto fisso $\LFP f_{\phi,A}$ è la più piccola relazione
@@ -78,11 +78,11 @@ prima verificare che esiste una tale relazione.
  \[\semantic{\LFP_{S,x,y} \phi(S,x,y)}^M = \LFP f_{\phi,M}.\]
 \end{definizione}
 
-\section{$\FO(\LFP)$ equivale a $P$}
+\section{$\FO(\LFP)$ equivale a $\P$}
 
 \begin{lemma}
- $\FO \subseteq P$, ovvero, per ogni $L$-formula chiusa $\phi$ in $\FO$ esiste
- una macchina di Turing $T_\phi$ in $P$ tale che, data una $L$-struttura $A$,
+ $\FO \subseteq \P$, ovvero, per ogni $L$-formula chiusa $\phi$ in $\FO$ esiste
+ una macchina di Turing $T_\phi$ in $\P$ tale che, data una $L$-struttura $A$,
  si ha $A \models \phi$ se e solo se $T_\phi(\bin(A))\downarrow$. Inoltre
  le $T_\phi$ possono essere costruite in modo che siano logaritmiche nello spazio.
 \end{lemma}
@@ -122,8 +122,8 @@ prima verificare che esiste una tale relazione.
 \end{proof}
 
 \begin{proposizione}
- $\FO(\LFP) \subseteq P$, ovvero, per ogni $L$-formula chiusa $\phi$ in $\FO(LFP)$ esiste
- una macchina di Turing $T_\phi$ in $P$ tale che, data una $L$-struttura $A$,
+ $\FO(\LFP) \subseteq \P$, ovvero, per ogni $L$-formula chiusa $\phi$ in $\FO(LFP)$ esiste
+ una macchina di Turing $T_\phi$ in $\P$ tale che, data una $L$-struttura $A$,
  si ha $A \models \phi$ se e solo se $T_\phi(\bin(A))\downarrow$.
 \end{proposizione}
 \begin{proof}
@@ -159,12 +159,13 @@ prima verificare che esiste una tale relazione.
   \end{algorithmic}
 \end{proof}
 
-Dimostriamo ora l'inclusione inversa, ovvero $P \subseteq \FO(\LFP)$. La
+Dimostriamo ora l'inclusione inversa, ovvero $\P \subseteq \FO(\LFP)$. La
 dimostrazione si basa sui seguenti claim:
 \begin{description}
- \item[Claim 1]\label{p_eq_a} $P = \ASPACE(\lg(n))$;
+ \item[Claim 1]\label{p_eq_a} $\P = \ASPACE(\lg(n))$;
  \item[Claim 2]\label{ralt_in_p} $\Ralt \in \FO(\LFP)$;
  \item[Claim 3]\label{reduct_fo} Se $S$ è un problema in $\ASPACE(\lg(n))$, allora $S \leq_{\FO} \Ralt$.
+ Equivalentemente (assumendo di aver dimostrato il Claim 1), $\Ralt$ è un problema $P$-completo.
 \end{description}
 Dimostrati questi tre claim, per concludere, basta notare che un problema che si
 riduce $\FO$ a un problema in $\FO(\LFP)$ è a sua volta in $\FO(\LFP)$.
@@ -250,13 +251,11 @@ Dimostriamo dunque gli altri due.
 \end{osservazione}
 
 \begin{corollario}
- $P \subseteq \FO(\LFP)$, ovvero, per ogni macchina di Turing $M$ che accetta o
+ $\P \subseteq \FO(\LFP)$, ovvero, per ogni macchina di Turing $M$ che accetta o
  rifiuta una $\sigma$-struttura $A$ in tempo polinomiale, esiste una
  $\sigma$-formula $\phi$ in $\FO(\LFP)$ tale che:
  \[ A \models \phi \iff M(\bin(A))\downarrow \]
 \end{corollario}
 
-
-\section{$P$-completezza di $\Ralt$}
 
 
