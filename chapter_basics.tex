@@ -3,6 +3,51 @@
 \section{Sintassi e semantica}
 
 \section{Macchine di Turing}
+Una macchina di Turing può essere immaginata come un dispositivo libero di
+muoversi su un nastro infinito sul quale in ogni istante possono essere scritti
+finiti simboli appartenenti ad un alfabeto finito. La macchina di Turing è
+dotata di uno \emph{stato}, e lavora nel modo seguente:
+\begin{enumerate}
+ \item Legge il simbolo scritto sul nastro nella posizione in cui si trova attualmente.
+ \item Controlla in una tabella finita memorizzata al suo interno cosa deve fare
+ nel quando legge quel simbolo nello stato in cui si trova.
+ \item Basandosi su quello che ha letto nella tabella scrive un simbolo sul nastro,
+ si sposta a destra o a sinistra e passa in un nuovo stato.
+ \item Se lo stato in cui si trova ora è uno stato speciale, chiamato \emph{terminale},
+ la macchina si ferma. Altrimenti il processo reinizia.
+\end{enumerate}
+All'istante zero la macchina si trova in uno stato speciale detto \emph{iniziale}
+e sul nastro può essere già scritta una stringa finita detta \emph{input} della macchina.
+Diamo ora la definizione formale.
+\begin{definizione}
+Si dice macchina di Turing una 6-upla
+$M=\langle Q, \Gamma, b, \delta, q_0, F \rangle$ dove:
+\begin{enumerate}
+ \item $Q$ è un insieme finito non vuoto di \emph{stati};
+ \item $\Gamma$ è un insieme finito di simboli, detto \emph{alfabeto} della macchina;
+ \item $b \in \Gamma$ è un simbolo speciale, detto \emph{blank}, che rappresenta
+ una cella vuota;
+ \item $q_0 \in Q$ è lo \emph{stato iniziale};
+ \item $F \subseteq Q$ è un insieme di \emph{stati terminali};
+ \item $\delta: Q \times \Gamma \to Q \times \Gamma \times \{\texttt{L},\texttt{R}\}$
+ è una funzione parziale detta \emph{funzione di transizione}.
+\end{enumerate}
+\end{definizione}
+
+\begin{definizione}
+ Data una macchina di Turing $M=\langle Q, \Gamma, b, \delta, q_0, F \rangle$,
+ chiamiamo configurazione della macchina una tripla
+ $\langle q, S, n \rangle$ dove:
+ \begin{enumerate}
+  \item $q \in Q$ rappresenta lo stato in cui si trova attualmente la macchina;
+  \item $S \in \Gamma ^ \Z$, con $S(k)=b$ per tutti tranne al più finiti $k \in Z$,
+  rappresenta lo stato attuale del nastro;
+  \item $n \in \Z$ rappresenta la posizione attuale della macchina di Turing
+  sul nastro.
+ \end{enumerate}
+\end{definizione}
+
+
 
 \section{Codifica e decodifica}
 Sia $L=\{R^{a_1}_1, \ldots, R^{a_s}_s, c_1, \ldots, c_l\}$ un linguaggio.
