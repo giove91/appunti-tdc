@@ -2,8 +2,9 @@
 
 \section{Sintassi e semantica}
 
-\section{Macchine di Turing}
-Una macchina di Turing può essere immaginata come un dispositivo libero di
+\section{Macchine di Turing deterministiche}
+Una macchina di Turing deterministica, detta anche semplicemente macchina di
+Turing, può essere immaginata come un dispositivo libero di
 muoversi su un nastro infinito sul quale in ogni istante possono essere scritti
 finiti simboli appartenenti ad un alfabeto finito. La macchina di Turing è
 dotata di uno \emph{stato}, e lavora nel modo seguente:
@@ -30,10 +31,18 @@ $M=\langle Q, \Gamma, b, \delta, q_0, F, F_y \rangle$ dove:
  \item $q_0 \in Q$ è lo \emph{stato iniziale};
  \item $F \subseteq Q$ è un insieme di \emph{stati terminali};
  \item $F_y \subseteq F$ è un insieme di stati terminali \emph{accettanti};
- \item $\delta: Q \times \Gamma \to Q \times \Gamma \times \{\texttt{L},\texttt{R}\}$
+ \item $\delta: {Q \setminus F} \times \Gamma \to Q \times (\Gamma \setminus \{b\}) \times \{\texttt{L},\texttt{R}\}$
  è una funzione parziale detta \emph{funzione di transizione}.
 \end{enumerate}
 \end{definizione}
+
+\begin{osservazione}
+ Con questa definizione abbiamo scelto di non permettere alla macchina di Turing
+ di cancellare una cella (ovvero di scrivere il simbolo blank).
+ Questo non modifica la potenza della macchina e permette di definire più facilmente
+ lo spazio usato.
+\end{osservazione}
+
 
 \begin{definizione}
  Data una macchina di Turing $M=\langle Q, \Gamma, b, \delta, q_0, F, F_y \rangle$,
@@ -99,8 +108,8 @@ configurazione di una macchina di Turing:
  si dice \emph{input} della macchina di Turing e questo determina totalmente
  una configurazione iniziale.
  Una configurazione $S$ si dice \emph{terminale} se lo stato della macchina
- di Turing nella configurazione $S$ è terminale e accettante se lo stato è
- accettante.
+ di Turing nella configurazione $S$ è terminale e si dice accettante se lo stato
+ della configurazione è accettante.
 \end{definizione}
 
 \begin{definizione}
@@ -121,8 +130,29 @@ configurazione di una macchina di Turing:
 
 Esistono varianti della definizione di macchina di Turing che, pur non cambiano
 l'insieme dei problemi calcolabili, sono più semplici da adoperare in alcuni
-casi. Una variante che sarà molto importante per noi sono le
-\emph{macchine di Turing a $k$-nastri}.
+casi. Una variante utile sono le
+\emph{macchine di Turing a $k$-nastri}. Queste funzionano esattamente come le
+macchine di Turing standard ma ad ogni passaggio leggono e scrivono contemporaneamente su
+tutti e $k$ i nastri. La funzione di transizione sarà dunque del tipo
+$\delta:  Q \times \Gamma^k \to Q \times ((\Gamma \setminus \{b\}) \times \{\texttt{L},\texttt{R},\texttt{S}\})^k$,
+dove il simbolo $\texttt{S}$ indica che la macchina non si sposterà su quel nastro.
+Una macchina di Turing a $k$ nastri può chiaramente simulare una macchina di Turing
+a un solo nastro. Vale anche il viceversa:
+
+\begin{fatto}
+Una macchina di Turing a un solo nastro può simulare una macchina di Turing
+a $k$ nastri.
+\mytodo{Questo è effettivamente vero ma non abbiamo definito il concetto di simulazione.}
+\end{fatto}
+
+Il modello di macchina di Turing che useremo più spesso è quello di una macchina di Turing
+con un nastro di input e un nastro di lavoro. Questa segue le stesse regole di
+una macchina di Turing a due nastri, fatta eccezione del fatto che non può scrivere
+sul nastro di input, ma solo leggere, e che in una sua configurazione iniziale
+il nastro di lavoro è sempre vuoto. Se una macchina di Turing di questo tipo
+termina con input $w$, definiamo lo spazio di lavoro usato su input $w$
+come il numero di celle del nastro di lavoro non vuote nella configurazione terminale.
+
 
 \section{Codifica e decodifica}
 Sia $L=\{R^{a_1}_1, \ldots, R^{a_s}_s, c_1, \ldots, c_l\}$ un linguaggio.
