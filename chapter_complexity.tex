@@ -193,4 +193,16 @@ In altre parole, $x\vdash y$ se e solo se è possibile passare dalla configurazi
 \end{proof}
 
 
+\begin{corollario}
+  \label{cor:npspace-dpspace}
+  $\NPSPACE = \DPSPACE$.
+\end{corollario}
+
+\begin{proof}
+  Abbiamo che $\NSPACE(t(n))\subseteq \ATIME(t(n)^2) \subseteq \DSPACE(t(n)^2)$.
+  Dal momento che il quadrato di un polinomio è ancora un polinomio, ne deduciamo che $\NPSPACE = \DPSPACE$.
+\end{proof}
+
+Quindi il problema P vs NP è molto più semplice da risolvere rimpiazzando il tempo con lo spazio.
+
 
