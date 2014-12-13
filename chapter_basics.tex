@@ -20,8 +20,8 @@ All'istante zero la macchina si trova in uno stato speciale detto \emph{iniziale
 e sul nastro può essere già scritta una stringa finita detta \emph{input} della macchina.
 Diamo ora la definizione formale.
 \begin{definizione}
-Si dice macchina di Turing una 6-upla
-$M=\langle Q, \Gamma, b, \delta, q_0, F \rangle$ dove:
+Si dice macchina di Turing una tupla
+$M=\langle Q, \Gamma, b, \delta, q_0, F, F_y \rangle$ dove:
 \begin{enumerate}
  \item $Q$ è un insieme finito non vuoto di \emph{stati};
  \item $\Gamma$ è un insieme finito di simboli, detto \emph{alfabeto} della macchina;
@@ -29,13 +29,14 @@ $M=\langle Q, \Gamma, b, \delta, q_0, F \rangle$ dove:
  una cella vuota;
  \item $q_0 \in Q$ è lo \emph{stato iniziale};
  \item $F \subseteq Q$ è un insieme di \emph{stati terminali};
+ \item $F_y \subseteq F$ è un insieme di stati terminali \emph{accettanti};
  \item $\delta: Q \times \Gamma \to Q \times \Gamma \times \{\texttt{L},\texttt{R}\}$
  è una funzione parziale detta \emph{funzione di transizione}.
 \end{enumerate}
 \end{definizione}
 
 \begin{definizione}
- Data una macchina di Turing $M=\langle Q, \Gamma, b, \delta, q_0, F \rangle$,
+ Data una macchina di Turing $M=\langle Q, \Gamma, b, \delta, q_0, F, F_y \rangle$,
  chiamiamo configurazione della macchina una tripla
  $\langle q, S, n \rangle$ dove:
  \begin{enumerate}
@@ -46,8 +47,82 @@ $M=\langle Q, \Gamma, b, \delta, q_0, F \rangle$ dove:
   sul nastro.
  \end{enumerate}
 \end{definizione}
+Nel seguito useremo la seguente notazione più compatta per descrivere la
+configurazione di una macchina di Turing:
+\begin{definizione}
+ Data una macchina di Turing $M=\langle Q, \Gamma, b, \delta, q_0, F, F_y \rangle$,
+ chiamiamo configurazione della macchina una funzione
+ $S: \Z \to (\Gamma \sqcup \Gamma \times Q)$  tale che $S(k)=b$ per
+ tutti tranne al più finiti $k \in Z$ ed esiste unico $n \in Z$ con
+ $S(n) = (\gamma, q) \in \Gamma \times Q$.
+ $S$ rappresenta lo il contenuto attuale del nastro, $n$ la posizione della
+ macchina di Turing e $q$ il suo stato nella configurazione $S$.
+\end{definizione}
 
+\begin{definizione}
+ Sia data una macchina di Turing $M=\langle Q, \Gamma, b, \delta, q_0, F, F_y \rangle$
+ e due sue configurazioni $S$ e $S'$.
+ Siano $n \in \Z$, $\gamma \in \Gamma$, $q \in Q$ gli unici tali che
+ $S(n) = (\gamma, q)$ e supponiamo $\delta(\gamma, q) = (q', \gamma', \texttt{R})$.
+ Diciamo che
+ $M$ può fare la transizione da $S$ a $S'$, e lo indichiamo con $S \vdash_M S'$,
+ se 
+ \begin{enumerate}
+  \item $S'(n)=\gamma'$;
+  \item $S'(n+1)=(\sigma, q')$ per un
+ qualche $\sigma \in \Gamma$;
+  \item $S(k) = S'(k)$ per ogni $k \in \Z$ diverso da
+ $n$ e $n+1$.
+ \end{enumerate}
+ Similmente si dà la definizaione nel caso in cui
+ $\delta(\gamma, q) = (q', \gamma', \texttt{L})$,
+ sostituendo ovunque $n+1$ con $n-1$.
+\end{definizione}
 
+\begin{osservazione}
+ Per ogni configurazione $S$ della macchina di Turing $M$, esiste al più una
+ $S'$ tale che $S \vdash_M S'$, da cui l'aggettivo \emph{deterministica}.
+\end{osservazione}
+
+\begin{definizione}
+ Data una macchina di Turing $M$ e due sue configurazioni $S$ e $S'$ diciamo
+ che $S \vdash_M^{0} S'$ se $S = S'$ e diciamo che
+ $S \vdash_M^{n+1} S'$ se esiste una configurazione $S_0$ tale che
+ $S \vdash_M S_0$ e $S_0 \vdash_M^{n} S'$. Diciamo poi che $S \vdash_M^{\ast} S'$
+ se esiste $n \in \N$ tale che $S \vdash_M^{n} S'$.
+\end{definizione}
+
+\begin{definizione}
+ Una configurazione $S$ di una macchina di Turing
+ $M=\langle Q, \Gamma, b, \delta, q_0, F \rangle$ si dice \emph{iniziale} se
+ $S(0) = (\gamma, q_0)$. In tal caso, il contenuto del nastro
+ si dice \emph{input} della macchina di Turing e questo determina totalmente
+ una configurazione iniziale.
+ Una configurazione $S$ si dice \emph{terminale} se lo stato della macchina
+ di Turing nella configurazione $S$ è terminale e accettante se lo stato è
+ accettante.
+\end{definizione}
+
+\begin{definizione}
+ Sia $S_w$ la configurazione iniziale con input $w \in S^\ast$. Diciamo che
+ una macchina di Turing termina con input $w$, e lo indichiamo con $M(w)\downarrow$
+ se esiste $S'$ terminale tale che $S \vdash_M^\ast S'$. Diciamo che
+ $M$ accetta l'input $w$, e lo indichiamo con $M(w)\downarrow_y$ se
+ esiste $S'$ terminale accettante tale che $S \vdash_M^\ast S'$.
+\end{definizione}
+
+\begin{definizione}
+ Dato un alfabeto $S$, chiamiamo \emph{problema} un insieme di stringhe finite
+ $P \subseteq S^\ast$. Diciamo che il problema $P$ è calcolabile dalla macchina
+ di Turing $M$ se, per ogni $w$ in $S^\ast$, $M$ accetta $w$ se e solo se $w$
+ è in $P$. Diciamo che il problema $P$ è calcolabile se è calcolabile da una
+ macchina di Turing.
+\end{definizione}
+
+Esistono varianti della definizione di macchina di Turing che, pur non cambiano
+l'insieme dei problemi calcolabili, sono più semplici da adoperare in alcuni
+casi. Una variante che sarà molto importante per noi sono le
+\emph{macchine di Turing a $k$-nastri}.
 
 \section{Codifica e decodifica}
 Sia $L=\{R^{a_1}_1, \ldots, R^{a_s}_s, c_1, \ldots, c_l\}$ un linguaggio.
