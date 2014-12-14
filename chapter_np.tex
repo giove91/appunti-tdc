@@ -30,7 +30,7 @@ Il Teorema~\ref{thm:np-eso} consente di dimostrare in modo particolarmente sempl
   Dobbiamo dimostrare che un qualsiasi problema $\mathcal{B}\in\NP$ si riduce polinomialmente a $\SAT$.
   Supponiamo che $\mathcal{B}$ sia un insieme di strutture rispetto al linguaggio $L=\{R_1,\dots,R_t\}$, dove $R_1,\dots,R_t$ sono relazioni di arietà $b_1,\dots,b_t$, rispettivamente.
   Per il Teorema~\ref{thm:np-eso}, esiste una formula $\gamma$ della forma
-  \[ \gamma = \exists\, S_1,\dots,S_r \, \forall\, \underbrace{x_1,\dots,x_n}_{\text{prim'ordine}} \; \underbrace{\varphi(x_1,\dots,x_k)}_{\text{senza quantificatori}} \]
+  \[ \gamma = \exists\, S_1,\dots,S_r \, \forall \underbrace{x_1,\dots,x_n}_{\text{prim'ordine}} \, \underbrace{\varphi(x_1,\dots,x_k)}_{\text{senza quantificatori}} \]
   tale che $\mathcal{B}$ sia dato dai modelli di $\gamma$.
   
   Sia $A$ una $L$-struttura, e sia $n=|A|$. Abbiamo che $A$ appartiene a $\mathcal{B}$ se e solo se soddisfa la formula $\gamma$, ovvero se e solo se esistono delle relazioni $S_1\subseteq n^{a_1}, \dots, S_r\subseteq n^{a_r}$ tali che sia soddisfatta
