@@ -184,9 +184,10 @@ per risolvere il problema.
  \end{itemize}
 \end{definizione}
 
-Definiamo una configurazione della macchina di Turing alternante esattamente
-come nella Definizione \ref{def:conf-TM}. Dobbiamo invece apportare alcune lievi
-modifiche alla definizione di transizione.
+Per una macchina di Turing alternante valgono le stesse definizioni che
+abbiamo dato per le macchine di Turing deterministiche, 
+fatta eccezione per la definizione di transizione e di stato accettante, che
+modifichiamo come segue.
 \begin{definizione}
  Sia data una macchina di Turing alternante $M=\langle Q, \Gamma, b, \delta, q_0, g \rangle$
  e due sue configurazioni $S$ e $S'$.
@@ -221,20 +222,12 @@ modifiche alla definizione di transizione.
   \item Il suo stato è universale e ogni transizione che la configurazione può fare
   finisce in uno stato accettante.
  \end{enumerate}
- Diremo viceversa che la configurazione è rifiutante se vale una delle seguenti:
- \begin{enumerate}
-  \item Il suo stato è rifiutante;
-  \item Il suo stato è esistenziale e la configurazione può fare una transizione
-  solo in stati rifiutanti;
-  \item Il suo stato è universale e la configurazione può fare una transizione
-  in uno stato accettante.
- \end{enumerate}
 \end{definizione}
 Possiamo infine definire cosa vuol dire che una macchina di Turing alternante
 $M$ accetti un input $w$ allo stesso modo della Definizione \ref{def:accept-input}.
 
 \begin{osservazione}
- Una macchina di Turing deterministica può essere visto come un caso particolare
+ Una macchina di Turing deterministica può essere vista come un caso particolare
  di una macchina di Turing alternante dove ogni stato può fare una transizione
  in al più un'altro stato (in tal caso essere universale
  ed esistenziale si equivalgono).
@@ -246,19 +239,52 @@ $M$ accetti un input $w$ allo stesso modo della Definizione \ref{def:accept-inpu
 \end{definizione}
 
 Uno strumento molto utile nello studio delle macchine di Turing alternati è
-il grafo $G_w$ associato alla computazione con input $w$. Per costruirlo consideriamo
-prima un grafo $(V,E, G_\exists, G_\forall)$ dove:
-\begin{itemize}
- \item $V$ è l'insieme dei vertici del grafo e coincide con l'insieme di tutte le
- possibili configurazioni di $M$;
- \item $E$ è una relazione binaria che rappresenta gli archi del grafo, ed è definita
- da $E(S,S') \iff S \vdash_M S'$;
- \item $G_\exists \subseteq V$ è un'etichetta dei nodi che indica le configurazioni
- con stato esistenziale;
- \item $G_\forall \subseteq V$ è un'etichetta dei nodi che indica le configurazioni
- con stato universale.
-\end{itemize}
+il grafo delle configurazioni $G_M$:
 
+\begin{definizione}
+ Data una macchina di  Turing alternante $M$, il grafo delle configurazioni $G_M$
+ è la struttura nel linguaggio $L=\langle E, G_\exists, G_\forall, t\rangle$
+ definita da:
+ \begin{itemize}
+  \item l'insieme $V$ dei vertici del grafo coincide con l'insieme di tutte le
+  possibili configurazioni di $M$;
+  \item gli archi del grafo $E$ rappresentano le possibili transizioni, ovvero
+  vale $E(S,S') \iff S \vdash_M S'$;
+  \item $G_\exists \subseteq V$ è un'etichetta dei nodi che indica le configurazioni
+  con stato esistenziale;
+  \item $G_\forall \subseteq V$ è un'etichetta dei nodi che indica le configurazioni
+  con stato universale.
+  \item $t \subseteq V$ è un'etichetta dei nodi che indica le configurazioni
+  con stato accettante. \mytodo{Questo è un chiaro errore di notazione.}
+ \end{itemize}
+\end{definizione}
+Questo grafo descrive completamente tutte le possibili computazioni di $M$ con
+input qualsiasi. Spesso però siamo interessati a una particolare computazione
+con input $w$ fissato.
+\begin{definizione}
+ Il grafo $G_{M,w}$
+ della computazione di $M$ con input $w$ è dato dalla
+ componente connessa di $G_M$ contentente la configurazione iniziale con input $w$,
+ che sarà denotato da una costante $s$. Se non c'è ambiguità al posto di $G_{M,w}$
+ scriveremo semplicemente $G_w$.
+\end{definizione}
+Dato $G_M,w$, è interessante trovare un modo per capire se una configurazione
+è accettante, in particolare se lo è la configurazione iniziale $s$, guardando
+solo il grafo.
+\begin{definizione}
+ Dato $G_{M,w}$ il grafo di una computazione, definiamo $\Ealt(x,y)$ essere la
+ più piccola relazione binaria su $G_{M,w}$ rispetto all'inclusione tale che
+ \[
+  \Ealt(x,y) \longleftrightarrow (x=y) \lor \exists z 
+  \left[ E(x,z) \land \Ealt(z,y) \land (G_\forall(x) \rightarrow \forall z\left(E(x,z) \rightarrow \Ealt(z,y)\right)\right]
+ \]
+ \mytodo{Divertiti a renderla leggibile Giove!}
+\end{definizione}
+ Che esista una minima tale relazione può essere verificato facilmente a mano o
+ lo si può dedurre dal più generale Corollario \ref{cor-f-phi}.
+
+ \mytodo{Ora se $t$ fosse una ben determinata configurazione, direi che
+ la macchina accetta sse $\Ealt(s,t)$. Ma $t$ qui è un'insieme di configurazioni.}
 
 \section{Codifica e decodifica}
 Sia $L=\{R^{a_1}_1, \ldots, R^{a_s}_s, c_1, \ldots, c_l\}$ un linguaggio.
