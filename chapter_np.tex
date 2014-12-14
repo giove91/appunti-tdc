@@ -18,8 +18,29 @@ TODO
 
 \section{$\NP$-completezza di $\SAT$}
 
-Il Teorema~\ref{thm:np-eso} consente di dimostrare in modo particolarmente semplice l'$\NP$-com\-ple\-tez\-za del problema di soddisfacibilità booleana, denominato comunemente ``$\SAT$''.
+Il Teorema~\ref{thm:np-eso} consente di dimostrare in modo particolarmente semplice l'$\NP$-com\-ple\-tez\-za del problema di soddisfacibilità booleana di formule senza quantificatori, denominato comunemente ``$\SAT$''.
+
+\begin{teorema}
+  $\SAT$ è $\NP$-completo.
+\end{teorema}
+
+\begin{proof}
+  $\SAT$ appartiene a $\NP$ perché un certificato di soddisfacibilità di una formula è dato dal valore da assegnare alle variabili per fare in modo che la formula risulti vera.
+  
+  Dobbiamo dimostrare che un qualsiasi problema $\mathcal{B}\in\NP$ si riduce polinomialmente a $\SAT$.
+  Supponiamo che $\mathcal{B}$ sia un insieme di strutture rispetto al linguaggio $L=\{R_1,\dots,R_t\}$, dove $R_1,\dots,R_t$ sono relazioni di arietà $b_1,\dots,b_t$, rispettivamente.
+  Per il Teorema~\ref{thm:np-eso}, esiste una formula $\gamma$ della forma
+  \[ \gamma = \exists\, S_1,\dots,S_r \, \forall\, \underbrace{x_1,\dots,x_n}_{\text{prim'ordine}} \; \underbrace{\varphi(x_1,\dots,x_k)}_{\text{senza quantificatori}} \]
+  tale che $\mathcal{B}$ sia dato dai modelli di $\gamma$.
+  
+  Sia $A$ una $L$-struttura, e sia $n=|A|$. Abbiamo che $A$ appartiene a $\mathcal{B}$ se e solo se soddisfa la formula $\gamma$, ovvero se e solo se esistono delle relazioni $S_1\subseteq n^{a_1}, \dots, S_r\subseteq n^{a_r}$ tali che sia soddisfatta
+  \[ \psi = \bigwedge_{0\leq x_1,\dots,x_k < n} \varphi(x_1,\dots,x_k). \]
+  La $\psi$ è una formula nelle varabili $S_i(\vec{y})$ ed $R_j(\vec{z})$, al variare di $i,j,\vec{y}\in n^{a_i}, \vec{z}\in n^{b_j}$.
+  Sostituiamo a ciascuna variabile del tipo $R_j(\vec{z})$ il valore vero o falso, a seconda che valga o meno $A\Vdash R_i(\vec{z})$; chiamiamo $\tilde\psi$ la formula così ottenuta, che dipende ora solamente dalle variabili $S_i(\vec{y})$ al variare di $i$ e di $\vec{y}\in n^{a_i}$.
+  In conclusione, $A$ appartiene a $\mathcal{B}$ se e solo se esiste un'assegnazione delle variabili $S_i(\vec{y})$ che rende vera la $\psi$. Il numero di tali variabili è $n^{a_1}+\ldots+n^{a_r}$, che è un polinomio in $n$.
+  Abbiamo quindi mostrato una riduzione polinomiale di $\mathcal{B}$ a $\SAT$.
+\end{proof}
 
 
-TODO
+
 
