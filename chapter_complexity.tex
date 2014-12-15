@@ -2,7 +2,97 @@
 
 \section{Introduzione}
 
-In questo capitolo dimostreremo diverse inclusioni interessanti tra le varie classi di complessità. Tali inclusioni possono essere riassunte nel seguente schema:
+\begin{definizione}
+  Sia $L$ un linguaggio. Un problema decisionale è un insieme di strutture nel linguaggio $L$.
+\end{definizione}
+
+\begin{definizione}
+  Sia $t:\N\to\N$ una funzione.
+  Un problema decisionale $S$ appartiene a $\DTIME(t(n))$ se esistono una macchina di Turing deterministica $M$ e una costante $\alpha>0$ tali che:
+  \begin{itemize}
+    \item per ogni $L$-struttura $A$, la macchina $M$ su input $\bin(A)$ termina dopo al più $\alpha\cdot t(n)$ passi, dove $n=|\bin(A)|$.
+    \item per ogni $L$-struttura $A$, si ha che $M(\bin(A))\downarrow$ se e solo se $A\in S$.
+  \end{itemize}
+  Analogamente si definiscono $\NTIME(t(n))$ e $\ATIME(t(n))$, usando rispettivamente macchine non deterministiche e alternanti.
+\end{definizione}
+
+
+\begin{definizione}
+  Sia $t:\N\to\N$ una funzione.
+  Un problema decisionale $S$ appartiene a $\DSPACE(t(n))$ se esistono una macchina di Turing deterministica $M$ e una costante $\alpha>0$ tali che:
+  \begin{itemize}
+    \item per ogni $L$-struttura $A$, la macchina $M$ su input $\bin(A)$ termina dopo un numero finito di passi;
+    \item per ogni $L$-struttura $A$, si ha che $M(\bin(A))\downarrow$ se e solo se $A\in S$;
+    \item per ogni $L$-struttura $A$, la computazione di $M$ su input $\bin(A)$ utilizza spazio $\leq\alpha\cdot t(n)$, dove $n=|\bin(A)|$.
+  \end{itemize}
+  Analogamente si definiscono $\NSPACE(t(n))$ e $\ASPACE(t(n))$, usando rispettivamente macchine non deterministiche e alternanti.
+\end{definizione}
+
+Molto interessante risulta essere il concetto di computabilità in tempo o spazio polinomiale.
+Per questo definiamo le classi di complessità $\DPTIME$ e $\DPSPACE$ nel seguente modo:
+\[ \DPTIME = \bigcup_{k\in\N} \DTIME(n^k), \quad \DPSPACE = \bigcup_{k\in\N} \DSPACE(n^k). \]
+Analogamente si definiscono le classi $\NPTIME$, $\APTIME$, $\NPSPACE$ ed $\APSPACE$.
+Particolarmente studiate sono le classi $\DPTIME$ e $\NPTIME$, le quali vengono più comunemente chiamate $\P$ ed $\NP$, rispettivamente.
+Non è noto se $\P$ sia incluso strettamente in $\NP$ o se valga l'uguaglianza.
+
+La classe $\NP$ ha una caratterizzazione equivalente: un problema decisionale $S$ appartiene ad $\NP$ se e solo se esistono dei certificati che consentono di verificare in tempo polinomiale che una struttura $A$ appartenga a $S$.
+Più formalmente, vale la seguente proposizione.
+
+\begin{proposizione}
+  \label{prop:caratterizzazione-np}
+  Sia $S$ un problema decisionale su un linguaggio $L$.
+  Si ha che $S \in \NP$ se e solo se esiste una macchina di Turing deterministica $M$ tale che:
+  \begin{itemize}
+    \item la macchina $M$ su input $\bin(A)\string^ c$ termina in tempo polinomiale rispetto a $|\bin(A)|$, per ogni stringa binaria $c$;
+    \item per ogni $L$-struttura $A$, si ha che $A\in S$ se e solo se esiste una stringa binaria $c$ (detta ``certificato'') tale che $M(\bin(A)\string^ c)\downarrow$.
+  \end{itemize}
+\end{proposizione}
+
+\begin{proof}
+  Supponiamo che $S$ appartenga ad $\NP$. Allora esiste una macchina di Turing non deterministica $N$ che determina in tempo polinomiale se una struttura $A$ appartiene a $S$.
+  Possiamo supporre senza perdita di generalità che tutte le scelte non deterministiche di $M$ siano binarie.
+  Definiamo una macchina deterministica $M$ che, su input $\bin(A)\string^ c$, simula l'esecuzione di $N$ su input $\bin(A)$ sostituendo (per ogni $i$) la $i$-esima scelta non deterministica con la scelta deterministica descritta dall'$i$-esimo bit della stringa $c$. Nel caso in cui la stringa $c$ non sia sufficientemente lunga, $M$ termina in uno stato non accettante.
+  Notiamo che $A$ appartiene a $S$ se e solo se $N(\bin(A))\downarrow$, ovvero se e solo se esiste una sequenza di scelte (che possiamo codificare con la stringa binaria $c$) che portano in una configurazione finale accettante di $N$. In altre parole, $A$ appartiene a $S$ se e solo se $M(\bin(A)\string^c)\downarrow$.
+  Il tempo di calcolo di $M$ è polinomiale in $\bin(A)$, perché lo è quello di $N$.
+  
+  Supponiamo ora che esista una macchina di Turing determinista $M$ con le caratteristiche enunciate.
+  Sia $N$ una macchina non deterministica che, su input $\bin(A)$, simula $M$ scegliendo non deterministicamente i simboli di $c$ man mano che $M$ li utilizza.
+  Segue dalle definizioni che $N\downarrow$ se e solo se esiste una stringa binaria $c$ tale che $M(\bin(A)\string^c)\downarrow$.
+  Il tempo di calcolo di $N$ è polinomiale in $\bin(A)$, perché lo è quello di $M$ (indipendentemente dalla lunghezza di $c$).
+\end{proof}
+
+
+Per ogni classe di complessità $\mathcal{C}$ si può introdurre la classe dei problemi complementari, costituita per l'appunto dagli elementi $S^c$ al variare di $S\in\mathcal{C}$.
+Solitamente una tale classe viene indicata aggiungendo il prefisso ``co'' alla denominazione della classe $\mathcal{C}$.
+Per esempio, $\coNP$ è la classe dei problemi decisionali i cui complementari appartengono a $\NP$.
+Si può dare la seguente caratterizzazione di $\coNP$, analoga a quella che abbiamo appena dato di $\NP$.
+
+\begin{proposizione}
+  \label{prop:caratterizzazione-conp}
+  Sia $S$ un problema decisionale su un linguaggio $L$.
+  Si ha che $S \in \coNP$ se e solo se esiste una macchina di Turing deterministica $M$ tale che:
+  \begin{itemize}
+    \item la macchina $M$ su input $\bin(A)\string^ c$ termina in tempo polinomiale rispetto a $|\bin(A)|$, per ogni stringa binaria $c$;
+    \item per ogni $L$-struttura $A$, si ha che $A\not\in S$ se e solo se esiste una stringa binaria $c$ (detta ``certificato'') tale che $M(\bin(A)\string^ c)\downarrow$.
+  \end{itemize}
+\end{proposizione}
+
+\begin{proof}
+  Segue immediatamente applicando la Proposizione~\ref{prop:caratterizzazione-np} a $S^c$.
+\end{proof}
+
+
+\begin{osservazione}
+  $\P = \coP$. Di conseguenza, se fosse vero che $\P=\NP$, allora $\NP$ sarebbe anche uguale a $\coNP$.
+  In altre parole, $\NP\neq\coNP$ implica $\P\neq\NP$.
+\end{osservazione}
+
+
+
+
+\section{Inclusioni tra le classi di complessità}
+
+Nel resto del capitolo dimostreremo diverse inclusioni interessanti tra le varie classi di complessità. Tali inclusioni possono essere riassunte nel seguente schema:
 \begin{IEEEeqnarray*}{CCCCCCC}
   & \DTIME(t(n)) & \subseteq & \NTIME(t(n)) & \subseteq & \ATIME(t(n)) & \subseteq \\
   \subseteq & \DSPACE(t(n)) & \subseteq & \NSPACE(t(n)) & \subseteq & \ASPACE(t(n)) & = \\
