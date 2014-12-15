@@ -29,9 +29,13 @@ $M=\langle Q, \Gamma, b, \delta, q_0, F, F_y \rangle$ dove:
  \item $b \in \Gamma$ è un simbolo speciale, detto \emph{blank}, che rappresenta
  una cella vuota;
  \item $q_0 \in Q$ è lo \emph{stato iniziale};
- \item $F \subseteq Q$ è un insieme di \emph{stati terminali};
- \item $F_y \subseteq F$ è un insieme di stati terminali \emph{accettanti};
- \item $\delta: Q \times \Gamma \to Q \times (\Gamma \setminus \{b\}) \times \{\texttt{L},\texttt{R}\}$
+ \item $g: Q \to \{\exists, \texttt{accept}, \texttt{reject}\}$
+  indica per ogni stato se questo è \emph{non terminale}, \emph{terminale accettante} o
+  \emph{terminale rifiutante} (l'uso del simbolo ``$\exists$'' è per compatibilità
+  con la Definizione \ref{def:alt-TM}).
+ %\item $F \subseteq Q$ è un insieme di \emph{stati terminali};
+ %\item $F_y \subseteq F$ è un insieme di stati terminali \emph{accettanti};
+ \item $\delta: Q \times \Gamma \to Q \times (\Gamma \setminus \{b\}) \times \{\texttt{L},\texttt{R},\texttt{S}\}$
  è una funzione parziale detta \emph{funzione di transizione}.
 \end{enumerate}
 \end{definizione}
@@ -45,7 +49,7 @@ $M=\langle Q, \Gamma, b, \delta, q_0, F, F_y \rangle$ dove:
 
 
 \begin{definizione}
- Data una macchina di Turing $M=\langle Q, \Gamma, b, \delta, q_0, F, F_y \rangle$,
+ Data una macchina di Turing $M=\langle Q, \Gamma, b, \delta, q_0, g \rangle$,
  chiamiamo configurazione della macchina una tripla
  $\langle q, S, n \rangle$ dove:
  \begin{enumerate}
@@ -60,7 +64,7 @@ Nel seguito useremo la seguente notazione più compatta per descrivere la
 configurazione di una macchina di Turing:
 \begin{definizione}
 \label{def:conf-TM}
- Data una macchina di Turing $M=\langle Q, \Gamma, b, \delta, q_0, F, F_y \rangle$,
+ Data una macchina di Turing $M=\langle Q, \Gamma, b, \delta, q_0, g \rangle$,
  chiamiamo configurazione della macchina una funzione
  $S: \Z \to (\Gamma \sqcup \Gamma \times Q)$  tale che $S(k)=b$ per
  tutti tranne al più finiti $k \in \Z$ ed esiste unico $n \in \Z$ con
@@ -70,7 +74,7 @@ configurazione di una macchina di Turing:
 \end{definizione}
 
 \begin{definizione}
- Sia data una macchina di Turing $M=\langle Q, \Gamma, b, \delta, q_0, F, F_y \rangle$
+ Sia data una macchina di Turing $M=\langle Q, \Gamma, b, \delta, q_0, g \rangle$
  e due sue configurazioni $S$ e $S'$.
  Siano $n \in \Z$, $\gamma \in \Gamma$, $q \in Q$ gli unici tali che
  $S(n) = (\gamma, q)$ e supponiamo $\delta(\gamma, q) = (q', \gamma', \texttt{R})$.
@@ -84,9 +88,8 @@ configurazione di una macchina di Turing:
   \item $S(k) = S'(k)$ per ogni $k \in \Z$ diverso da
  $n$ e $n+1$.
  \end{enumerate}
- Similmente si dà la definizaione nel caso in cui
- $\delta(\gamma, q) = (q', \gamma', \texttt{L})$,
- sostituendo ovunque $n+1$ con $n-1$.
+ La definizione si adatta facilmente ai casi in cui
+ $\delta(\gamma, q) = (q', \gamma', \texttt{L}/\texttt{S})$.
 \end{definizione}
 
 \begin{osservazione}
@@ -103,13 +106,13 @@ configurazione di una macchina di Turing:
 % \end{definizione}
 
 \begin{definizione}
- Una configurazione si dice accettante se lo stato corrispondente è accettante
+ Una configurazione si dice accettante se lo stato corrispondente è accettante,
  oppure se può fare una transizione in una configurazione accettante.
 \end{definizione}
 
 \begin{definizione}
  Una configurazione $S$ di una macchina di Turing
- $M=\langle Q, \Gamma, b, \delta, q_0, F \rangle$ si dice \emph{iniziale} se
+ $M=\langle Q, \Gamma, b, \delta, q_0, g \rangle$ si dice \emph{iniziale} se
  $S(0) = (\gamma, q_0)$. In tal caso, il contenuto del nastro
  si dice \emph{input} della macchina di Turing e questo determina totalmente
  la configurazione iniziale.
@@ -120,7 +123,7 @@ configurazione di una macchina di Turing:
 
 \begin{definizione}
 \label{def:accept-input}
- Sia $S_w$ la configurazione iniziale con input $w \in S^\ast$. Diciamo che
+ Sia $S_w$ la configurazione iniziale con input $w$ in $\Gamma^\ast$. Diciamo che
  una macchina di Turing accetta l'input $w$, e lo indichiamo con $M(w)\downarrow_y$
  se la configurazione $S_w$ è accettante.
 %  Diciamo che
@@ -129,9 +132,10 @@ configurazione di una macchina di Turing:
 \end{definizione}
 
 \begin{definizione}
- Dato un alfabeto $S$, chiamiamo \emph{problema} un insieme di stringhe finite
- $P \subseteq S^\ast$. Diciamo che il problema $P$ è calcolabile dalla macchina
- di Turing $M$ se, per ogni $w$ in $S^\ast$, $M$ accetta $w$ se e solo se $w$
+\label{def:problem}
+ Dato un alfabeto $\Gamma$, chiamiamo \emph{problema} un insieme di stringhe finite
+ $P \subseteq \Gamma^\ast$. Diciamo che il problema $P$ è calcolabile dalla macchina
+ di Turing $M$ se, per ogni $w$ in $\Gamma^\ast$, $M$ accetta $w$ se e solo se $w$
  è in $P$. Diciamo che il problema $P$ è calcolabile se è calcolabile da una
  macchina di Turing.
 \end{definizione}
@@ -142,15 +146,15 @@ casi. Una variante utile sono le
 \emph{macchine di Turing a $k$ nastri}. Queste funzionano esattamente come le
 macchine di Turing standard ma ad ogni passaggio leggono e scrivono contemporaneamente su
 tutti e $k$ i nastri. La funzione di transizione sarà dunque del tipo
-$\delta:  Q \times \Gamma^k \to Q \times ((\Gamma \setminus \{b\}) \times \{\texttt{L},\texttt{R},\texttt{S}\})^k$,
-dove il simbolo $\texttt{S}$ indica che la macchina non si sposterà su quel nastro.
+$\delta:  Q \times \Gamma^k \to Q \times ((\Gamma \setminus \{b\}) \times \{\texttt{L},\texttt{R},\texttt{S}\})^k$.
 Una macchina di Turing a $k$ nastri può chiaramente simulare una macchina di Turing
 a un solo nastro. Vale anche il viceversa:
 
 \begin{fatto}
 Una macchina di Turing a un solo nastro può simulare una macchina di Turing
 a $k$ nastri.
-\mytodo{Questo è effettivamente vero ma non abbiamo definito il concetto di simulazione.}
+In particolare tutti i problemi calcolabili da una macchina
+di Turing a k nastri sono calcolabili anche da una macchina di Turing ad un nastro.
 \end{fatto}
 
 Il modello di macchina di Turing che useremo più spesso è quello di una macchina di Turing
@@ -168,6 +172,7 @@ Turing che ad ogni transizione può ``sdoppiarsi'' e provare più strade contemp
 per risolvere il problema.
 
 \begin{definizione}
+\label{def:alt-TM}
  Si dice macchina di Turing alternate una quintupla
  $M=\langle Q, \Gamma, b, \delta, q_0, g \rangle$ dove:
  \begin{itemize}
@@ -175,7 +180,7 @@ per risolvere il problema.
   \item $\Gamma$ è un insieme finito di simboli, detto \emph{alfabeto} della macchina;
   \item $b \in \Gamma$ è un simbolo speciale, detto \emph{blank}, che rappresenta
   una cella vuota;
-  \item $\delta: Q \times \Gamma \to \powerset(Q \times \Gamma \times \{L,R\})$;
+  \item $\delta: Q \times \Gamma \to \powerset(Q \times \Gamma \times \{\texttt{L},\texttt{R},\texttt{S}\})$;
   \item $q_0 \in Q$ è lo \emph{stato iniziale};
   \item $g: Q \to \{\exists, \forall, \texttt{accept}, \texttt{reject}\}$
   indica per ogni stato se questo è \emph{esistenziale}, \emph{universale},
@@ -201,9 +206,8 @@ modifichiamo come segue.
   \item $S(k) = S'(k)$ per ogni $k \in \Z$ diverso da
  $n$ e $n+1$.
  \end{enumerate}
- Similmente si dà la definizaione nel caso in cui
- $(q', \gamma', \texttt{L}) \in \delta(\gamma, q)$,
- sostituendo ovunque $n+1$ con $n-1$.
+ La definizione si adatta facilmente ai casi in cui
+ $(q', \gamma', \texttt{L}/\texttt{S}) \in \delta(\gamma, q)$.
 \end{definizione}
 
 \begin{osservazione}
@@ -225,23 +229,23 @@ modifichiamo come segue.
 Possiamo infine definire cosa vuol dire che una macchina di Turing alternante
 $M$ accetti un input $w$ allo stesso modo della Definizione \ref{def:accept-input}.
 
+\begin{definizione}
+ Chiamiamo \emph{macchina di Turing non deterministica} una macchina di Turing
+ alternante in cui tutti gli stati sono esistenziali, accettanti o rifiutanti.
+\end{definizione}
+
 \begin{osservazione}
  Una macchina di Turing deterministica può essere vista come un caso particolare
- di una macchina di Turing alternante dove ogni stato può fare una transizione
- in al più un'altro stato (in tal caso essere universale
- ed esistenziale si equivalgono).
+ di una macchina di Turing non deterministica dove ogni
+ stato può fare una transizione in al più un'altro stato.
 \end{osservazione}
-
-\begin{definizione}
- Chiamiamo macchina di Turing non deterministica una macchina di Turing alternante
- in cui tutti gli stati sono esistenziali, accettanti o rifiutanti.
-\end{definizione}
 
 Uno strumento molto utile nello studio delle macchine di Turing alternati è
 il grafo delle configurazioni $G_M$:
 
 \begin{definizione}
- Data una macchina di  Turing alternante $M$, il grafo delle configurazioni $G_M$
+ Data una macchina di  Turing alternante $M$ con un unico stato accettante,
+ il grafo delle configurazioni $G_M$
  è la struttura nel linguaggio $L=\langle E, G_\exists, G_\forall, t\rangle$
  definita da:
  \begin{itemize}
@@ -253,37 +257,41 @@ il grafo delle configurazioni $G_M$:
   con stato esistenziale;
   \item $G_\forall \subseteq V$ è un'etichetta dei nodi che indica le configurazioni
   con stato universale.
-  \item $t \subseteq V$ è un'etichetta dei nodi che indica le configurazioni
-  con stato accettante. \mytodo{Questo è un chiaro errore di notazione.}
+  \item $t \in V$ è una costante che indica l'unica configurazione avente nastro
+  vuoto e stato accettante.
  \end{itemize}
 \end{definizione}
 Questo grafo descrive completamente tutte le possibili computazioni di $M$ con
-input qualsiasi. Spesso però siamo interessati a una particolare computazione
-con input $w$ fissato.
+input qualsiasi. Spesso siamo interessati a una particolare computazione
+con input $w$ fissato:
 \begin{definizione}
  Il grafo $G_{M,w}$
  della computazione di $M$ con input $w$ è dato dalla
- componente connessa di $G_M$ contentente la configurazione iniziale con input $w$,
- che sarà denotata da una costante $s$. Se non c'è ambiguità al posto di $G_{M,w}$
- scriveremo semplicemente $G_w$.
+ struttura $(V,E, G_\exists, G_\forall, s, t)$ ottenuta estendendo $G_M$
+ con una costante $s$, che denota la configurazione iniziale con input $w$.
+ Se non c'è ambiguità al posto di $G_{M,w}$ scriveremo semplicemente $G_w$.
 \end{definizione}
-Dato $G_M,w$, è interessante trovare un modo per capire se una configurazione
+Dato $G_w$, è interessante trovare un modo per capire se una configurazione
 è accettante, in particolare se lo è la configurazione iniziale $s$, guardando
 solo il grafo.
 \begin{definizione}
- Dato $G_{M,w}$ il grafo di una computazione, definiamo $\Ealt(x,y)$ essere la
- più piccola relazione binaria su $G_{M,w}$ rispetto all'inclusione tale che
+ Dato $G_{M,w}$ il grafo di una computazione,
+ definiamo $\Ealt(x,y)$ essere la
+ più piccola (rispetto all'inclusione) relazione binaria su $G_{M,w}$ tale che
  \[
   \Ealt(x,y) \longleftrightarrow (x=y) \lor \exists z 
   \left[ E(x,z) \land \Ealt(z,y) \land (G_\forall(x) \rightarrow \forall z\left(E(x,z) \rightarrow \Ealt(z,y)\right)\right]
  \]
  \mytodo{Divertiti a renderla leggibile Giove!}
 \end{definizione}
- Che esista una minima tale relazione può essere verificato facilmente a mano o
- lo si può dedurre dal più generale Corollario \ref{cor-f-phi}.
+Che esista una minima tale relazione può essere verificato facilmente a mano, o
+lo si può dedurre dal più generale Corollario \ref{cor-f-phi}.
+\begin{definizione}
+\label{def:Ralt}
+ Data una macchina di turing $M$, $\Ralt = \{G_w | \Ealt(s,t) \}$ è l'insieme
+ dei grafi che $G_w$ tali che $M$ accetta l'input $w$.
+\end{definizione}
 
- \mytodo{Ora se $t$ fosse una ben determinata configurazione, direi che
- la macchina accetta sse $\Ealt(s,t)$. Ma $t$ qui è un'insieme di configurazioni.}
 
 \section{Codifica e decodifica}
 Sia $L=\{R^{a_1}_1, \ldots, R^{a_s}_s, c_1, \ldots, c_l\}$ un linguaggio.
@@ -324,10 +332,18 @@ Useremo questa procedura principalmente per descrivere modelli all'interno
 di macchine di Turing. Infatti, come notato nell'Osservazione \ref{oss-bin},
 una macchina di Turing può ricostruire
 il valore della relazione $R_i^A(x_1, \ldots, x_{a_i})$ calcolando il valore
-di $n$ e spostando la testina e leggendo il valore nella posizione
+di $n$, spostando la testina e leggendo il valore nella posizione
 $n^{a_1} + \ldots + n^{a_{i-1}} + x_1 + x_2 \cdot n + \ldots + x_{a_i} \cdot n^{a_i-1}$
 del blocco di memoria corrispondente alla codifica.
 Nello pseudo-codice indicheremo questa procedura con
 $\decode_{R_i}(\bin(A), x_1, \ldots, x_{a_i})$. La corrispondente procedura per
 leggere il valore di una costante sarà indicata con $\decode_{c_i} (\bin(A))$.
 
+\begin{definizione}
+Fissato un linguaggio $L$ ci riferiremo a un insieme $\mathcal{B}$ di $L$-strutture finite
+come a un \emph{problema}, intendendo con questo che consideriamo il corrispondente
+problema $\bin(\mathcal{B}) = \{\bin(A) \mid A \in \mathcal{B}\}$ nel senso della Definizione \ref{def:problem}.
+\end{definizione}
+In particolare $\Ralt$ (cfr. Definizione \ref{def:Ralt}) è un problema, ed ha
+dunque senso chiedersi se sia calcolabile e con quale complessità
+(cfr. Proposizione \ref{prop:ralt-in-fo(lfp)} e seguenti).
