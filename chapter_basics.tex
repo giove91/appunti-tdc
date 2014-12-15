@@ -133,7 +133,7 @@ configurazione di una macchina di Turing:
 
 \begin{definizione}
 \label{def:problem}
- Dato un alfabeto $\Gamma$, chiamiamo \emph{problema} un insieme di stringhe finite
+ Dato un alfabeto $\Gamma$, chiamiamo \emph{problema decisionale} un insieme di stringhe finite
  $P \subseteq \Gamma^\ast$. Diciamo che il problema $P$ è calcolabile dalla macchina
  di Turing $M$ se, per ogni $w$ in $\Gamma^\ast$, $M$ accetta $w$ se e solo se $w$
  è in $P$. Diciamo che il problema $P$ è calcolabile se è calcolabile da una
@@ -341,7 +341,7 @@ leggere il valore di una costante sarà indicata con $\decode_{c_i} (\bin(A))$.
 
 \begin{definizione}
 Fissato un linguaggio $L$ ci riferiremo a un insieme $\mathcal{B}$ di $L$-strutture finite
-come a un \emph{problema}, intendendo con questo che consideriamo il corrispondente
+come a un \emph{problema decisionale}, intendendo con questo che consideriamo il corrispondente
 problema $\bin(\mathcal{B}) = \{\bin(A) \mid A \in \mathcal{B}\}$ nel senso della Definizione \ref{def:problem}.
 \end{definizione}
 In particolare $\Ralt$ (cfr. Definizione \ref{def:Ralt}) è un problema, ed ha
