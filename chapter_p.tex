@@ -122,13 +122,13 @@ prima verificare che esiste una tale relazione.
 \end{proof}
 
 \begin{proposizione}
- $\FO(\LFP) \subseteq \P$, ovvero, per ogni $L$-formula chiusa $\phi$ in $\FO(LFP)$ esiste
+ $\FO(\LFP) \subseteq \P$, ovvero, per ogni $L$-formula chiusa $\phi$ in $\FO(\LFP)$ esiste
  una macchina di Turing $T_\phi$ in $\P$ tale che, data una $L$-struttura $A$,
  si ha $A \models \phi$ se e solo se $T_\phi(\bin(A))\downarrow$.
 \end{proposizione}
 \begin{proof}
   Rispetto al lemma precedente dobbiamo solo considerare in più il caso
-  $\phi \equiv \LFP_{S,x,y}\theta(S,x,y)(a,b)$, con $a, b$ costanti.
+  $\phi :\equiv \LFP_{S,x,y}\theta(S,x,y)(a,b)$, con $a, b$ costanti.
   Notiamo che possiamo vedere
   $\theta(S,x,y)$ come una formula chiusa nel linguaggio $L'=L \cup \{S^2,x,y\}$,
   dunque ha senso considerare la macchina di Turing $T_{\theta(S,x,y)}$ ad essa
@@ -162,14 +162,13 @@ prima verificare che esiste una tale relazione.
 Dimostriamo ora l'inclusione inversa, ovvero $\P \subseteq \FO(\LFP)$. La
 dimostrazione si basa sui seguenti claim:
 \begin{description}
- \item[Claim 1]\label{p_eq_a} $\P = \ASPACE(\lg(n))$;
+ \item[Claim 1]\label{p_eq_a} $\P = \ASPACE(\log(n))$;
  \item[Claim 2]\label{ralt_in_p} $\Ralt \in \FO(\LFP)$;
- \item[Claim 3]\label{reduct_fo} Se $S$ è un problema in $\ASPACE(\lg(n))$, allora $S \leq_{\FO} \Ralt$.
- Equivalentemente (assumendo di aver dimostrato il Claim 1), $\Ralt$ è un problema $P$-completo.
+ \item[Claim 3]\label{reduct_fo} Se $S$ è un problema in $\ASPACE(\log(n))$, allora $S \leq_{\FO} \Ralt$.
 \end{description}
 Dimostrati questi tre claim, per concludere, basta notare che un problema che si
 riduce $\FO$ a un problema in $\FO(\LFP)$ è a sua volta in $\FO(\LFP)$.
-Il Claim 1 segue dal Teorema \ref{thm:aspace-dtime} prendendo $t(n) = \ln(n)$.
+Il Claim 1 segue dal Teorema \ref{thm:aspace-dtime} prendendo $t(n) = \log(n)$.
 Dimostriamo dunque gli altri due.
 \begin{proposizione}
   $\Ralt \in \FO(\LFP)$;
@@ -180,11 +179,12 @@ Dimostriamo dunque gli altri due.
 \end{proof}
 
 \begin{proposizione}
- Se $S$ è un problema in $\ASPACE(\lg(n))$, allora $S \leq_{\FO} \Ralt$.
+ Se $S$ è un problema in $\ASPACE(\log(n))$, allora $S \leq_{\FO} \Ralt$.
+ In particolare, $\Ralt$ è un problema $P$-completo.
 \end{proposizione}
 \begin{proof}
  Sia $\sigma = \{R^{a_1}_1,\ldots,R^{a_r}_r,c_1, \ldots, c_s\}$ un linguaggio
- e $M$ una macchina di Turing in $\ASPACE(c \lg(n))$ che accetta come input
+ e $M$ una macchina di Turing in $\ASPACE(c \log(n))$ che accetta come input
  la codifica binaria di una $\sigma$-struttura. Dobbiamo mostrare che esiste un
  modo per associare ad ogni $\sigma$-struttura $A$ di cardinalità $n$ un grafo alternante
  $I(A) = (V^A, G_\exists^A, G_\forall^a, E^a, s^A,t^A)$,
@@ -205,13 +205,13 @@ Dimostriamo dunque gli altri due.
   \item $p_1 \in \{1,\ldots, r\}$ rappresenta la relazione che la
   macchina sta leggendo sul nastro di input, come verrà spiegato più tardi;
   \item $p_2 \in Q_M$ rappresenta lo stato in cui si trova la macchina di Turing;
-  \item $p_3 \in \{0, \ldots, c \lg(n)\}$ rappresenta la posizione della testina
+  \item $p_3 \in \{0, \ldots, c \log(n)\}$ rappresenta la posizione della testina
   sul nastro di lavoro;
   \item $p_4 \in \{\forall, \exists\}$ indica se lo stato attuale è esistenziale
   o universale;
-  \item $\langle w_1, \ldots, w_c \rangle \in n^c = 2^{c \lg (n)}$ rappresenta
+  \item $\langle w_1, \ldots, w_c \rangle \in n^c = 2^{c \log (n)}$ rappresenta
   una possibile configurazione del nastro di lavoro (stiamo usando
-  il fatto che $M$ è in $\ASPACE(c \ln(n))$;
+  il fatto che $M$ è in $\ASPACE(c \log(n))$;
   \item $\langle r_1, \ldots, r_c \rangle \in n^c = r_1 + r_2 n + \ldots + r_a n^{a-1} < n^a$
   rappresenta la posizione della testina sul nastro di input.
  \end{itemize}
@@ -221,7 +221,7 @@ Dimostriamo dunque gli altri due.
   e $G_\forall$ sono immediate
   (basta guardare il valore di $p_4$), per quanto riguarda $S$, può essere
   definita come
-  \[s(\ID) \equiv (p_1=1 \land p_2 = q_{init} \land p_3=0 \land \vec{r}=0 \land \vec{w}=0),\]
+  \[s(\ID) :\equiv (p_1=1 \land p_2 = q_{init} \land p_3=0 \land \vec{r}=0 \land \vec{w}=0),\]
   e anche $t$ può essere definita in maniera simile.
   Concentriamoci dunque su $E^A$: dobbiamo
   trovare una relazione $E(\vec{x},\vec{y})$ tale che
@@ -233,17 +233,17 @@ Dimostriamo dunque gli altri due.
    \langle q'_R, T'_R, out_R, wksh_R, insh_R \rangle
   \]
   associamo la relazione
-  \[C_R(\ID, \ID') \equiv \ldots \]
+  \[C_R(\ID, \ID') :\equiv \ldots \]
   Notiamo che vale $C_R(\ID, \ID')$ se e solo se la configurazione corrispondente
   a $\ID$ può passare alla configurazione corrispondente a $\ID'$ mediante la regola
   $R$. Per concludere definiamo allora
-  \[ E(\ID, \ID') \equiv \bigvee_R C_R(\ID, \ID'). \]
+  \[ E(\ID, \ID') :\equiv \bigvee_R C_R(\ID, \ID'). \]
 \end{proof}
 
 \begin{osservazione}
   Nella dimostrazione precedente potevamo
   memorizzare tutte le possibili configurazione del nastro di lavoro all'interno
-  del grafo grazie all'ipotesi $M \in \ASPACE(c \lg(n))$, tuttavia non possiamo
+  del grafo grazie all'ipotesi $M \in \ASPACE(c \log(n))$, tuttavia non possiamo
   fare lo stesso per il nastro di input che ha lunghezza
   polinomiale in $n$ (e quindi il numero di possibili configurazioniè esponenziale in $n$).
   Tuttavia, come visto, possiamo limitarci a memorizzare soltanto la posizione

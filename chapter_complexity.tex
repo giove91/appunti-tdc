@@ -119,8 +119,6 @@ Nel resto del capitolo dimostreremo le inclusioni e le uguaglianze rimanenti.
   Seguiamo la convenzione che $a$ possa appartenere a $\Sigma$ (nel caso in cui non vi sia la testina) oppure a $\Sigma\times Q$ (se vi è la testina, nel qual caso l'elemento di $Q$ indica lo stato attuale della macchina). Vediamo ora i dettagli sull'implementazione di questa subroutine.
   
   L'osservazione principale è che l'esito della chiamata a $C(t,p,a)$ è univocamente determinato dall'esito delle chiamate a $C(t-1,p',a')$ al variare di $p'\in\{p-1,\,p,\,p+1\}$ ed $a'\in \Sigma \,\cup\, \Sigma\times Q$.
-%   Più precisamente:
-%   \[ C(t+1,p,a) \equiv \exists\; a_{-1}, a_0, a_1 \in \Sigma \,\cup\, \Sigma\times Q \;\left( \right) \]
   Introduciamo uno stato $q_C^\exists$ in cui la macchina $B$ deve iniziare ad eseguire la subroutine $C$.
   Supponiamo che $B$ sia nello stato $q_C^\exists$, e che abbia in memoria (su un apposito nastro di lavoro dedicato all'inizializzazione della subroutine $C$) la terna $(t, p, a)$.
   Se $t=0$, $B$ accetta se e solo se nella posizione $p$ dell'input $w$ (tenendo conto dell'eventuale presenza della testina) vi è il simbolo $a$.

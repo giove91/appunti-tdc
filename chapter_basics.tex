@@ -1,6 +1,5 @@
 \chapter{Definizioni}
 
-\section{Sintassi e semantica}
 
 \section{Macchine di Turing deterministiche}
 \label{sec:det-TM}
@@ -64,7 +63,7 @@ configurazione di una macchina di Turing:
  Data una macchina di Turing $M=\langle Q, \Gamma, b, \delta, q_0, F, F_y \rangle$,
  chiamiamo configurazione della macchina una funzione
  $S: \Z \to (\Gamma \sqcup \Gamma \times Q)$  tale che $S(k)=b$ per
- tutti tranne al più finiti $k \in Z$ ed esiste unico $n \in Z$ con
+ tutti tranne al più finiti $k \in \Z$ ed esiste unico $n \in \Z$ con
  $S(n) = (\gamma, q) \in \Gamma \times Q$.
  $S$ rappresenta lo il contenuto attuale del nastro, $n$ la posizione della
  macchina di Turing e $q$ il suo stato nella configurazione $S$.
@@ -113,7 +112,7 @@ configurazione di una macchina di Turing:
  $M=\langle Q, \Gamma, b, \delta, q_0, F \rangle$ si dice \emph{iniziale} se
  $S(0) = (\gamma, q_0)$. In tal caso, il contenuto del nastro
  si dice \emph{input} della macchina di Turing e questo determina totalmente
- una configurazione iniziale.
+ la configurazione iniziale.
 %  Una configurazione $S$ si dice \emph{terminale} se lo stato della macchina
 %  di Turing nella configurazione $S$ è terminale e si dice accettante se lo stato
 %  della configurazione è accettante.
@@ -140,7 +139,7 @@ configurazione di una macchina di Turing:
 Esistono varianti della definizione di macchina di Turing che, pur non cambiano
 l'insieme dei problemi calcolabili, sono più semplici da adoperare in alcuni
 casi. Una variante utile sono le
-\emph{macchine di Turing a $k$-nastri}. Queste funzionano esattamente come le
+\emph{macchine di Turing a $k$ nastri}. Queste funzionano esattamente come le
 macchine di Turing standard ma ad ogni passaggio leggono e scrivono contemporaneamente su
 tutti e $k$ i nastri. La funzione di transizione sarà dunque del tipo
 $\delta:  Q \times \Gamma^k \to Q \times ((\Gamma \setminus \{b\}) \times \{\texttt{L},\texttt{R},\texttt{S}\})^k$,
@@ -265,7 +264,7 @@ con input $w$ fissato.
  Il grafo $G_{M,w}$
  della computazione di $M$ con input $w$ è dato dalla
  componente connessa di $G_M$ contentente la configurazione iniziale con input $w$,
- che sarà denotato da una costante $s$. Se non c'è ambiguità al posto di $G_{M,w}$
+ che sarà denotata da una costante $s$. Se non c'è ambiguità al posto di $G_{M,w}$
  scriveremo semplicemente $G_w$.
 \end{definizione}
 Dato $G_M,w$, è interessante trovare un modo per capire se una configurazione
