@@ -13,7 +13,55 @@ TODO
 
 \section{$\ESOmon \neq \coESOmon$}
 
-TODO
+Sebbene non si sappia se $\NP\neq\coNP$, si può dimostrare un risultato simile: $\ESOmon \neq \coESOmon$.
+\mytodo{Definire $\ESOmon$.}
+Per fare questo utilizzeremo i giochi di EF \mytodo{Sostituire il command}, introdotti nella Sezione \mytodo{Inserire la sezione}.
+
+% \begin{definizione}
+%   Sia $A$ una $L$-struttura.
+%   Il grafo di Gaifman di $A$ è un grafo non orientato $G_A = (|A|, E^A)$, dove $G_A \models E(a,b)$ se e solo se $a$ e $b$ sono distinti e sono parte di una tupla $(c_1,\dots,c_r)$ di elementi di $A$ tali che $A\models R(c_1,\dots,c_r)$ per una qualche relazione $r$-aria $R\in L$.
+% \end{definizione}
+% 
+% \begin{osservazione}
+%   Se $L=\{E\}$ è il linguaggio dei grafi (con un'unica relazione $E$ binaria) e $A$ è un grafo non orientato, allora $G_A=A$.
+% \end{osservazione}
+
+In questa sezione, utilizzeremo il linguaggio dei grafi $L=\{E\}$, con $E$ relazione binaria.
+Ci restringiamo alla classe dei grafi non orientati, ovvero i grafi $A=(|A|,E^A)$ per i quali la relazione $E^A$ è simmetrica.
+Introduciamo il problema decisionale ``$\Connected$'', al quale appartengono tutti e soli i grafi connessi.
+Dimostreremo che tale problema appartiene a $\coESOmon$ ma non ad $\ESOmon$.
+
+\begin{lemma}
+  $\Connected \in \coESOmon$.
+\end{lemma}
+
+\begin{proof}
+  Dobbiamo esprimere la proprietà di essere sconnesso con una formula in $\ESOmon$.
+  Una condizione equivalente ad essere sconnesso è che l'insieme dei vertici possa essere partizionato in due sottoinsiemi tra i quali non vi è alcun arco. Questa condizione può essere espressa mediante la seguente formula $\ESOmon$:
+  \[ \exists \, U^{(1)}, W^{(1)} \Big( \forall x \big( U(x) \dot\lor W(x) \big) \,\wedge\, \forall x,y \big( E(x,y) \rightarrow (U(x) \leftrightarrow \lnot W(y))\big) \Big). \qedhere \]
+\end{proof}
+
+
+\begin{lemma}
+  $\Connected \not\in \ESOmon$.
+\end{lemma}
+
+\begin{proof}
+  Supponiamo per assurdo che esista una $L$-formula $\exists P_1^{(1)},\ldots,P_r^{(1)} \varphi$, con $\varphi\in \FO$, tale che per ogni grafo non orientato $G=(V^G, E^G)$ si abbia
+  \[ G \models (\exists \vec{P}) \varphi \, \leftrightarrow G \text{ connesso}. \]
+  Sia $m=\RQ(\varphi)$, e sia $\tau = \{E,P_1,\ldots,P_r\}$ un nuovo linguaggio che estende $L$ in cui le $P_i$ sono relazioni unarie.
+  Osserviamo che una $\tau$-struttura può essere considerata come un grafo colorato con $2^r$ colori, dove il colore del vertice $x$ è codificato dai bit $P_1(x),\ldots,P_r(x)$.
+  
+  TODO: continuare
+\end{proof}
+
+
+
+\begin{teorema}
+  $\ESOmon \neq \coESOmon$.
+\end{teorema}
+
+
 
 
 \section{$\NP$-completezza di $\SAT$}
