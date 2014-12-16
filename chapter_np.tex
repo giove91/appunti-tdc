@@ -7,7 +7,14 @@
   $\NP = \ESO$.
 \end{teorema}
 \begin{proof}
- \mytodo{Da scrivere.}
+ Sia $\B$ un problema in $NP$. Per la Proposizione \ref{prop:caratterizzazione-np}
+ esiste una macchina di Turing $M$ in $P$ e un $k \in \N$ tale che
+ $A \in \B$ se e solo se $M(\bin(A)\string^\bin(R))\downarrow_y$ per una qualche
+ relazione su $A$ di arietà $k$.
+ Per il Corollario \ref{cor:P-subset-FO(LFP)}, esiste una formula $\phi$
+ in $\FO(\LFP)$ tale che $M(\bin(A)\string^\bin(R))\downarrow_y$ se e solo se
+ $A,R \models \phi$. Dunque vale $A \in \B$ se e solo se
+ $A \models \exists R^{(k)} \phi$.
 \end{proof}
 
 
