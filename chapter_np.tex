@@ -6,14 +6,15 @@
   \label{thm:np-eso}
   $\NP = \ESO$.
 \end{teorema}
+\begin{proof}
+ \mytodo{Da scrivere.}
+\end{proof}
 
 
-TODO
-
-\section{Giochi di \EFl}
+\section{Giochi di \EFl{}}
 \begin{definizione}
  Siano $A$, $B$ due $L$-strutture. Descriviamo
- il gioco di \EFl $G_k(A,B)$ di durata $k \in \N$. Vi sono die giocatori
+ il gioco di \EFl{} $G_k(A,B)$ di durata $k \in \N$. Vi sono die giocatori
  indicati con i simboli ``$\exists$'' e ``$\forall$''. A ogni turno
  il giocatore $\forall$ sceglie un elemento da $A$ o da $B$. Il giocatore
  $\exists$ cerca di imitarlo scegliendo un elemento corrispondente nell'altra
@@ -27,7 +28,7 @@ TODO
 
 \begin{definizione}
  Date due $L$-strutture $A$ e $B$, diciamo che $A \EFeq_k B$ se e solo se
- il giocatore $\exists$ ha una strategia vincente per il gioco di \EF $G_k(A,B)$.
+ il giocatore $\exists$ ha una strategia vincente per il gioco di \EF{} $G_k(A,B)$.
 \end{definizione}
 
 \begin{definizione}
@@ -42,19 +43,46 @@ TODO
  $A \equiv_k B$.
 \end{osservazione}
 
-\begin{teorema}
- Date due $L$-strutture $A$ e $B$, se $A \EFeq_k B$ allora $A \equiv_k B$.
- Supponendo in più che $L$ sia un linguaggio relazionale
- (senza ovvero simboli di funzioni), vale anche il viceversa, ovvero $A \equiv_k B$
- implica $A \EFeq_k B$.
-\end{teorema}
+\begin{lemma}
+\label{lemma:finite-formulas}
+ Ci sono solo un numero finito di classi di $k$-equivalenza di $n$-uple,
+ in particolare, se $C(n,k)$
+ è l'insieme di tali classi $|C(n,k+1)| \leq s^{|C(n+1,k)|}$. Inoltre per ogni
+ classe $H=[A,a_1,\ldots,a_n] \in C(n,k)$ esiste una formula $\phi_H$
+ con $\RQ(\phi_H) \leq k$ tale che:
+ \begin{enumerate}
+  \item $A \models \phi_H(a_1, \ldots, a_n)$
+  \item Se $B \models \phi_H(b_1,\ldots,b_n)$, allora $(A,a_1,\ldots, a_n) \EFeq_k (B,b_1,\ldots,b_k)$
+ \end{enumerate}
+\end{lemma}
 \begin{proof}
- $\Rightarrow$) Procediamo per induzione su $k$. Per $k=0$ segue dall'osservazione
- precedente e dalle definizioni.
+ \mytodo{Da scrivere.}
 \end{proof}
 
 
 
+\begin{teorema}
+ Date due $L$-strutture $A$ e $B$, se $A \EFeq_k B$ allora $A \equiv_k B$.
+ Supponendo in più che $L$ sia un linguaggio finito senza simboli di funzioni,
+ vale anche il viceversa, ovvero $A \equiv_k B$
+ implica $A \EFeq_k B$.
+\end{teorema}
+\begin{proof}
+ $\Rightarrow$) Procediamo per induzione su $k$. Per $k=0$ segue dall'osservazione
+ precedente e dalle definizioni. Supponendo il risultato vero per $k$, dimostriamolo
+ per $k+1$. Sia $\phi$ la più piccola formula di rango di quantificazione $k+1$
+ su cui i due modelli sono in disaccordo. Possiamo suppore senza perdita di generalità
+ che $\phi \equiv \exists y \theta(y)$ e che esista $a \in A$ tale che $A \models \theta(a)$.
+ Per la definizione di gioco di \EF{} di durata $k+1$, esiste un $b \in B$ tale che
+ $A,a \EFeq_k B,b$. Per ipotesi induttiva questo implica che
+ $A,a \equiv_k B,b$, e in particolare, essendo $\RQ(\theta(y)) = k$, che
+ $B \models \theta(b)$, da cui $B \models \exists y \theta(y)$.
+ 
+ $\Leftarrow$) Supponiamo $A,a_1,\ldots, a_n \equiv_k B, b_1, \ldots, b_n$, sia
+ $H=[A,a_1,\ldots,a_n]$ e sia $\phi_H$ come nel Lemma \ref{lemma:finite-formulas}.
+ Dato che $\RQ(\phi_H) \leq k$, vale $B \models \phi_H(b_1,\ldots,b_n)$
+ e dunque per il lemma si ha $A,a_1,\ldots, a_n \EFeq_k B, b_1, \ldots, b_n$.
+\end{proof}
 
 
 \section{\texorpdfstring{$\ESOmon \neq \coESOmon$}{ESOmon not equal to coESOmon}}
@@ -174,7 +202,3 @@ Il Teorema~\ref{thm:np-eso} consente di dimostrare in modo particolarmente sempl
   In conclusione, $A$ appartiene a $\mathcal{B}$ se e solo se esiste un'assegnazione delle variabili $S_i(\vec{y})$ che rende vera la $\psi$. Il numero di tali variabili è $n^{a_1}+\ldots+n^{a_r}$, che è un polinomio in $n$.
   Abbiamo quindi mostrato una riduzione polinomiale di $\mathcal{B}$ a $\SAT$.
 \end{proof}
-
-
-
-
