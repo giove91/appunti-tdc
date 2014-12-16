@@ -17,14 +17,43 @@ Sebbene non si sappia se $\NP\neq\coNP$, si può dimostrare un risultato simile:
 \mytodo{Definire $\ESOmon$.}
 Per fare questo utilizzeremo i giochi di EF \mytodo{Sostituire il command}, introdotti nella Sezione \mytodo{Inserire la sezione}.
 
-% \begin{definizione}
-%   Sia $A$ una $L$-struttura.
-%   Il grafo di Gaifman di $A$ è un grafo non orientato $G_A = (|A|, E^A)$, dove $G_A \models E(a,b)$ se e solo se $a$ e $b$ sono distinti e sono parte di una tupla $(c_1,\dots,c_r)$ di elementi di $A$ tali che $A\models R(c_1,\dots,c_r)$ per una qualche relazione $r$-aria $R\in L$.
-% \end{definizione}
-% 
-% \begin{osservazione}
-%   Se $L=\{E\}$ è il linguaggio dei grafi (con un'unica relazione $E$ binaria) e $A$ è un grafo non orientato, allora $G_A=A$.
-% \end{osservazione}
+
+\begin{definizione}
+  Sia $A$ una $L$-struttura.
+  Il grafo di Gaifman di $A$ è un grafo non orientato $G_A = (|A|, E^A)$, dove $G_A \models E(a,b)$ se e solo se $a$ e $b$ sono distinti e sono parte di una tupla $(c_1,\dots,c_r)$ di elementi di $A$ tali che $A\models R(c_1,\dots,c_r)$ per una qualche relazione $r$-aria $R\in L$.
+\end{definizione}
+
+\begin{osservazione}
+  Se $L=\{E\}$ è il linguaggio dei grafi (con un'unica relazione $E$ binaria) e $A$ è un grafo non orientato, allora $G_A=A$.
+\end{osservazione}
+
+\begin{definizione}
+  Data una $L$-struttura $A$, l'$n$-intorno $S_A(n,a)$ di un elemento $a\in A$ è la sottostruttura di $A$ definita nel seguente modo:
+  \[ S_A(n,a) = \{ b\in A \mid d_{G_A}(a,b) \leq n \}. \]
+\end{definizione}
+
+\begin{definizione}
+  Siano $(A,a)$ e $(B,b)$ due $L$-strutture puntate. Diciamo che esse sono $n$-equivalenti secondo Gaifman se esiste un isomorfismo di strutture tra $S_A(n,a)$ ed $S_B(n,b)$ che manda $a$ in $b$.
+  La notazione che useremo per indicare la $n$-equivalenza secondo Gaifman è la seguente: $(A,a) \gaifmaneq{n} (B,b)$.
+\end{definizione}
+
+\begin{definizione}
+  Chiamiamo $n$-tipo di $a$ in $A$ la classe di equivalenza di $(A,a)$ rispetto alla relazione $\gaifmaneq{n}$.
+\end{definizione}
+
+\begin{definizione}
+  Date due $L$-strutture $A$ e $B$, diciamo che $A\gaifmaneq{n} B$ se per ogni $n$-tipo $t$, $A$ e $B$ hanno lo stesso numero di elementi di $n$-tipo $t$.
+\end{definizione}
+
+
+\begin{teorema}
+  $A \gaifmaneq{3^n} B$ implica ???
+\end{teorema}
+
+
+
+------------
+
 
 In questa sezione, utilizzeremo il linguaggio dei grafi $L=\{E\}$, con $E$ relazione binaria.
 Ci restringiamo alla classe dei grafi non orientati, ovvero i grafi $A=(|A|,E^A)$ per i quali la relazione $E^A$ è simmetrica.
@@ -43,6 +72,15 @@ Dimostreremo che tale problema appartiene a $\coESOmon$ ma non ad $\ESOmon$.
 \end{proof}
 
 
+
+
+
+
+\begin{lemma}
+  
+\end{lemma}
+
+
 \begin{lemma}
   $\Connected \not\in \ESOmon$.
 \end{lemma}
@@ -53,7 +91,7 @@ Dimostreremo che tale problema appartiene a $\coESOmon$ ma non ad $\ESOmon$.
   Sia $m=\RQ(\varphi)$, e sia $\tau = \{E,P_1,\ldots,P_r\}$ un nuovo linguaggio che estende $L$ in cui le $P_i$ sono relazioni unarie.
   Osserviamo che una $\tau$-struttura può essere considerata come un grafo colorato con $2^r$ colori, dove il colore del vertice $x$ è codificato dai bit $P_1(x),\ldots,P_r(x)$.
   
-  TODO: continuare
+  
 \end{proof}
 
 
