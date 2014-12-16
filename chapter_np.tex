@@ -11,6 +11,50 @@
 TODO
 
 \section{Giochi di \EFl}
+\begin{definizione}
+ Siano $A$, $B$ due $L$-strutture. Descriviamo
+ il gioco di \EFl $G_k(A,B)$ di durata $k \in \N$. Vi sono die giocatori
+ indicati con i simboli ``$\exists$'' e ``$\forall$''. A ogni turno
+ il giocatore $\forall$ sceglie un elemento da $A$ o da $B$. Il giocatore
+ $\exists$ cerca di imitarlo scegliendo un elemento corrispondente nell'altra
+ struttura. Dopo $k$ turni sono stati scelti degli elementi
+ $a_1, \ldots, a_k \in A$ e $b_1, \ldots, b_k \in B$. Il giocatore $\exists$
+ vince il gioco se
+ \[ A, a_1, \ldots, a_k \equiv_{QF} B, b_1, \ldots, b_k,\]
+ ovvero se, per ogni formula $\phi(x_1, \ldots, x_k)$ senza quantificatori, vale
+ $A \models \phi(a_1, \ldots, a_k)$ se e solo se $B \models \phi(b_1, \ldots, b_k)$.
+\end{definizione}
+
+\begin{definizione}
+ Date due $L$-strutture $A$ e $B$, diciamo che $A \EFeq_k B$ se e solo se
+ il giocatore $\exists$ ha una strategia vincente per il gioco di \EF $G_k(A,B)$.
+\end{definizione}
+
+\begin{definizione}
+ Date due $L$-strutture $A$ e $B$, diciamo che $A \equiv_k B$ se e solo se
+ per ogni formula $\phi$ con rango di quantificazione $\RQ(\phi) \leq k$ vale
+ $A \models \phi$ se e solo se $B \models \phi$.
+\end{definizione}
+
+\begin{osservazione}
+ Date due $L$-strutture $A$ e $B$, vale $A \equiv_0 B$ se e solo se
+ $A \equiv_{QF} B$ e vale $A \equiv B$ se e solo se per ogni $k \in \N$ vale
+ $A \equiv_k B$.
+\end{osservazione}
+
+\begin{teorema}
+ Date due $L$-strutture $A$ e $B$, se $A \EFeq_k B$ allora $A \equiv_k B$.
+ Supponendo in più che $L$ sia un linguaggio relazionale
+ (senza ovvero simboli di funzioni), vale anche il viceversa, ovvero $A \equiv_k B$
+ implica $A \EFeq_k B$.
+\end{teorema}
+\begin{proof}
+ $\Rightarrow$) Procediamo per induzione su $k$. Per $k=0$ segue dall'osservazione
+ precedente e dalle definizioni.
+\end{proof}
+
+
+
 
 
 \section{\texorpdfstring{$\ESOmon \neq \coESOmon$}{ESOmon not equal to coESOmon}}
