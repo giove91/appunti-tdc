@@ -92,11 +92,8 @@ prima verificare che esiste una tale relazione.
  
  Sia $\phi$ atomica nel linguaggio $L=\{ R^{a_1},\ldots,R^{a_k},c_1,\ldots,c_l \}$,
  allora $\phi$ deve essere nella forma $c_1=c_2$ oppure nella forma $R_s(c_1,\ldots, c_k)$,
- dove i $c_i$ sono simboli di costante (ricordiamo che per convenzione
- non ammettiamo simboli di funzione nel linguaggio). Il nastro di input della
- macchina di Turing $T_\phi$ avrà la seguente struttura
- \[ \ldots \]
- La macchina di Turing $T_\phi$ come prima cosa leggerà dal nastro di
+ dove i $c_i$ sono simboli di costante. La macchina di Turing $T_\phi$ come
+ prima cosa leggerà dal nastro di
  input i valori $m_i$ corrispondenti alle costanti $c_i$.
  Se $\phi$ era nella forma $c_1 = c_2$ allora basta controllare l'uguaglianza
  di $m_1$ ed $m_2$. Se invece $\phi$ era nella forma $R_s(c_1,\ldots,c_k)$,
@@ -112,13 +109,14 @@ prima verificare che esiste una tale relazione.
  la $L'$-formula $\theta(c)$ ha complessità minore di quella di $\phi$
  e dunque, per ipotesi induttiva, esiste una
  macchina di Turing $T_{\theta(c)}$ che gli corrisponde.
- Notiamo che, dato $x$ in $\{0,\ldots, n-1\}$, possiamo trasformare $A$ in una $L'$
+ Notiamo che, dato $x \in \{0,\ldots, n-1\}$, possiamo trasformare $A$ in una $L'$
  struttura $(A,x)$ interpretando la costante $c$ con $x$.
  Costruiamo allora la macchina di Turing $T_\phi$ in modo che $T_\phi(\bin(A))$
- accetti se e solo se $T_{\theta(c)}(\bin(A,x))$ accetta per qualche $x$.
- \mytodo{Le macchine che costruiamo si aspettavano di trovare l'input
- sul nastro di input, ma io non posso modificare il nastro di input per aggiungere $\bin(x)$.}
- \mytodo{Forse è meglio metterci lo pseudo-codice}.
+ accetti se e solo se $T_{\theta(c)}(\bin(A=\string^\bin(x))$ accetta per qualche $x$.
+ Più concretamente, per ogni $x \in \{0,\ldots,n-1\}$
+ scriviamo su un nastro a parte $\bin(A)\string^\bin(x)$ e lanciamo la macchina
+ $T_\theta(c)$ usando questo come nastro di input. Se $T_\theta(c)$ accetta,
+ fermiamo la computazione e accettiamo.
 \end{proof}
 
 \begin{proposizione}
@@ -132,7 +130,8 @@ prima verificare che esiste una tale relazione.
   $\phi :\equiv \LFP_{S,x,y}\theta(S,x,y)(a,b)$, con $a, b$ costanti.
   Notiamo che possiamo vedere
   $\theta(S,x,y)$ come una formula chiusa nel linguaggio $L'=L \cup \{S^2,x,y\}$,
-  dunque ha senso considerare la macchina di Turing $T_{\theta(S,x,y)}$ ad essa
+  dunque, sfruttando l'ipotesi induttiva, ha senso considerare la macchina di
+  Turing $T_{\theta(S,x,y)}$ ad essa
   corrispondente. Inoltre, usando le notazioni del Corollario \ref{cor-f-phi},
   si ha $T_{\theta(S,x,y)}(\bin(A,R,a,b))\downarrow$
   se e solo se $(a,b) \in f_{\theta,A}(R)$. Questa osservazione, insieme alla
