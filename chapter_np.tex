@@ -7,14 +7,15 @@
   $\NP = \ESO$.
 \end{teorema}
 \begin{proof}
- Sia $\B$ un problema in $\NP$. Per la Proposizione \ref{prop:caratterizzazione-np}
+ Sia $\B$ un problema in $\NP$. Per il Corollario \ref{cor:caratterizzazione-np}
  esiste una macchina di Turing $M$ in $P$ e un $k \in \N$ tale che
  $A \in \B$ se e solo se $M(\bin(A)\string^\bin(R))\downarrow_y$ per una qualche
  relazione $R$ di arietà $k$ su $A$.
  Per il Corollario \ref{cor:P-subset-FO(LFP)}, esiste una formula $\phi$
  in $\FO(\LFP)$ tale che $M(\bin(A)\string^\bin(R))\downarrow_y$ se e solo se
  $A,R \models \phi$. Dunque vale $A \in \B$ se e solo se
- $A \models \exists R^{(k)} \phi$.
+ $A \models \exists R^{(k)} \phi$. Ora basta notare che la formula $\phi \in \FO(\LFP)$
+ equivale a una formula in $\ESO$.
  
  Viceversa sia $\phi$ una formula in $\ESO$, mostriamo che esiste una macchina
  di Turing non deterministica $N$ che lavora in tempo polinomiale e
@@ -81,8 +82,6 @@
 \begin{proof}
  \mytodo{Da scrivere.}
 \end{proof}
-
-
 
 \begin{teorema}
  Date due $L$-strutture $A$ e $B$, se $A \EFeq_k B$ allora $A \equiv_k B$.

@@ -227,25 +227,38 @@ Dimostriamo dunque gli altri due.
   Ora che abbiamo definito il dominio $V^A$ del grafo dobbiamo definire le
   relazioni $E^A$, $G_\exists^A$, $G_\forall^A$, $s$ e $t$. Di queste, $G_\exists$
   e $G_\forall$ sono immediate
-  (basta guardare il valore di $p_4$), per quanto riguarda $S$, può essere
+  (basta guardare il valore di $p_4$), per quanto riguarda $s$, può essere
   definita come
-  \[s(\ID) :\equiv (p_1=1 \land p_2 = q_{init} \land p_3=0 \land \vec{r}=0 \land \vec{w}=0),\]
+  \[s(\ID) :\equiv (p_1=1 \land p_2 = q_0 \land p_3=0 \land \vec{r}=0 \land \vec{w}=0),\]
   e anche $t$ può essere definita in maniera simile.
   Concentriamoci dunque su $E^A$: dobbiamo
   trovare una relazione $E(\vec{x},\vec{y})$ tale che
   valga $E(\ID, \ID')$ se e solo se nel grafo delle
   computazioni di $M$ con input $\bin(A)$ c'è un arco tra la configurazione
   corrisponente a $\ID$ quella corrispondente a $\ID'$.
-  Come prima cosa ad ogni regola $R$ della macchina di Turing $M$ nella forma
-  \[\langle q_R, T_R, wk_R, in_R \rangle \vdash
-   \langle q'_R, T'_R, out_R, wksh_R, insh_R \rangle
-  \]
-  associamo la relazione
-  \[C_R(\ID, \ID') :\equiv \ldots \]
+  Come prima cosa sia $R$ una regola della macchina di Turing $M$ nella forma
+  \[\langle q, \gamma_w, \gamma_i \rangle \vdash
+   \langle q', \gamma_o, \delta_w, \delta_i \rangle,
+  \] dove $q$ è lo stato attuale, $\gamma_w$ il simbolo letto sul nastro di lavoro,
+  $\gamma_i$ il simbolo letto sul nastro di input, $q'$ lo stato in cui si fa la transizione,
+  $\gamma_o$ il simbolo scritto sul nastro di lavoro,
+  $\delta_w \in \{-1,0,1\}$ lo spostamento sul nastro di lavoro e $\delta_i \in \{-1,0,1\}$
+  lo spostamento sul nastro di input.
+  Associamo a $R$ la relazione
+  \begin{align*}
+  C_R(\ID, \ID') :\equiv  \bigwedge_{1 \leq i \leq r} [ & p_1=i \land p_2=q \land p_4=g(q)
+    \land \BIT(\vec{w},p_3)^{\gamma_w} \land R_i(r_1,\ldots,r_{a_i})^{\gamma_i} \\
+    & \rightarrow p_2'=q' \land p_4'=g(q') \land p_3'=p_3 + \delta_w \land
+    \BIT(\vec{w}', p_3')^{\gamma_o} \\
+    & \phantom{\rightarrow} \land \forall p \neq p_3 (\BIT(\vec{w}',p) \leftrightarrow \BIT(\vec{w},p))]
+  \end{align*}
+  dove $\BIT(\vec{w},p)$ è vera se e solo se il $p$-esimo bit del numero
+  $w_1 + w_2 \cdot \max + \ldots + w_c \cdot \max^{c-1}$ è 1.
   Notiamo che vale $C_R(\ID, \ID')$ se e solo se la configurazione corrispondente
   a $\ID$ può passare alla configurazione corrispondente a $\ID'$ mediante la regola
   $R$. Per concludere definiamo allora
   \[ E(\ID, \ID') :\equiv \bigvee_R C_R(\ID, \ID'). \]
+  \`E facile convincersi della correttezza di questa definizione.
 \end{proof}
 
 \begin{osservazione}

@@ -100,6 +100,21 @@ Più formalmente, vale la seguente proposizione.
     \item per ogni $L$-struttura $A$, si ha che $A\in S$ se e solo se esiste una stringa binaria $c$, di lunghezza $\leq p(|\bin(A)|)$, tale che $M(\bin(A)\string^ c)\downarrow$.
   \end{itemize}
 \end{osservazione}
+Il seguente corollario è una semplice riscrittura della proposizione e ci sarà
+utile in seguito.
+\begin{corollario}
+\label{cor:caratterizzazione-np}
+  Sia $S \in \NP$ un problema decisionale su un linguaggio $L$. Allora esiste un $k \in \N$ 
+  e una macchina di Turing deterministica $M$ tale che, per ogni $L$-struttura finita
+  $A$, si ha che $A$ è in $S$ se e solo se esiste una relazione $k$-aria $R \subseteq A^k$
+  per cui $M(\bin(A)\string^\bin(R))\downarrow_y$.
+\end{corollario}
+\begin{proof}
+ Basta notare che, data una struttura $|A|$, ogni stringa binaria di lunghezza
+ minore di $|A|^k$ può
+ essere ottenuta come $\bin(R)$, con $R$ una relazione $k$-aria su $A$.
+ Per l'osservazione e la proposizione precedenti questo conclude.
+\end{proof}
 
 
 
