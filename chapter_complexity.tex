@@ -3,26 +3,60 @@
 \section{Introduzione}
 
 \begin{definizione}
-  Sia $t:\N\to\N$ una funzione.
-  Un problema decisionale $S$ appartiene a $\DTIME(t(n))$ se esistono una macchina di Turing deterministica $M$ e una costante $\alpha>0$ tali che:
-  \begin{itemize}
-    \item per ogni $L$-struttura $A$, la macchina $M$ su input $\bin(A)$ termina dopo al più $\alpha\cdot t(n)$ passi, dove $n=|\bin(A)|$.
-    \item per ogni $L$-struttura $A$, si ha che $M(\bin(A))\downarrow$ se e solo se $A\in S$.
-  \end{itemize}
-  Analogamente si definiscono $\NTIME(t(n))$ e $\ATIME(t(n))$, usando rispettivamente macchine non deterministiche e alternanti.
+ Sia $t:\N\to\N$ una funzione. Diciamo che una macchina di Turing alternante
+ $M$ lavora in tempo $t(n)$ se per ogni input $w$ la macchina $M$ accetta o
+ rifiuta $w$ e basta esaminare le configurazioni solo fino la tempo $t(|w|)$
+ per decidere se l'input verrà accettato o rifiutato.
 \end{definizione}
-
 
 \begin{definizione}
-  Sia $t:\N\to\N$ una funzione.
-  Un problema decisionale $S$ appartiene a $\DSPACE(t(n))$ se esistono una macchina di Turing deterministica $M$ e una costante $\alpha>0$ tali che:
-  \begin{itemize}
-    \item per ogni $L$-struttura $A$, la macchina $M$ su input $\bin(A)$ termina dopo un numero finito di passi;
-    \item per ogni $L$-struttura $A$, si ha che $M(\bin(A))\downarrow$ se e solo se $A\in S$;
-    \item per ogni $L$-struttura $A$, la computazione di $M$ su input $\bin(A)$ utilizza spazio $\leq\alpha\cdot t(n)$, dove $n=|\bin(A)|$.
-  \end{itemize}
-  Analogamente si definiscono $\NSPACE(t(n))$ e $\ASPACE(t(n))$, usando rispettivamente macchine non deterministiche e alternanti.
+ Sia $t:\N\to\N$ una funzione. Diciamo che una macchina di Turing alternante
+ $M$ lavora in spazio $s(n)$ se per ogni input $w$
+ la macchina $M$ accetta o
+ rifiuta $w$ e basta esaminare le configurazione
+ che usano spazio minore di $s(|w|)$
+ per decidere se l'input verrà accettato o rifiutato.
 \end{definizione}
+
+\begin{definizione}
+ Sia $t:\N\to\N$ una funzione.
+ Un problema decisionale $P$ appartiene ad $\ATIME(t(n))$ se esistono una macchina
+ di Turing alternante $M$ e una costante $\alpha>0$ tale che $M$ lavora in tempo
+ $\alpha \cdot t(n)$ e $M$ calcola il problema $P$. Similmente diremo che
+ il problema è in $\NTIME(t(n))$ se la macchina $M$ la possiamo prendere non
+ deterministica e in $\DTIME(t(n))$ se la possiamo prendere deterministica.
+\end{definizione}
+
+\begin{definizione}
+ Sia $t:\N\to\N$ una funzione.
+ Un problema decisionale $P$ appartiene ad $\ASPACE(s(n))$ se eiste una macchina
+ di Turing alternante $M$ e una costante $\alpha>0$ tale che $M$ lavora in spazio
+ $\alpha \cdot s(n)$ e $M$ calcola il problema $P$. Similmente diremo che
+ il problema è in $\NSPACE(s(n))$ se la macchina $M$ la possiamo prendere non
+ deterministica e in $\DSPACE(s(n))$ se la possiamo prendere deterministica.
+\end{definizione}
+
+% \begin{definizione}
+%   Sia $t:\N\to\N$ una funzione.
+%   Un problema decisionale $S$ appartiene a $\DTIME(t(n))$ se esistono una macchina di Turing deterministica $M$ e una costante $\alpha>0$ tali che:
+%   \begin{itemize}
+%     \item per ogni $L$-struttura $A$, la macchina $M$ su input $\bin(A)$ termina dopo al più $\alpha\cdot t(n)$ passi, dove $n=|\bin(A)|$.
+%     \item per ogni $L$-struttura $A$, si ha che $M(\bin(A))\downarrow$ se e solo se $A\in S$.
+%   \end{itemize}
+%   Analogamente si definiscono $\NTIME(t(n))$ e $\ATIME(t(n))$, usando rispettivamente macchine non deterministiche e alternanti.
+% \end{definizione}
+% 
+% 
+% \begin{definizione}
+%   Sia $t:\N\to\N$ una funzione.
+%   Un problema decisionale $S$ appartiene a $\DSPACE(t(n))$ se esistono una macchina di Turing deterministica $M$ e una costante $\alpha>0$ tali che:
+%   \begin{itemize}
+%     \item per ogni $L$-struttura $A$, la macchina $M$ su input $\bin(A)$ termina dopo un numero finito di passi;
+%     \item per ogni $L$-struttura $A$, si ha che $M(\bin(A))\downarrow$ se e solo se $A\in S$;
+%     \item per ogni $L$-struttura $A$, la computazione di $M$ su input $\bin(A)$ utilizza spazio $\leq\alpha\cdot t(n)$, dove $n=|\bin(A)|$.
+%   \end{itemize}
+%   Analogamente si definiscono $\NSPACE(t(n))$ e $\ASPACE(t(n))$, usando rispettivamente macchine non deterministiche e alternanti.
+% \end{definizione}
 
 Molto interessante risulta essere il concetto di computabilità in tempo o spazio polinomiale.
 Per questo definiamo le classi di complessità $\DPTIME$ e $\DPSPACE$ nel seguente modo:

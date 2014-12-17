@@ -108,6 +108,8 @@ configurazione di una macchina di Turing:
 \begin{definizione}
  Una configurazione si dice accettante se lo stato corrispondente è accettante,
  oppure se può fare una transizione in una configurazione accettante.
+ Viceversa diciamo che è rifiutante se lo stato corrispondente è rifiutante,
+ oppure se può fare una transizione in una configurazione rifiutante.
 \end{definizione}
 
 \begin{definizione}
@@ -124,8 +126,11 @@ configurazione di una macchina di Turing:
 \begin{definizione}
 \label{def:accept-input}
  Sia $S_w$ la configurazione iniziale con input $w$ in $\Gamma^\ast$. Diciamo che
- una macchina di Turing accetta l'input $w$, e lo indichiamo con $M(w)\downarrow_y$
- se la configurazione $S_w$ è accettante.
+ una macchina di Turing $M$ accetta l'input $w$, e lo indichiamo con $M(w)\downarrow_y$
+ se la configurazione $S_w$ è accettante. Viceversa diciamo che $M$
+ rifiuta l'input $w$, e lo indichiamo con $M(w)\downarrow_n$, se
+ la configurazione $S_w$ è rifiutante.
+ 
 %  Diciamo che
 %  $M$ accetta l'input $w$, e lo indichiamo con $M(w)\downarrow_y$ se
 %  esiste $S'$ terminale accettante tale che $S \vdash_M^\ast S'$.
@@ -136,7 +141,8 @@ configurazione di una macchina di Turing:
  Dato un alfabeto $\Gamma$, chiamiamo \emph{problema decisionale} un insieme di stringhe finite
  $P \subseteq \Gamma^\ast$. Diciamo che il problema $P$ è calcolabile dalla macchina
  di Turing $M$ se, per ogni $w$ in $\Gamma^\ast$, $M$ accetta $w$ se e solo se $w$
- è in $P$. Diciamo che il problema $P$ è calcolabile se è calcolabile da una
+ è in $P$ e $M$ rifiuta $w$ se e solo $w$ non è in $P$.
+ Diciamo che il problema $P$ è calcolabile se è calcolabile da una
  macchina di Turing.
 \end{definizione}
 
@@ -218,13 +224,21 @@ modifichiamo come segue.
 \begin{definizione}
  Una configurazione di una macchina di Turing alternante si dice accettante se
  vale una delle seguenti:
- \begin{enumerate}
+ \begin{itemize}
   \item il suo stato è accettante;
   \item il suo stato è esistenziale e la configurazione può fare una transizione
   in uno stato accettante;
   \item il suo stato è universale e ogni transizione che la configurazione può fare
   finisce in uno stato accettante.
- \end{enumerate}
+ \end{itemize}
+ Viceversa si dice rifiutante se vale una delle seguenti:
+ \begin{itemize}
+  \item il suo stato è rifiutante;
+  \item il suo stato è esistenziale e ogni transizione che la configurazione può fare
+  finisce in uno stato rifiutante;
+  \item il suo stato è universale e la configurazione può fare una transizione
+  in uno stato rifiutante.
+ \end{itemize}
 \end{definizione}
 Possiamo infine definire cosa vuol dire che una macchina di Turing alternante
 $M$ accetti un input $w$ allo stesso modo della Definizione \ref{def:accept-input}.
