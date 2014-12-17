@@ -38,7 +38,7 @@
 \label{sec:EF}
 \begin{definizione}
  Siano $A$, $B$ due $L$-strutture. Descriviamo
- il gioco di \EFl{} $G_k(A,B)$ di durata $k \in \N$. Vi sono die giocatori
+ il gioco di \EFl{} $G_k(A,B)$ di durata $k \in \N$. Vi sono due giocatori
  indicati con i simboli ``$\exists$'' e ``$\forall$''. A ogni turno
  il giocatore $\forall$ sceglie un elemento da $A$ o da $B$. Il giocatore
  $\exists$ cerca di imitarlo scegliendo un elemento corrispondente nell'altra
@@ -84,6 +84,7 @@
 \end{proof}
 
 \begin{teorema}
+ \label{thm:ef}
  Date due $L$-strutture $A$ e $B$, se $A \EFeq_k B$ allora $A \equiv_k B$.
  Supponendo in più che $L$ sia un linguaggio finito senza simboli di funzioni,
  vale anche il viceversa, ovvero $A \equiv_k B$
@@ -110,7 +111,6 @@
 \section{\texorpdfstring{$\ESOmon$}{E-SOmon} non è uguale a \texorpdfstring{$\coESOmon$}{coE-SOmon}}
 
 Sebbene non si sappia se $\NP\neq\coNP$, si può dimostrare un risultato simile: $\ESOmon \neq \coESOmon$.
-\mytodo{Definire $\ESOmon$.}
 Per fare questo utilizzeremo i giochi di \EF{}, introdotti nella Sezione \ref{sec:EF}.
 
 
@@ -126,6 +126,8 @@ Per fare questo utilizzeremo i giochi di \EF{}, introdotti nella Sezione \ref{se
 \begin{definizione}
   Data una $L$-struttura $A$, l'$n$-intorno $S_A(n,a)$ di un elemento $a\in A$ è la sottostruttura di $A$ definita nel seguente modo:
   \[ S_A(n,a) = \{ b\in A \mid d_{G_A}(a,b) \leq n \}. \]
+  Sia inoltre
+  \[ S_A(n,a_1,\ldots,a_k) = \bigcup_{i=1}^k S_A(n,a_i). \]
 \end{definizione}
 
 \begin{definizione}
@@ -138,21 +140,61 @@ Per fare questo utilizzeremo i giochi di \EF{}, introdotti nella Sezione \ref{se
 \end{definizione}
 
 \begin{definizione}
-  Date due $L$-strutture $A$ e $B$, diciamo che $A\gaifmaneq{n} B$ se per ogni $n$-tipo $t$, $A$ e $B$ hanno lo stesso numero di elementi di $n$-tipo $t$.
+  Date due $L$-strutture $A$ e $B$, diciamo che $A\gaifmaneq{n} B$ se per ogni $n$-tipo $\iota$, $A$ e $B$ hanno lo stesso numero di elementi di $n$-tipo $\iota$.
 \end{definizione}
+
+\begin{osservazione}
+  Se $A\gaifmaneq{n} B$, allora $A\gaifmaneq{k} B$ per ogni $k<n$.
+\end{osservazione}
 
 
 \begin{teorema}
-  $A \gaifmaneq{3^n} B$ implica ???
+  \label{thm:gaifman}
+  $A \gaifmaneq{3^n} B$ implica $A \EFeq_n B$.
 \end{teorema}
 
+\begin{proof}
+  Mostriamo una strategia vincente per il giocatore $\exists$ nel gioco di \EFl\ $G_n(A,B)$.
+  Dimostriamo per induzione sul numero $k$ di mosse giocate (con $0\leq k \leq n$) che il giocatore $\exists$ è in grado di preservare il seguente invariante:
+  \[ \big\langle S_A(3^{n-k}, a_1,\ldots, a_k), a_1,\ldots,a_k \big\rangle \cong \big\langle S_B(3^{n-k}, b_1,\ldots, b_k), b_1,\ldots,b_k \big\rangle, \]
+  dove l'isomorfismo è da intendersi nel linguaggio $L$.
+  Chiamiamo $\pi_k$ un tale isomorfismo (la cui esistenza verrà dimostrata induttivamente).
+  \begin{itemize}
+    \item Passo base ($k=0$). È banalmente vero poiché entrambe le strutture sono vuote.
+    \item Passo induttivo ($k$ implica $k+1$). Supponiamo senza perdita di generalità che il giocatore $\forall$ scelga, come $(k+1)$-esima mossa, l'elemento $a=a_{k+1}\in A$.
+    Distinguiamo due casi.
+    \begin{itemize}
+      \item Primo caso: $a\in S_A(2\cdot 3^{n-k-1}, a_i)$ per qualche $i\in\{1,\dots,k\}$. Allora l'intorno $S_A(3^{n-k-1},a)$ è completamente contenuto in $S_A(3^{n-k}, a_i)$.
+      Di conseguenza è sufficiente che il giocatore $\exists$ giochi l'elemento $b=\pi_k(a)$: l'isomorfismo $\pi_{k+1}$ si ottiene semplicemente restringendo $\pi_k$ a $S_A(3^{n-k}, a_1,\ldots, a_k)$.
+      
+      \item Secondo caso: $a\not\in S_A(2\cdot 3^{n-k-1}, a_1,\ldots, a_k)$.
+%       Conseguentemente si ha che $S_A(3^{n-k-1}, a) \,\cap\, S_A(3^{n-k-1}, a_1,\ldots, a_k) = \varnothing$.
+      Sia $\iota$ il $3^{n-k-1}$-tipo di $a$ in $A$.
+      Per ipotesi induttiva, gli insiemi $S_A(2\cdot 3^{n-k-1}, a_1,\ldots, a_k)$ e $S_B(2\cdot 3^{n-k-1}, b_1,\dots,b_k)$ contengono lo stesso numero di elementi di tipo $\iota$.
+      Per differenza (usando l'ipotesi $A\gaifmaneq{3^n} B$), anche i complementari di questi due insiemi contengono lo stesso numero di elementi di tipo $\iota$.
+      Allora esiste $b\not\in S_B(2\cdot 3^{n-k-1}, b_1,\dots,b_k)$ con lo stesso $3^{n-k-1}$ tipo di $a$.
+      Osserviamo che $S_A(3^{n-k-1}, a)$ e $S_A(3^{n-k-1}, a_1,\ldots, a_k)$ sono disgiunti, e similmente anche $S_B(3^{n-k-1}, b)$ e $S_B(3^{n-k-1}, b_1,\ldots, b_k)$ sono disgiunti.
+      Di conseguenza l'isomorfismo $\pi_k$, ristretto a $S_A(3^{n-k-1}, a_1,\ldots, a_k)$, può essere esteso ad un isomorfismo
+      \[ \pi_{k+1}\colon S_A(3^{n-k-1}, a_1,\ldots, a_k,a) \to S_B(3^{n-k-1}, b_1,\ldots, b_k, b) \]
+      mandando $a$ in $b$.
+    \end{itemize}
+  \end{itemize}
+  Per $k=n$ si ha in particolare che $A,a_1,\dots,a_n \equiv_{QF} B, b_1,\dots,b_n$. Pertanto quella che abbiamo mostrato è effettivamente una strategia vincente per il giocatore $\exists$.
+\end{proof}
 
 
-------------
+
+\begin{corollario}
+  $A \gaifmaneq{3^n} B$ implica $A \equiv_n B$.
+\end{corollario}
+
+\begin{proof}
+  Segue dai Teoremi~\ref{thm:gaifman} e \ref{thm:ef}.
+\end{proof}
 
 
-In questa sezione, utilizzeremo il linguaggio dei grafi $L=\{E\}$, con $E$ relazione binaria.
-Ci restringiamo alla classe dei grafi non orientati, ovvero i grafi $A=(|A|,E^A)$ per i quali la relazione $E^A$ è simmetrica.
+
+D'ora in avanti, nel resto di questa sezione, utilizzeremo il linguaggio $L=\{E\}$ dei grafi orientati, con $E$ relazione binaria.
 Introduciamo il problema decisionale ``$\Connected$'', al quale appartengono tutti e soli i grafi connessi.
 Dimostreremo che tale problema appartiene a $\coESOmon$ ma non ad $\ESOmon$.
 
@@ -162,13 +204,13 @@ Dimostreremo che tale problema appartiene a $\coESOmon$ ma non ad $\ESOmon$.
 
 \begin{proof}
   Dobbiamo esprimere la proprietà di essere sconnesso con una formula in $\ESOmon$.
-  Una condizione equivalente ad essere sconnesso è che l'insieme dei vertici possa essere partizionato in due sottoinsiemi tra i quali non vi è alcun arco. Questa condizione può essere espressa mediante la seguente formula $\ESOmon$:
-  \[ \exists \, U^{(1)}, W^{(1)} \Big( \forall x \big( U(x) \dot\lor W(x) \big) \,\wedge\, \forall x,y \big( E(x,y) \rightarrow (U(x) \leftrightarrow \lnot W(y))\big) \Big). \]
+  Una condizione equivalente ad essere sconnesso è che l'insieme dei vertici possa essere partizionato in due sottoinsiemi non vuoti per cui non esistono archi dal primo verso il secondo. Questa condizione può essere espressa mediante la seguente formula $\ESOmon$:
+  \[ \exists \, U^{(1)}, W^{(1)} \Big( \exists x U(x) \,\wedge\, \exists x W(x) \,\wedge\, \forall x \big( U(x) \dot\lor W(x) \big) \,\wedge\, \forall x,y \big( U(x)\wedge W(y) \rightarrow \lnot E(x,y)\big) \Big). \]
   Quindi $\Connected \in \coESOmon$.
 \end{proof}
 
 
-
+---------------
 
 
 
