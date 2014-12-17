@@ -12,9 +12,9 @@
  $A \in \B$ se e solo se $M(\bin(A)\string^\bin(R))\downarrow_y$ per una qualche
  relazione $R$ di arietà $k$ su $A$.
  Per il Corollario \ref{cor:P-subset-FO(LFP)}, esiste una formula $\phi$
- in $\FO(\LFP)$ tale che $M(\bin(A)\string^\bin(R))\downarrow_y$ se e solo se
+ in $\FOLFP$ tale che $M(\bin(A)\string^\bin(R))\downarrow_y$ se e solo se
  $A,R \models \phi$. Dunque vale $A \in \B$ se e solo se
- $A \models \exists R^{(k)} \phi$. Ora basta notare che la formula $\phi \in \FO(\LFP)$
+ $A \models \exists R^{(k)} \phi$. Ora basta notare che la formula $\phi \in \FOLFP$
  equivale a una formula in $\ESO$.
  
  Viceversa sia $\phi$ una formula in $\ESO$, mostriamo che esiste una macchina
@@ -107,7 +107,7 @@
 \end{proof}
 
 
-\section{\texorpdfstring{$\ESOmon \neq \coESOmon$}{ESOmon not equal to coESOmon}}
+\section{\texorpdfstring{$\ESOmon$}{E-SOmon} non è uguale a \texorpdfstring{$\coESOmon$}{coE-SOmon}}
 
 Sebbene non si sappia se $\NP\neq\coNP$, si può dimostrare un risultato simile: $\ESOmon \neq \coESOmon$.
 \mytodo{Definire $\ESOmon$.}
