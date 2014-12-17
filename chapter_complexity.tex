@@ -278,12 +278,10 @@ Nel resto del capitolo dimostreremo le inclusioni e le uguaglianze rimanenti.
 
 \section{Relazione tra \texorpdfstring{$\NSPACE$}{NSPACE} e \texorpdfstring{$\ATIME$}{ATIME}}
 
-Se $G_w$ è il grafo delle computazioni di una macchina di Turing (deterministica, non deterministica o alternante) su input $w$, dati due nodi $x,y$ di $G_w$ scriviamo che $x\vdash y$ se esiste un arco da $x$ a $y$ in $G_w$.
-In altre parole, $x\vdash y$ se e solo se è possibile passare dalla configurazione $x$ alla configurazione $y$ usando la tabella di transizione di $A$.
 
 \begin{teorema}
   \label{thm:nspace-atime}
-  $\NSPACE(t(n)) = \ATIME(t(n)^2)$, sotto l'ipotesi $t(n) = \Omega(n)$.
+  $\NSPACE(t(n)) \subseteq \ATIME(t(n)^2)$, sotto l'ipotesi $t(n) = \Omega(n)$.
 \end{teorema}
 
 \begin{proof}
