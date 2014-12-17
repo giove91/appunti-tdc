@@ -1,4 +1,4 @@
-TEX_BASENAMES = main chapter_basics chapter_complexity chapter_p
+TEX_BASENAMES = main chapter_basics chapter_complexity chapter_p chapter_np
 
 TEX_SOURCES = $(TEX_BASENAMES:=.tex)
 

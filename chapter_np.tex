@@ -7,10 +7,10 @@
   $\NP = \ESO$.
 \end{teorema}
 \begin{proof}
- Sia $\B$ un problema in $NP$. Per la Proposizione \ref{prop:caratterizzazione-np}
+ Sia $\B$ un problema in $\NP$. Per la Proposizione \ref{prop:caratterizzazione-np}
  esiste una macchina di Turing $M$ in $P$ e un $k \in \N$ tale che
  $A \in \B$ se e solo se $M(\bin(A)\string^\bin(R))\downarrow_y$ per una qualche
- relazione su $A$ di arietà $k$.
+ relazione $R$ di arietà $k$ su $A$.
  Per il Corollario \ref{cor:P-subset-FO(LFP)}, esiste una formula $\phi$
  in $\FO(\LFP)$ tale che $M(\bin(A)\string^\bin(R))\downarrow_y$ se e solo se
  $A,R \models \phi$. Dunque vale $A \in \B$ se e solo se
@@ -19,15 +19,16 @@
  Viceversa sia $\phi$ una formula in $\ESO$, mostriamo che esiste una macchina
  di Turing non deterministica $N$ che lavora in tempo polinomiale e
  tale che $A \models \phi$ se e solo se $N(\bin(A))\downarrow_y$.
- Sia $\phi \equiv \exists \vec{R} \theta$, con $\theta$ in $\FO$.
+ Sia $\phi \equiv \exists \vec{R}\,\theta$, con $\theta$ in $\FO$.
  Per la Proposizione \ref{prop:FO(LFP)-subset-P} esiste una macchina di Turing
  $M$ che lavora in tempo polinomiale tale che $A,\vec{R} \models \theta$
  se e solo se $M(\bin(A)\string^\bin(\vec{R}))\downarrow_y$.
  Notiamo che $\bin(A)\string^\bin(\vec{R})$ ha lunghezza polinomiale
  rispetto a $|A|$, dunque $M$ con input $\bin(A)\string^\bin(\vec{R})$ termina ancora
- in tempo polinomiale rispetto a $|A|$. La macchina $N$ sceglierà 
+ in tempo polinomiale rispetto a $|A|$. Costruiamo la macchina $N$
+ in modo che scelga
  in modo non deterministico le relazioni $\vec{R}$ (equivalentemente i bit
- della stringa $\bin(\vec{R})$, che è polinomiale in $|A|$) e quindi lancerà
+ della stringa $\bin(\vec{R})$, che è polinomiale in $|A|$) e quindi lanci
  $M$ con input $\bin(A)\string^\bin(\vec{R})$.
 \end{proof}
 

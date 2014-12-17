@@ -113,7 +113,7 @@ configurazione di una macchina di Turing:
 \begin{definizione}
  Una configurazione $S$ di una macchina di Turing
  $M=\langle Q, \Gamma, b, \delta, q_0, g \rangle$ si dice \emph{iniziale} se
- $S(0) = (\gamma, q_0)$. In tal caso, il contenuto del nastro
+ $S(0) = (\gamma, q_0)$ per un qualche $\gamma$ in $\Gamma$. In tal caso, il contenuto del nastro
  si dice \emph{input} della macchina di Turing e questo determina totalmente
  la configurazione iniziale.
 %  Una configurazione $S$ si dice \emph{terminale} se lo stato della macchina
@@ -288,8 +288,9 @@ Che esista una minima tale relazione può essere verificato facilmente a mano, o
 lo si può dedurre dal più generale Corollario \ref{cor-f-phi}.
 \begin{definizione}
 \label{def:Ralt}
- Data una macchina di turing $M$, $\Ralt = \{G_w | \Ealt(s,t) \}$ è l'insieme
- dei grafi che $G_w$ tali che $M$ accetta l'input $w$.
+ Fissata una macchina di Turing $M$,
+ l'insieme dei grafi $G_w$ tali che $M$ accetta l'input $w$ verrà denotato da
+ $\Ralt := \{G_w | \Ealt(s,t) \}$
 \end{definizione}
 
 
