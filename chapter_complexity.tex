@@ -94,10 +94,10 @@ Più formalmente, vale la seguente proposizione.
 \begin{osservazione}
   La macchina di Turing $M$ introdotta nell'enunciato della Proposizione~\ref{prop:caratterizzazione-np} lavora in tempo polinomiale rispetto a $|\bin{A}|$, dunque può leggere al massimo $p(|\bin(A)|)$ bit della stringa $c$, per qualche polinomio $p(n)$.
   Di conseguenza gli unici bit importanti di $c$ sono i primi $p(n)$.
-  Allora le condizioni su $M$ nell'enunciato della Proposizione~\ref{prop:caratterizzazione-np} possono essere cambiate come segue:
+  Allora l'enunciato della Proposizione~\ref{prop:caratterizzazione-np} può essere cambiato come segue: $S\in\NP$ se e solo se esistono una macchina di Turing deterministica $M$ e un polinomio $p(n)$ tali che:
   \begin{itemize}
-    \item la macchina $M$ su input $\bin(A)\string^ c$ termina in tempo polinomiale rispetto a $|\bin(A)|$, per ogni stringa binaria $c$ di lunghezza polinomiale rispetto a $|\bin(A)|$;
-    \item per ogni $L$-struttura $A$, si ha che $A\in S$ se e solo se esiste una stringa binaria $c$, di lunghezza polinomiale in $|\bin(A)|$, tale che $M(\bin(A)\string^ c)\downarrow$.
+    \item la macchina $M$ su input $\bin(A)\string^ c$ termina in tempo $p(|\bin(A)|)$, per ogni stringa binaria $c$ di lunghezza $\leq p(|\bin(A)|)$;
+    \item per ogni $L$-struttura $A$, si ha che $A\in S$ se e solo se esiste una stringa binaria $c$, di lunghezza $\leq p(|\bin(A)|)$, tale che $M(\bin(A)\string^ c)\downarrow$.
   \end{itemize}
 \end{osservazione}
 
