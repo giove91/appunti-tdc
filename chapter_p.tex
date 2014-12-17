@@ -176,8 +176,14 @@ Dimostriamo dunque gli altri due.
   $\Ralt \in \FO(\LFP)$;
 \end{proposizione}
 \begin{proof}
- \mytodo{Da scrivere, ma prima è meglio scrivere la definizione di macchina di
- Turing alternante}
+ La relazione $\Ealt(x,y)$ è più piccolo punto fisso della formula
+ \[ \phi(S,x,y) :\equiv (x=y) \lor \exists z 
+  \left[ E(x,z) \land S(z,y) \land (G_\forall(x) \rightarrow \forall z\left(E(x,z) \rightarrow S(z,y)\right)\right]
+ \]
+ (cfr. Definizione \ref{def:Ealt}). Dato che $S$ compare in posizione positiva,
+ possiamo scrivere $\Ealt(a,b) :\equiv (\LFP_{S,x,y} \phi(S,x,y))(a,b)$,
+ in particolare $\Ealt$ è definibile in $\FO(\LFP)$ da cui segue facilmente
+ la tesi.
 \end{proof}
 
 \begin{proposizione}
@@ -245,7 +251,7 @@ Dimostriamo dunque gli altri due.
 \begin{osservazione}
   Nella dimostrazione precedente potevamo
   memorizzare tutte le possibili configurazione del nastro di lavoro all'interno
-  del grafo grazie all'ipotesi $M \in \ASPACE(c \log(n))$, tuttavia non possiamo
+  del grafo grazie all'ipotesi $M \in \ASPACE(c \log(n))$, ma non possiamo
   fare lo stesso per il nastro di input che ha lunghezza
   polinomiale in $n$ (e quindi il numero di possibili configurazioniè esponenziale in $n$).
   Tuttavia, come visto, possiamo limitarci a memorizzare soltanto la posizione
@@ -256,8 +262,8 @@ Dimostriamo dunque gli altri due.
 \label{cor:P-subset-FO(LFP)}
  $\P \subseteq \FO(\LFP)$, ovvero, per ogni macchina di Turing $M$ che accetta o
  rifiuta una $\sigma$-struttura $A$ in tempo polinomiale, esiste una
- $\sigma$-formula $\phi$ in $\FO(\LFP)$ tale che:
- \[ A \models \phi \iff M(\bin(A))\downarrow \]
+ $\sigma$-formula $\phi$ in $\FO(\LFP)$ tale che
+ $A \models \phi$ se e solo se $M(\bin(A))\downarrow_y$
 \end{corollario}
 
 
