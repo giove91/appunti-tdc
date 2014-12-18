@@ -13,10 +13,23 @@
  Sia $t:\N\to\N$ una funzione. Diciamo che una macchina di Turing alternante
  $M$ lavora in spazio $s(n)$ se per ogni input $w$
  la macchina $M$ accetta o
- rifiuta $w$ e basta esaminare le configurazione
- che usano spazio minore di $s(|w|)$
+ rifiuta $w$ e basta esaminare le configurazioni in cui la testina
+ ha distanza minore di $s(|w|)$ dall'origine
  per decidere se l'input verrà accettato o rifiutato.
 \end{definizione}
+
+\begin{osservazione}
+ Se la macchina $M$ lavora in tempo $t(n)$ o in spazio $s(n)$, allora,
+ dato un qualunque input $w$, si ha che $G_{M,w} \in \Ralt$ se e solo se
+ un sottografo finito di $G_{M,w}$ appartiene a $\Ralt$ (in particolare si può
+ prendere il sottografo dato dalle configurazioni a distanza $t(n)$ dal nodo
+ iniziale $s$ nel primo caso e le configurazioni in cui la testina ha distanza minore
+ di $s(n)$ dall'origine nel secondo). Sostituendo ad ogni grafo di una computazione
+ il sottografo finito rilevante, otteniamo che $\Ralt$ è un insieme di strutture
+ finite, e quindi può essere considerato un problema decisionale nei sensi della
+ Definizione \ref{def:problem-struct}.
+\end{osservazione}
+
 
 \begin{definizione}
  Sia $t:\N\to\N$ una funzione.
@@ -107,7 +120,7 @@ utile in seguito.
  Basta notare che, data una struttura $|A|$, ogni stringa binaria di lunghezza
  minore di $|A|^k$ può
  essere ottenuta come $\bin(R)$, con $R$ una relazione $k$-aria su $A$.
- Per l'osservazione e la proposizione precedente, questo conclude.
+ Per la proposizione precedente, questo conclude.
 \end{proof}
 
 

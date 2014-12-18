@@ -2,6 +2,15 @@
 
 \section{\texorpdfstring{$\NP$}{NP} equivale ad \texorpdfstring{$\ESO$}{ESO}}
 
+La dimostrazione seguente fa uso della caratterizzazione di $\NP$ data in
+nel Corollario \ref{cor:caratterizzazione-np} e della caratterizzazione di $\P$
+ottenuta nel capitolo precedente, nonchè del fatto seguente. Per la dimostrazione
+svolta a lezione si guardi invece~\cite[7.2]{immerman1999descriptive}.
+\begin{fatto}[\cite{Bussche}]
+\label{fact:ESO(LFP)-equals-ESO}
+ In strutture finite, $\ESO(\LFP)$ senza punti fissi annidati equivale a $\ESO$.
+\end{fatto}
+
 \begin{teorema}[Fagin]
   \label{thm:np-eso}
   $\NP = \ESO$.
@@ -14,8 +23,8 @@
  Per il Corollario \ref{cor:P-subset-FO(LFP)}, esiste una formula $\phi$
  in $\FOLFP$ tale che $M(\bin(A)\string^\bin(R))\downarrow_y$ se e solo se
  $A,R \models \phi$. Dunque vale $A \in \B$ se e solo se
- $A \models \exists R^{(k)} \phi$. Ora basta notare che la formula $\phi \in \FOLFP$
- equivale a una formula in $\ESO$.
+ $A \models \exists R^{(k)} \phi$. Concludiamo applicando il 
+ Fatto \ref{fact:ESO(LFP)-equals-ESO} alla formula $\exists R^{(k)} \phi$.
  
  Viceversa sia $\phi$ una formula in $\ESO$, mostriamo che esiste una macchina
  di Turing non deterministica $N$ che lavora in tempo polinomiale e
@@ -69,7 +78,7 @@
 
 \begin{lemma}
 \label{lemma:finite-formulas}
- Ci sono solo un numero finito di classi di $k$-equivalenza di $n$-uple,
+ Ci sono solo un numero finito di classi di $k$-\EF{}-equivalenza di $n$-uple,
  in particolare, se $C(n,k)$
  è l'insieme di tali classi $|C(n,k+1)| \leq s^{|C(n+1,k)|}$. Inoltre per ogni
  classe $H=[A,a_1,\ldots,a_n] \in C(n,k)$ esiste una formula $\phi_H$
@@ -81,6 +90,38 @@
 \end{lemma}
 \begin{proof}
  \mytodo{Da scrivere.}
+ Per induzione su $k$. Supponiamo $k=0$. Allora $A,a_1,\ldots,a_n \EFeq_0 B,b_1,\ldots,b_n$
+ se e solo se $A,\vec{a}$ verifica le stesse atomiche di $B,\vec{b}$. Ma,
+ dato che il linguaggio è finito e non ci sono simboli di funzione,
+ ci sono solo finite formule atomiche $R_1(\vec{x}),\ldots, R_r(\vec{x})$.
+ Quindi $H$ è caratterizzata dalla formula
+ \[\phi_H(x_1,\ldots,x_n) :\equiv \bigwedge_{i : A \models R_i(\vec{a})} R_i(\vec{x}) \land
+   \bigwedge_{j : A \models \neg R_j(\vec{a})} \neg R_j(\vec{x})
+ \]
+ Svolgiamo ora il passo induttivo. Per ipotesi induttiva sappiamo che data
+ $H \in C(n+1,k)$ è caratterizzata da una formula $\phi(x_1,\ldots,x_{n+1})$.
+ Ad ogni $\delta \subseteq C(n+1,k)$ associamo la formula
+ \[\phi_\delta(x_1,\ldots,x_n) :\equiv
+ \bigwedge_{H \in \delta} \exists x_{n+1} \phi_H(x_1,\ldots,x_{n+1}) \land
+  \bigwedge_{H \not\in \delta} \neg\exists x_{n+1} \phi_H(x_1,\ldots,x_{n+1})
+ \]
+ Osserviamo che $\RQ(\phi_\delta) \leq k+1$ dato che, per ipotesi induttiva,
+ $\RQ(\phi_H) \leq k$. L'insieme di tutte le $\phi_\delta$ coerenti
+ (aventi un modello) caratterizza le classi in $C(n,k+1)$.
+ Infatti sia data una struttura $A$ e una $n$-upla $a_1,\ldots,a_n$. Definiamo
+ $\delta \subseteq C(n+1,k)$ essere l'insieme delle $H \in C(n+1,k)$
+ tali che $A \models \exists y \phi_H(a_1,\ldots,a_n,y)$.
+ Per costruzione $A,a_1,\ldots,a_n \models \phi_\delta(x_1,\ldots,x_n)$. Vediamo
+ ora che se $B,b_1,\ldots,b_n \models \phi_\delta(x_1,\ldots,x_n)$ allora
+ $B,b_1,\ldots,b_n \EFeq_{k+1} A,a_1,\ldots,a_n$. A tal fine supponiamo,
+ senza perdita di generalità, che il giocatore $\forall$ scelga al primo turno
+ un elemento $a$ in $A$. La classe $H=[A,a_1,\ldots,a_n,a]$ è in $C(n+1, k)$
+ e, dato che $B,b_1,\ldots,b_k \models \phi_\delta(x_1,\ldots,x_k)$, ne segue che
+ $B \models \exists y \phi_H(b_1,\ldots,b_k,y)$. Sia allora $b$ tale che
+ $B \models \phi_H(b_1,\ldots,b_k,b)$. Per ipotesi induttiva
+ $B,b_1,\ldots,b_k,b \EFeq_k B,a_1,\ldots,a_k,a$ e quindi il giocatore
+ $\exists$ ha una strategia vincente scegliendo $b$.
+
 \end{proof}
 
 \begin{teorema}
