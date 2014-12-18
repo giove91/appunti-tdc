@@ -5,7 +5,7 @@
 \begin{definizione}
  Sia $t:\N\to\N$ una funzione. Diciamo che una macchina di Turing alternante
  $M$ lavora in tempo $t(n)$ se per ogni input $w$ la macchina $M$ accetta o
- rifiuta $w$ e basta esaminare le configurazioni solo fino la tempo $t(|w|)$
+ rifiuta $w$ e basta esaminare solo le configurazioni fino al tempo $t(|w|)$
  per decidere se l'input verrà accettato o rifiutato.
 \end{definizione}
 
@@ -33,75 +33,53 @@
 
 \begin{definizione}
  Sia $t:\N\to\N$ una funzione.
- Un problema decisionale $P$ appartiene ad $\ATIME(t(n))$ se esistono una macchina
+ Un problema decisionale $\mathcal{A}$ appartiene ad $\ATIME(t(n))$ se esistono una macchina
  di Turing alternante $M$ e una costante $\alpha>0$ tale che $M$ lavora in tempo
- $\alpha \cdot t(n)$ e $M$ calcola il problema $P$. Similmente diremo che
- il problema è in $\NTIME(t(n))$ se la macchina $M$ la possiamo prendere non
- deterministica e in $\DTIME(t(n))$ se la possiamo prendere deterministica.
+ $\alpha \cdot t(n)$ e $M$ calcola il problema $\mathcal{A}$. Similmente diremo che
+ il problema è in $\NTIME(t(n))$ se la macchina $M$ può essere presa non
+ deterministica e in $\DTIME(t(n))$ se può essere presa deterministica.
 \end{definizione}
 
 \begin{definizione}
  Sia $s:\N\to\N$ una funzione.
- Un problema decisionale $P$ appartiene ad $\ASPACE(s(n))$ se eiste una macchina
+ Un problema decisionale $\mathcal{A}$ appartiene ad $\ASPACE(s(n))$ se eiste una macchina
  di Turing alternante $M$ e una costante $\alpha>0$ tale che $M$ lavora in spazio
- $\alpha \cdot s(n)$ e $M$ calcola il problema $P$. Similmente diremo che
- il problema è in $\NSPACE(s(n))$ se la macchina $M$ la possiamo prendere non
- deterministica e in $\DSPACE(s(n))$ se la possiamo prendere deterministica.
+ $\alpha \cdot s(n)$ e $M$ calcola il problema $\mathcal{A}$. Similmente diremo che
+ il problema è in $\NSPACE(s(n))$ se la macchina $M$ può essere presa non
+ deterministica e in $\DSPACE(s(n))$ se può essere presa deterministica.
 \end{definizione}
 
-% \begin{definizione}
-%   Sia $t:\N\to\N$ una funzione.
-%   Un problema decisionale $S$ appartiene a $\DTIME(t(n))$ se esistono una macchina di Turing deterministica $M$ e una costante $\alpha>0$ tali che:
-%   \begin{itemize}
-%     \item per ogni $L$-struttura $A$, la macchina $M$ su input $\bin(A)$ termina dopo al più $\alpha\cdot t(n)$ passi, dove $n=|\bin(A)|$.
-%     \item per ogni $L$-struttura $A$, si ha che $M(\bin(A))\downarrow$ se e solo se $A\in S$.
-%   \end{itemize}
-%   Analogamente si definiscono $\NTIME(t(n))$ e $\ATIME(t(n))$, usando rispettivamente macchine non deterministiche e alternanti.
-% \end{definizione}
-% 
-% 
-% \begin{definizione}
-%   Sia $t:\N\to\N$ una funzione.
-%   Un problema decisionale $S$ appartiene a $\DSPACE(t(n))$ se esistono una macchina di Turing deterministica $M$ e una costante $\alpha>0$ tali che:
-%   \begin{itemize}
-%     \item per ogni $L$-struttura $A$, la macchina $M$ su input $\bin(A)$ termina dopo un numero finito di passi;
-%     \item per ogni $L$-struttura $A$, si ha che $M(\bin(A))\downarrow$ se e solo se $A\in S$;
-%     \item per ogni $L$-struttura $A$, la computazione di $M$ su input $\bin(A)$ utilizza spazio $\leq\alpha\cdot t(n)$, dove $n=|\bin(A)|$.
-%   \end{itemize}
-%   Analogamente si definiscono $\NSPACE(t(n))$ e $\ASPACE(t(n))$, usando rispettivamente macchine non deterministiche e alternanti.
-% \end{definizione}
-
-Molto interessante risulta essere il concetto di computabilità in tempo o spazio polinomiale.
+Risulta molto interessante il concetto di computabilità in tempo o spazio polinomiale.
 Per questo definiamo le classi di complessità $\DPTIME$ e $\DPSPACE$ nel seguente modo:
 \[ \DPTIME = \bigcup_{k\in\N} \DTIME(n^k), \quad \DPSPACE = \bigcup_{k\in\N} \DSPACE(n^k). \]
 Analogamente si definiscono le classi $\NPTIME$, $\APTIME$, $\NPSPACE$ ed $\APSPACE$.
-Particolarmente studiate sono le classi $\DPTIME$ e $\NPTIME$, le quali vengono più comunemente chiamate $\P$ ed $\NP$, rispettivamente.
+Particolarmente studiate sono le classi $\DPTIME$ e $\NPTIME$, le quali vengono più comunemente denominate $\P$ ed $\NP$, rispettivamente.
 Non è noto se $\P$ sia incluso strettamente in $\NP$ o se valga l'uguaglianza.
 
-La classe $\NP$ ha una caratterizzazione equivalente: un problema decisionale $S$ appartiene ad $\NP$ se e solo se esistono dei certificati che consentono di verificare in tempo polinomiale che una struttura $A$ appartenga a $S$.
+La classe $\NP$ ha una caratterizzazione equivalente: un problema decisionale $\mathcal{A}$ appartiene ad $\NP$ se e solo se esistono dei certificati che consentono di verificare in tempo polinomiale che una struttura $A$ appartenga ad $\mathcal{A}$.
 Più formalmente, vale la seguente proposizione.
 
 \begin{proposizione}
   \label{prop:caratterizzazione-np}
-  Sia $S$ un problema decisionale su un linguaggio $L$.
-  Si ha che $S \in \NP$ se e solo se esistono una macchina di Turing deterministica $M$ e un polinomio $p(n)$ tali che:
+  Sia $\mathcal{A}$ un problema decisionale su un linguaggio $L$.
+  Si ha che $\mathcal{A} \in \NP$ se e solo se esistono una macchina di Turing deterministica $M$ e un polinomio $p(n)$ tali che:
   \begin{itemize}
     \item per ogni stringa binaria $c$ di lunghezza $\leq p(|\bin(A)|)$ (detta ``certificato''), la macchina $M$ su input $\bin(A)\string^ c$ termina in tempo $p(|\bin(A)|)$;
-    \item per ogni $L$-struttura $A$, si ha che $A\in S$ se e solo se esiste una stringa binaria $c$ di lunghezza $\leq p(|\bin(A)|)$ tale che $M(\bin(A)\string^ c)\downarrow$.
+    \item per ogni $L$-struttura $A$, si ha che $A\in \mathcal{A}$ se e solo se esiste una stringa binaria $c$ di lunghezza $\leq p(|\bin(A)|)$ tale che $M(\bin(A)\string^ c)\accepts$.
   \end{itemize}
 \end{proposizione}
 
 \begin{proof}
-  Supponiamo che $S$ appartenga ad $\NP$. Allora esiste una macchina di Turing non deterministica $N$ che determina in tempo polinomiale se una struttura $A$ appartiene a $S$.
+  Supponiamo che $\mathcal{A}$ appartenga ad $\NP$. Allora esiste una macchina di Turing non deterministica $N$ che determina in tempo polinomiale se una struttura $A$ appartiene a $S$.
   Possiamo supporre senza perdita di generalità che tutte le scelte non deterministiche di $N$ siano binarie.
   Definiamo una macchina deterministica $M$ che, su input $\bin(A)\string^ c$, simula l'esecuzione di $N$ su input $\bin(A)$ sostituendo (per ogni $i$) la $i$-esima scelta non deterministica con la scelta deterministica descritta dall'$i$-esimo bit della stringa $c$. Nel caso in cui la stringa $c$ non sia sufficientemente lunga, $M$ termina in uno stato rifiutante.
-  Notiamo che $A$ appartiene a $S$ se e solo se $N(\bin(A))\downarrow$, ovvero se e solo se esiste una sequenza di scelte (che possiamo codificare con la stringa binaria $c$) che portano in una configurazione finale accettante di $N$. In altre parole, $A$ appartiene a $S$ se e solo se $M(\bin(A)\string^c)\downarrow$.
+  Notiamo che $A$ appartiene a $S$ se e solo se $N(\bin(A))\accepts$, ovvero se e solo se esiste una sequenza di scelte (che possiamo codificare con la stringa binaria $c$) che portano in una configurazione finale accettante di $N$. In altre parole, $A$ appartiene a $S$ se e solo se $M(\bin(A)\string^c)\accepts$.
   Il tempo di calcolo di $M$ è polinomiale in $\bin(A)$, perché lo è quello di $N$.
-  Definiamo allora $p(n)$ come un qualsiasi polinomio tale che $M$ termini in tempo $p(|\bin A|)$.
+  Definiamo allora $p(n)$ come un qualsiasi polinomio tale che $M$ termini in tempo $p(|\bin(A)|)$.
   
   Supponiamo ora che esista una macchina di Turing determinista $M$ con le caratteristiche enunciate.
   Sia $N$ una macchina non deterministica che, su input $\bin(A)$, simula $M$ scegliendo non deterministicamente i simboli di $c$ man mano che $M$ li utilizza.
-  Segue dalle definizioni che $N\downarrow$ se e solo se esiste una stringa binaria $c$ tale che $M(\bin(A)\string^c)\downarrow$.
+  Segue dalle definizioni che $N(\bin(A))\accepts$ se e solo se esiste una stringa binaria $c$ tale che $M(\bin(A)\string^c)\accepts$.
   Il tempo di calcolo di $N$ è polinomiale in $\bin(A)$, perché lo è quello di $M$ (indipendentemente dalla lunghezza di $c$).
 \end{proof}
 
@@ -111,37 +89,36 @@ utile in seguito.
 
 \begin{corollario}
 \label{cor:caratterizzazione-np}
-  Sia $S \in \NP$ un problema decisionale su un linguaggio $L$. Allora esiste un $k \in \N$ 
+  Sia $\mathcal{A} \in \NP$ un problema decisionale su un linguaggio $L$. Allora esiste un $k \in \N$ 
   e una macchina di Turing deterministica $M$ tale che, per ogni $L$-struttura finita
-  $A$, si ha che $A$ è in $S$ se e solo se esiste una relazione $k$-aria $R \subseteq A^k$
-  per cui $M(\bin(A)\string^\bin(R))\downarrow_y$.
+  $A$, si ha che $A$ appartiene ad $\mathcal{A}$ se e solo se esiste una relazione $k$-aria $R \subseteq A^k$
+  per cui $M(\bin(A)\string^\bin(R))\accepts$.
 \end{corollario}
 \begin{proof}
  Basta notare che, data una struttura $|A|$, ogni stringa binaria di lunghezza
  minore di $|A|^k$ può
  essere ottenuta come $\bin(R)$, con $R$ una relazione $k$-aria su $A$.
- Per la proposizione precedente, questo conclude.
+ Si conclude utilizzando la proposizione precedente.
 \end{proof}
 
 
-
-Per ogni classe di complessità $\mathcal{C}$ si può introdurre la classe dei problemi complementari, costituita per l'appunto dagli elementi $S^c$ al variare di $S\in\mathcal{C}$.
+Per ogni classe di complessità $\mathcal{C}$ si può introdurre la classe dei problemi complementari, costituita per l'appunto dagli elementi $\mathcal{A}^c$ al variare di $\mathcal{A}\in\mathcal{C}$.
 Solitamente una tale classe viene indicata aggiungendo il prefisso ``co'' alla denominazione della classe $\mathcal{C}$.
 Per esempio, $\coNP$ è la classe dei problemi decisionali i cui complementari appartengono a $\NP$.
 Si può dare la seguente caratterizzazione di $\coNP$, analoga a quella che abbiamo appena dato di $\NP$.
 
 \begin{proposizione}
   \label{prop:caratterizzazione-conp}
-  Sia $S$ un problema decisionale su un linguaggio $L$.
-  Si ha che $S \in \coNP$ se e solo se esiste una macchina di Turing deterministica $M$ tale che:
+  Sia $\mathcal{A}$ un problema decisionale su un linguaggio $L$.
+  Si ha che $\mathcal{A} \in \coNP$ se e solo se esiste una macchina di Turing deterministica $M$ tale che:
   \begin{itemize}
     \item la macchina $M$ su input $\bin(A)\string^ c$ termina in tempo polinomiale rispetto a $|\bin(A)|$, per ogni stringa binaria $c$;
-    \item per ogni $L$-struttura $A$, si ha che $A\not\in S$ se e solo se esiste una stringa binaria $c$ (detta ``certificato'') tale che $M(\bin(A)\string^ c)\downarrow$.
+    \item per ogni $L$-struttura $A$, si ha che $A\not\in \mathcal{A}$ se e solo se esiste una stringa binaria $c$ tale che $M(\bin(A)\string^ c)\accepts$.
   \end{itemize}
 \end{proposizione}
 
 \begin{proof}
-  Segue immediatamente applicando la Proposizione~\ref{prop:caratterizzazione-np} a $S^c$.
+  Segue immediatamente applicando la Proposizione~\ref{prop:caratterizzazione-np} ad $\mathcal{A}^c$.
 \end{proof}
 
 
@@ -161,12 +138,13 @@ Nel resto del capitolo dimostreremo diverse inclusioni interessanti tra le varie
   \subseteq & \DSPACE(t(n)) & \subseteq & \NSPACE(t(n)) & \subseteq & \ASPACE(t(n)) & = \\
   = & \DTIME(O(1)^{t(n)}) & \subseteq & \dots &&&
 \end{IEEEeqnarray*}
-dove con la notazione $\DTIME(O(1)^{t(n)})$ indichiamo
+dove con la notazione $\DTIME(O(1)^{t(n)})$ indichiamo la classe
 \[ \bigcup_{c\,>\,0} \DTIME(c^{t(n)}). \]
 Oltre a quelle precedentemente rappresentate, vale anche l'inclusione $\NSPACE(t(n)) \subseteq \ATIME(t(n)^2)$.
 
-Le inclusioni presenti sulle righe dello schema sopra sono tutte ovvie: ciò che può essere fatto con una macchina deterministica può essere fatto anche con una macchina non deterministica, e ciò che può essere fatto con una macchina non deterministica può essere fatto anche con una macchina alternante.
-Nel resto del capitolo dimostreremo le inclusioni e le uguaglianze rimanenti.
+Le inclusioni presenti sulle righe dello schema precedente sono tutte ovvie: ciò che può essere fatto con una macchina deterministica può essere fatto anche con una macchina non deterministica, e ciò che può essere fatto con una macchina non deterministica può essere fatto anche con una macchina alternante.
+Nel resto di questo capitolo dimostreremo le inclusioni e le uguaglianze rimanenti, e ne trarremo poi alcune conseguenze.
+
 
 \section{Relazione tra \texorpdfstring{$\ATIME$}{ATIME} e \texorpdfstring{$\DSPACE$}{DSPACE}}
 
@@ -176,19 +154,19 @@ Nel resto del capitolo dimostreremo le inclusioni e le uguaglianze rimanenti.
 \end{teorema}
 
 \begin{proof}
- Data una macchina di Turing alternante $A$ che lavora in $\ATIME(t(n))$, vogliamo trovare
- una macchina di Turing deterministica $B$ che lavori in $\DSPACE(t(n))$ e accetti gli
- stessi input $w$ di $A$. Supponiamo per semplicità di notazione che ogni stato
- non deterministico di $A$ possa fare una transizione in al più due stati.
- Sia $G_w$ il grafo della computazione della macchina $A$ su input $w$.
- Esibiamo una macchina di Turing in $\DSPACE(t(n))$ che, preso in input un nodo
+ Data una macchina di Turing alternante $M$ che lavora in $\ATIME(t(n))$, vogliamo trovare
+ una macchina di Turing deterministica che lavori in $\DSPACE(t(n))$ e accetti gli
+ stessi input $w$ di $M$. Supponiamo per semplicità di notazione che ogni stato
+ non deterministico di $M$ possa fare una transizione in al più due stati.
+ Sia $G_w$ il grafo della computazione della macchina $M$ su input $w$.
+ Esibiamo una macchina di Turing $N$ che lavora in $\DSPACE(t(n))$ la quale, preso in input un nodo
  del grafo, decide se quel nodo è accettante o meno. Ciò consente di concludere, poiché
- la macchina $A$ accetta l'input $w$ se e solo se il nodo iniziale
+ la macchina $M$ accetta l'input $w$ se e solo se il nodo iniziale
  di $G_w$ è accettante.
  
- La macchina $B$ deve verificare se il nodo iniziale di $G_w$ sia accettante o
- meno. L'idea per fare questo è di visitare ricorsivamente il grafo, che tuttavia
- risulta essere troppo grande per essere salvato interamente in memoria. La soluzione che adottiamo
+ La macchina $N$ deve verificare se il nodo iniziale di $G_w$ sia accettante o
+ meno. L'idea per fare questo è di visitare ricorsivamente il grafo, il quale risulta tuttavia
+  troppo grande per essere salvato interamente in memoria. La soluzione che adottiamo
  è di memorizzare solo il nodo iniziale $c_0$, il nodo $c$ che stiamo attualmente
  visitando e il percorso che abbiamo fatto per raggiungerlo a partire dal nodo
  iniziale, ovvero una stringa binaria $P = \langle b_1, b_2, \ldots, b_n \rangle$
@@ -208,14 +186,14 @@ Nel resto del capitolo dimostreremo le inclusioni e le uguaglianze rimanenti.
   \item  Se $D$ è uguale a $\texttt{?}$, non abbiamo ancora stabilito se il nodo $c$ sia o meno
   accettante. Pertanto, se $c$ ha dei figli modifichiamo lo stato nel modo seguente:
   \[ P := \langle b_1, b_2, \ldots, b_n, 0 \rangle, \quad D := \texttt{?}, \quad c := \text{figlio sinistro di $c$}. \]
-  In caso contrario, $c$ è una foglia. Di conseguenza corrisponde a uno stato in cui la macchina $A$
+  In caso contrario, $c$ è una foglia. Di conseguenza corrisponde a uno stato in cui la macchina $M$
   ha terminato la computazione, per cui è possibile determinare se si tratti di un
   nodo accettante o non accettante. Modifichiamo allora lo stato in
   \[ P := \langle b_1, b_2, \ldots, b_n \rangle, \quad D := \texttt{S}/\texttt{N}, \quad c := c, \]
   dove $D$ assume il valore \texttt{S} se lo stato $c$ è accettante, mentre assume il valore \texttt{N} se lo stato $c$
   è non accettante.
   
-  \item Se $D$ è in $\{\texttt{S}, \texttt{N}\}$ e $P=\langle\rangle$, ci troviamo nel nodo iniziale $c_0$ e sappiamo se tale nodo è accettante. Quindi la computazione di $B$ può terminare, restituendo $D$ come risultato.
+  \item Se $D$ è in $\{\texttt{S}, \texttt{N}\}$ e $P=\langle\rangle$, ci troviamo nel nodo iniziale $c_0$ e sappiamo se tale nodo è accettante. Quindi la computazione di $N$ può terminare, restituendo $D$ come risultato.
   
   \item Se $D$ è in $\{\texttt{S}, \texttt{N}\}$ e $P=\langle b_1, b_2, \ldots, b_n\rangle$ con $n\geq 1$, abbiamo determinato se il nodo corrente $c$ è accettante e dobbiamo continuare la visita dell'albero di computazione.
   \begin{enumerate}
@@ -236,11 +214,11 @@ Nel resto del capitolo dimostreremo le inclusioni e le uguaglianze rimanenti.
   \end{enumerate}
  \end{itemize}
 
- Esaminiamo infine la memoria utilizzata dalla macchina di Turing $B$.
- La macchina $A$ lavora in tempo $O(t(n))$, per cui la codifica di un singolo nodo di $G_w$ occupa spazio $O(t(n))$.
+ Esaminiamo infine la memoria utilizzata dalla macchina di Turing $N$.
+ La macchina $M$ lavora in tempo $O(t(n))$, per cui la codifica di un singolo nodo di $G_w$ occupa spazio $O(t(n))$.
  La lunghezza della stringa binaria $P$ è data al massimo dalla profondità del grafo $G_w$, che è sempre $O(t(n))$.
  Infine, memorizzare $D$ richiede spazio $O(1)$.
- Possiamo quindi concludere che la macchina $B$ lavora effettivamente in $\DSPACE(t(n))$.
+ Possiamo quindi concludere che la macchina $N$ lavora effettivamente in $\DSPACE(t(n))$.
  
 \end{proof}
 
@@ -254,38 +232,38 @@ Nel resto del capitolo dimostreremo le inclusioni e le uguaglianze rimanenti.
 
 \begin{proof}
   L'inclusione $\ASPACE(t(n)) \subseteq \DTIME(O(1)^{t(n)})$ può essere dimostrata in modo analogo al
-  Teorema~\ref{thm:atime-dspace}. Più in dettaglio, data una macchina di Turing $A$ che lavora in $\ASPACE(t(n))$,
-  si costruisce una macchina di Turing $B$ che visita il grafo $G_w$ della computazione di $A$ su input $w$
-  e determina se $w$ sia o meno accettante per $A$. La dimensione del grafo $G_w$ è $O(1)^{t(n)}$,
+  Teorema~\ref{thm:atime-dspace}. Più nel dettaglio, data una macchina di Turing $M$ che lavora in $\ASPACE(t(n))$,
+  si costruisce una macchina di Turing $N$ che visita il grafo $G_w$ della computazione di $M$ su input $w$
+  e determina se $w$ sia o meno accettante per $M$. La dimensione del grafo $G_w$ è $O(1)^{t(n)}$,
   perché il numero di configurazioni accessibili da una singola configurazione è limitato da una costante che dipende
-  solo da $A$, e non da $w$.
+  solo da $M$, e non da $w$.
   Effettuiamo la visita del grafo in modo simile a quanto descritto nella dimostrazione del Teorema~\ref{thm:atime-dspace}, tenendo però scritta in un apposito nastro la descrizione di tutti i nodi del percorso dalla radice $c_0$ al nodo corrente $c$.
   Passare da un nodo a uno dei figli richiede di scrivere sul nastro la descrizione del nodo figlio, mentre tornare da un nodo al suo padre richiede di cancellare la descrizione del nodo stesso dal nastro.
   Ogni procedura di scrittura o cancellazione di un nodo richiede tempo $O(t(n))$.
-  Pertanto la macchina $B$ lavora in tempo
+  Pertanto la macchina $N$ lavora in tempo
   \[ O(1)^{t(n)} \cdot O(t(n)) = O(1)^{ t(n) + O(\log t(n)) } = O(1)^{t(n)}. \]
   
   Dimostriamo ora l'inclusione $\DTIME(O(1)^{t(n)}) \subseteq \ASPACE(t(n))$.
-  Sia $A$ una macchina di Turing che lavora in $\DTIME(c^{t(n)})$ per qualche $c>0$; vogliamo definire una macchina di Turing $B$ che lavori in $\ASPACE(t(n))$, accettando gli stessi input che accetta $A$.
-  Possiamo assumere senza perdita di generalità che $A$ abbia un unico nastro.
-  L'idea è di definire una subroutine ricorsiva di $B$, che chiamiamo $C(t,p,a)$, al termine della quale $B$ accetta se (nell'esecuzione di $A$ su input $w$) al tempo $t$ in posizione $p$ vi è il simbolo $a$, altrimenti rifiuta.
+  Sia $M$ una macchina di Turing che lavora in $\DTIME(c^{t(n)})$ per qualche $c>0$; vogliamo definire una macchina di Turing $N$ che lavori in $\ASPACE(t(n))$, accettando gli stessi input che accetta $M$.
+  Possiamo assumere senza perdita di generalità che $M$ abbia un unico nastro.
+  L'idea è di definire una subroutine ricorsiva di $N$, che chiamiamo $C(t,p,a)$, al termine della quale $N$ accetta se (nell'esecuzione di $M$ su input $w$) al tempo $t$ in posizione $p$ vi è il simbolo $a$, altrimenti rifiuta.
   Seguiamo la convenzione che $a$ possa appartenere a $\Sigma$ (nel caso in cui non vi sia la testina) oppure a $\Sigma\times Q$ (se vi è la testina, nel qual caso l'elemento di $Q$ indica lo stato attuale della macchina). Vediamo ora i dettagli sull'implementazione di questa subroutine.
   
   L'osservazione principale è che l'esito della chiamata a $C(t,p,a)$ è univocamente determinato dall'esito delle chiamate a $C(t-1,p',a')$ al variare di $p'\in\{p-1,\,p,\,p+1\}$ ed $a'\in \Sigma \,\cup\, \Sigma\times Q$.
-  Introduciamo uno stato $q_C^\exists$ in cui la macchina $B$ deve iniziare ad eseguire la subroutine $C$.
-  Supponiamo che $B$ sia nello stato $q_C^\exists$, e che abbia in memoria (su un apposito nastro di lavoro dedicato all'inizializzazione della subroutine $C$) la terna $(t, p, a)$.
-  Se $t=0$, $B$ accetta se e solo se nella posizione $p$ dell'input $w$ (tenendo conto dell'eventuale presenza della testina) vi è il simbolo $a$.
-  Se invece $t>0$, $B$ esegue le seguenti operazioni.
+  Introduciamo uno stato $q_C^\exists$ in cui la macchina $N$ deve iniziare ad eseguire la subroutine $C$.
+  Supponiamo che $N$ sia nello stato $q_C^\exists$, e che abbia in memoria (su un apposito nastro di lavoro dedicato all'inizializzazione della subroutine $C$) la terna $(t, p, a)$.
+  Se $t=0$, $N$ accetta se e solo se nella posizione $p$ dell'input $w$ (tenendo conto dell'eventuale presenza della testina) vi è il simbolo $a$.
+  Se invece $t>0$, $N$ esegue le seguenti operazioni.
   \begin{itemize}
     \item Sceglie (non deterministicamente) tre elementi $a_{-1},a_0,a_1$ in $\Sigma \,\cup\, \Sigma\times Q$.
-    \item Verifica se la macchina $A$ con i simboli $a_{-1}, a_0, a_1$ in posizioni $p-1,\,p,\,p+1$ (rispettivamente) avrebbe al passo successivo il simbolo $a$ in posizione $p$.
+    \item Verifica se la macchina $M$ con i simboli $a_{-1}, a_0, a_1$ in posizioni $p-1,\,p,\,p+1$ (rispettivamente) avrebbe al passo successivo il simbolo $a$ in posizione $p$.
     In caso affermativo continua, altrimenti rifiuta.
     \item Si porta in uno stato universale e sceglie (non deterministicamente) $i\in\{-1,0,1\}$.
     \item Scrive sul nastro dedicato all'inizializzazione di $C$ la terna $(t-1,p+i,a_i)$ e si riporta nello stato $q_C^\exists$, in modo da chiamare ricorsivamente la subroutine $C$.
   \end{itemize}
   
-  L'implementazione della subroutine $C$ è sufficiente per determinare se un qualsiasi input $w$ venga accettato da $A$: basta controllare che al tempo $c^{t(n)}$ la macchina $A$ si trovi nello stato accettante.
-  Osserviamo infine che la macchina $B$ che abbiamo definito lavora effettivamente in $\ASPACE(t(n))$, poiché oltre all'input $w$ deve memorizzare solamente le seguenti variabili: un intero $t$ (compreso tra $0$ e $c^{t(n)}$, che quindi occupa $O(t(n))$ bit), un intero $p$ (di modulo $\leq c^{t(n)}$), dei simboli $a,a_{-1},a_0,a_1$ (che occupano $O(1)$ bit), un intero $i$ compreso tra $-1$ e $1$ (che occupa 2 bit).
+  L'implementazione della subroutine $C$ è sufficiente per determinare se un qualsiasi input $w$ venga accettato da $M$: basta controllare che al tempo $c^{t(n)}$ la macchina $M$ si trovi nello stato accettante.
+  Osserviamo infine che la macchina $N$ che abbiamo definito lavora effettivamente in $\ASPACE(t(n))$, poiché oltre all'input $w$ deve memorizzare solamente le seguenti variabili: un intero $t$ (compreso tra $0$ e $c^{t(n)}$, che quindi occupa $O(t(n))$ bit), un intero $p$ (di modulo $\leq c^{t(n)}$), dei simboli $a,a_{-1},a_0,a_1$ (che occupano $O(1)$ bit), un intero $i$ compreso tra $-1$ e $1$ (che occupa 2 bit).
 \end{proof}
 
 
@@ -294,37 +272,37 @@ Nel resto del capitolo dimostreremo le inclusioni e le uguaglianze rimanenti.
 
 \begin{teorema}
   \label{thm:nspace-atime}
-  $\NSPACE(t(n)) \subseteq \ATIME(t(n)^2)$, sotto l'ipotesi $t(n) = \Omega(n)$.
+  $\NSPACE(t(n)) \subseteq \ATIME(t(n)^2)$.
 \end{teorema}
 
 \begin{proof}
-  Sia $A$ una macchina di Turing che lavora in $\NSPACE(t(n))$. Vogliamo definire una macchina $B$ che lavori in $\ATIME(t(n)^2)$ e che accetti gli stessi input che accetta $A$.
-  Sia $w$ un input, e sia $G_w$ il grafo della computazione di $A$ su input $w$.
-  L'idea è di fare in modo che $B$ implementi una subroutine ricorsiva $P(d,x,y)$, al termine della quale $B$ accetta se in $G_w$ esiste un cammino lungo al più $2^d$ dal nodo $x$ al nodo $y$, altrimenti rifiuta.
+  Sia $M$ una macchina di Turing che lavora in $\NSPACE(t(n))$. Vogliamo definire una macchina $N$ che lavori in $\ATIME(t(n)^2)$ e che accetti gli stessi input che accetta $M$.
+  Sia $w$ un input, e sia $G_w$ il grafo della computazione di $M$ su input $w$.
+  L'idea è di fare in modo che $N$ implementi una subroutine ricorsiva $P(d,x,y)$, al termine della quale $N$ accetta se in $G_w$ esiste un cammino lungo al più $2^d$ dal nodo $x$ al nodo $y$, altrimenti rifiuta.
   
-  Entriamo ora maggiormente nei dettagli. Introduciamo uno stato esistenziale $q_P^\exists$, in cui $B$ inizia l'esecuzione della subroutine $P$ leggendo le variabili $d,x,y$ da un apposito nastro.
-  Se $d=0$, la macchina $B$ accetta nel caso in cui $x=y$ oppure $x\vdash y$, altrimenti rifiuta.
-  Se invece $d>0$, $B$ esegue le seguenti operazioni.
+  Entriamo ora maggiormente nei dettagli. Introduciamo uno stato esistenziale $q_P^\exists$, in cui $N$ inizia l'esecuzione della subroutine $P$ leggendo le variabili $d,x,y$ da un apposito nastro.
+  Se $d=0$, la macchina $N$ accetta nel caso in cui $x=y$ oppure $x\vdash_M y$, altrimenti rifiuta.
+  Se invece $d>0$, $N$ esegue le seguenti operazioni.
   \begin{itemize}
     \item Si porta in uno stato esistenziale e sceglie (non deterministicamente) un nodo $z$ di $G_w$.
     Tale $z$ rappresenta un possibile nodo intermedio in un eventuale percorso da $x$ a $y$.
-    \item Si porta in uno stato universale e sceglie (non deterministicamente) un bit $b\in\{0,1\}$.
+    \item Si porta in uno stato universale e sceglie (non deterministicamente) un bit $b$.
     Tale bit determina se verificare l'esistenza di un percorso da $x$ a $z$ oppure se verificare l'esistenza di un percorso da $z$ a $y$.
     \item Se $b=0$, si porta nello stato $q_P^\exists$ inizializzando $P$ con le variabili $(d,x,z)$. Se invece $b=1$, si porta nel medesimo stato ma inizializzando $P$ con le variabili $(d,z,y)$.
     Da questo momento in avanti, l'esecuzione continua ricorsivamente.
   \end{itemize}
   La procedura descritta ha l'effetto desiderato, perché l'esistenza di un percorso da $x$ a $y$ in $\leq 2^d$ passi è equivalente all'esistenza di un nodo intermedio $z$ per cui si possa andare da $x$ a $z$ in $\leq 2^{d-1}$ passi e da $z$ a $y$ in $\leq 2^{d-1}$ passi.
   
-  La subroutine $P$ è sufficiente per decidere se un input $w$ venga accettato da $A$, poiché basta che $B$ chiami $P$ con i seguenti parametri:
+  La subroutine $P$ è sufficiente per decidere se un input $w$ venga accettato da $M$, poiché basta che $N$ chiami $P$ con i seguenti parametri:
   \begin{itemize}
     \renewcommand{\labelitemi}{--}
-    \item $x = $ configurazione iniziale di $A$ su input $w$;
-    \item $y = $ configurazione finale accettante di $A$;
+    \item $x = $ configurazione iniziale di $M$ su input $w$;
+    \item $y = $ configurazione finale accettante di $M$;
     \item $d = $ logaritmo della profondità del grafo $G_w$.
   \end{itemize}
-  Si noti che la profondità del grafo $G_w$ è al massimo $c^{t(n)}$ per qualche costante $c>0$ (che dipende da $A$ ma non da $w$), quindi $d=O(t(n))$.
+  Si noti che la profondità del grafo $G_w$ è al massimo $c^{t(n)}$ per qualche costante $c>0$ (che dipende da $M$ ma non da $w$), quindi $d=O(t(n))$.
   
-  Verifichiamo infine che $B$ lavori effettivamante in $\ATIME(t(n)^2)$.
+  Verifichiamo infine che $N$ lavori effettivamante in $\ATIME(t(n)^2)$.
   Per quanto appena osservato, il numero di chiamate alla subroutine $P$ è $O(t(n))$.
   Ciascuna delle chiamate (compresa quella finale con $d=0$) impiega tempo $O(t(n))$, perché la lunghezza della codifica di un qualsiasi nodo di $G_w$ è $O(t(n))$.
   Quindi il tempo totale di esecuzione è effettivamente $O(t(n)^2)$.
