@@ -186,6 +186,7 @@ Per fare questo utilizzeremo i giochi di \EF{}, introdotti nella Sezione \ref{se
 
 \begin{corollario}
   $A \gaifmaneq{3^n} B$ implica $A \equiv_n B$.
+  \label{cor:gaifman-formule}
 \end{corollario}
 
 \begin{proof}
@@ -200,6 +201,7 @@ Dimostreremo che tale problema appartiene a $\coESOmon$ ma non ad $\ESOmon$.
 
 \begin{lemma}
   $\Connected \in \coESOmon$.
+  \label{lemma:connected-coESOmon}
 \end{lemma}
 
 \begin{proof}
@@ -210,13 +212,9 @@ Dimostreremo che tale problema appartiene a $\coESOmon$ ma non ad $\ESOmon$.
 \end{proof}
 
 
----------------
-
-
-
-
 \begin{lemma}
   $\Connected \not\in \ESOmon$.
+  \label{lemma:connected-not-ESOmon}
 \end{lemma}
 
 \begin{proof}
@@ -226,14 +224,20 @@ Dimostreremo che tale problema appartiene a $\coESOmon$ ma non ad $\ESOmon$.
   Osserviamo che una $\tau$-struttura può essere considerata come un grafo colorato con $2^r$ colori, dove il colore del vertice $x$ è codificato dai bit $P_1(x),\ldots,P_r(x)$.
   
   Sia $\ell$ un numero naturale sufficientemente grande rispetto a $m$ ed $r$ (sarà chiaro in seguito cosa si intende con ``sufficientemente grande'').
-  Sia $A$ una qualsiasi $\tau$-struttura tale che $G=(|A|, E^A)$ sia un grafo ciclico su $\ell$ vertici (con gli archi orientati tutti nello stesso verso), come in Figura~\ref{fig:grafi}.
+  Sia $G=(V^G, E^G)$ un grafo ciclico su $\ell$ vertici, con gli archi orientati tutti nello stesso verso.
+  Essendo $G$ connesso, soddisfa la formula $(\exists\vec{P})\varphi$. In altre parole esiste una $\tau$-struttura $A=(|A|, E^A, P_1^A, \ldots, P_r^A)$, con $|A|=V^G$ ed $E^A = E^G$, tale che $A \models \varphi$.
+  Rappresentiamo $A$ come un grafo colorato con $2^r$ colori, come nella Figura~\ref{fig:grafi}.
+  
   Avendo preso $\ell$ sufficientemente grande, esistono sicuramente due vertici $a,b\in |A|$ dello stesso $3^m$-tipo e con $S_A(3^m,a) \cap S_B(3^m,b) = \varnothing$.
-  Siano $a^-$ e $b^-$ i vertici del grafo che vengono immediatamente prima di $a$ e $b$, come in figura.
+  Siano $a^-$ e $b^-$ i vertici del grafo che vengono immediatamente prima di $a$ e $b$, come nella Figura~\ref{fig:grafi}.
   Sia $B$ la $\tau$-struttura ottenuta da $A$ mantenendo le stesse relazioni unarie (cioè ponendo $P_i^B = P_i^A$ per ogni $i=1,\dots,r$) ma cambiando alcuni archi: rimuoviamo gli archi da $a^-$ ad $a$ e da $b^-$ a $b$, ed aggiungiamo gli archi da $a^-$ a $b$ e da $b^-$ ad $a$.
   Come $L$-struttura, $B$ è un grafo costituito da due cicli disgiunti.
   
-  L'idea di questa costruzione è che, localmente, i grafi colorati $A$ e $B$ sono indistinguibili fino a distanza $3^m$.
-  Ciò significa che si ha $A \gaifmaneq{3^m} B$.
+  L'idea di questa costruzione è che, localmente, i grafi colorati $A$ e $B$ sono indistinguibili fino a distanza $3^m$; ciò significa che si ha $A \gaifmaneq{3^m} B$.
+  Allora, per il Corollario~\ref{cor:gaifman-formule}, possiamo dedurre che $A \equiv_m B$.
+  Dato che $A\models \varphi$ e che $\RQ(\varphi)=m$, si ha anche $B\models \varphi$.
+  Conseguentemente anche il grafo $H=(|B|, E^B)$ soddisfa la formula $(\exists \vec{P}) \varphi$, dunque deve essere connesso.
+  Ma questa è una contraddizione, perché $H$ è costituito da due cicli disginti.
   
   \begin{figure}[htbp]
     
@@ -303,6 +307,10 @@ Dimostreremo che tale problema appartiene a $\coESOmon$ ma non ad $\ESOmon$.
 \begin{teorema}
   $\ESOmon \neq \coESOmon$.
 \end{teorema}
+
+\begin{proof}
+  Segue immediatamente dai Lemmi~\ref{lemma:connected-coESOmon} e \ref{lemma:connected-not-ESOmon}.
+\end{proof}
 
 
 
