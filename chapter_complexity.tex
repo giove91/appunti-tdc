@@ -180,7 +180,7 @@ Nel resto del capitolo dimostreremo le inclusioni e le uguaglianze rimanenti.
  una macchina di Turing deterministica $B$ che lavori in $\DSPACE(t(n))$ e accetti gli
  stessi input $w$ di $A$. Supponiamo per semplicità di notazione che ogni stato
  non deterministico di $A$ possa fare una transizione in al più due stati.
- Sia $G_w$ il grafo delle computazioni della macchina $A$ su input $w$.
+ Sia $G_w$ il grafo della computazione della macchina $A$ su input $w$.
  Esibiamo una macchina di Turing in $\DSPACE(t(n))$ che, preso in input un nodo
  del grafo, decide se quel nodo è accettante o meno. Ciò consente di concludere, poiché
  la macchina $A$ accetta l'input $w$ se e solo se il nodo iniziale
@@ -254,16 +254,16 @@ Nel resto del capitolo dimostreremo le inclusioni e le uguaglianze rimanenti.
 
 \begin{proof}
   L'inclusione $\ASPACE(t(n)) \subseteq \DTIME(O(1)^{t(n)})$ può essere dimostrata in modo analogo al
-  Teorema~\ref{thm:atime-dspace}. Data una macchina di Turing $A$ che lavora in $\ASPACE(t(n))$,
-  si costruisce una macchina di Turing $B$ che visita il grafo $G_w$ delle computazioni di $A$ su input $w$
+  Teorema~\ref{thm:atime-dspace}. Più in dettaglio, data una macchina di Turing $A$ che lavora in $\ASPACE(t(n))$,
+  si costruisce una macchina di Turing $B$ che visita il grafo $G_w$ della computazione di $A$ su input $w$
   e determina se $w$ sia o meno accettante per $A$. La dimensione del grafo $G_w$ è $O(1)^{t(n)}$,
-  perché il numero di stati accessibili da un singolo stato è limitato da una costante che dipende
+  perché il numero di configurazioni accessibili da una singola configurazione è limitato da una costante che dipende
   solo da $A$, e non da $w$.
-  La visita del grafo può essere effettuata in tempo polinomiale nelle dimensioni del grafo stesso, ad esempio
-  come descritto nella dimostrazione del Teorema~\ref{thm:atime-dspace} (oppure in modo più efficiente,
-  tenendo in memoria la descrizione di tutti i nodi del percorso dalla radice $c_0$ al nodo corrente $c$,
-  cosicché sia più veloce passare da $c$ al padre di $c$).
-  Quindi la macchina $B$ lavora effettivamente in $\DTIME(O(1)^{t(n)})$.
+  Effettuiamo la visita del grafo in modo simile a quanto descritto nella dimostrazione del Teorema~\ref{thm:atime-dspace}, tenendo però scritta in un apposito nastro la descrizione di tutti i nodi del percorso dalla radice $c_0$ al nodo corrente $c$.
+  Passare da un nodo a uno dei figli richiede di scrivere sul nastro la descrizione del nodo figlio, mentre tornare da un nodo al suo padre richiede di cancellare la descrizione del nodo stesso dal nastro.
+  Ogni procedura di scrittura o cancellazione di un nodo richiede tempo $O(t(n))$.
+  Pertanto la macchina $B$ lavora in tempo
+  \[ O(1)^{t(n)} \cdot O(t(n)) = O(1)^{ t(n) + O(\log t(n)) } = O(1)^{t(n)}. \]
   
   Dimostriamo ora l'inclusione $\DTIME(O(1)^{t(n)}) \subseteq \ASPACE(t(n))$.
   Sia $A$ una macchina di Turing che lavora in $\DTIME(c^{t(n)})$ per qualche $c>0$; vogliamo definire una macchina di Turing $B$ che lavori in $\ASPACE(t(n))$, accettando gli stessi input che accetta $A$.
@@ -299,7 +299,7 @@ Nel resto del capitolo dimostreremo le inclusioni e le uguaglianze rimanenti.
 
 \begin{proof}
   Sia $A$ una macchina di Turing che lavora in $\NSPACE(t(n))$. Vogliamo definire una macchina $B$ che lavori in $\ATIME(t(n)^2)$ e che accetti gli stessi input che accetta $A$.
-  Sia $w$ un input, e sia $G_w$ il grafo delle computazioni di $A$ su input $w$.
+  Sia $w$ un input, e sia $G_w$ il grafo della computazione di $A$ su input $w$.
   L'idea è di fare in modo che $B$ implementi una subroutine ricorsiva $P(d,x,y)$, al termine della quale $B$ accetta se in $G_w$ esiste un cammino lungo al più $2^d$ dal nodo $x$ al nodo $y$, altrimenti rifiuta.
   
   Entriamo ora maggiormente nei dettagli. Introduciamo uno stato esistenziale $q_P^\exists$, in cui $B$ inizia l'esecuzione della subroutine $P$ leggendo le variabili $d,x,y$ da un apposito nastro.
