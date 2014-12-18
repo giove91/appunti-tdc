@@ -11,7 +11,7 @@ dotata di uno \emph{stato}, e lavora nel modo seguente.
 \begin{enumerate}
  \item Legge il simbolo scritto sul nastro nella posizione in cui si trova attualmente.
  \item Controlla in una tabella finita memorizzata al suo interno cosa deve fare
- nel quando legge quel simbolo nello stato in cui si trova.
+ quando legge quel simbolo nello stato in cui si trova.
  \item Basandosi su quello che ha letto nella tabella scrive un simbolo sul nastro,
  si sposta a destra o a sinistra e passa in un nuovo stato.
  \item Se lo stato in cui si trova ora è uno stato speciale, chiamato \emph{terminale},
@@ -50,7 +50,7 @@ $M=\langle Q, \Gamma, b, \delta, q_0, g\rangle$ dove:
 
 \begin{definizione}
  Data una macchina di Turing $M=\langle Q, \Gamma, b, \delta, q_0, g \rangle$,
- chiamiamo configurazione della macchina una tripla
+ chiamiamo configurazione della macchina una terna
  $\langle q, S, n \rangle$ dove:
  \begin{enumerate}
   \item $q \in Q$ rappresenta lo stato in cui si trova attualmente la macchina;
@@ -61,7 +61,7 @@ $M=\langle Q, \Gamma, b, \delta, q_0, g\rangle$ dove:
  \end{enumerate}
 \end{definizione}
 Nel seguito useremo la seguente notazione più compatta per descrivere la
-configurazione di una macchina di Turing:
+configurazione di una macchina di Turing.
 \begin{definizione}
 \label{def:conf-TM}
  Data una macchina di Turing $M=\langle Q, \Gamma, b, \delta, q_0, g \rangle$,
@@ -126,9 +126,9 @@ configurazione di una macchina di Turing:
 \begin{definizione}
 \label{def:accept-input}
  Sia $S_w$ la configurazione iniziale con input $w$ in $\Gamma^\ast$. Diciamo che
- una macchina di Turing $M$ accetta l'input $w$, e lo indichiamo con $M(w)\downarrow_y$
+ una macchina di Turing $M$ accetta l'input $w$, e lo indichiamo con $M(w)\accepts$
  se la configurazione $S_w$ è accettante. Viceversa diciamo che $M$
- rifiuta l'input $w$, e lo indichiamo con $M(w)\downarrow_n$, se
+ rifiuta l'input $w$, e lo indichiamo con $M(w)\refuses$, se
  la configurazione $S_w$ è rifiutante.
  
 %  Diciamo che
@@ -139,14 +139,14 @@ configurazione di una macchina di Turing:
 \begin{definizione}
 \label{def:problem}
  Dato un alfabeto $\Gamma$, chiamiamo \emph{problema decisionale} un insieme di stringhe finite
- $P \subseteq \Gamma^\ast$. Diciamo che il problema $P$ è calcolabile dalla macchina
+ $\mathcal{A} \subseteq \Gamma^\ast$. Diciamo che il problema $\mathcal{A}$ è calcolabile dalla macchina
  di Turing $M$ se, per ogni $w$ in $\Gamma^\ast$, $M$ accetta $w$ se e solo se $w$
- è in $P$ e $M$ rifiuta $w$ se e solo $w$ non è in $P$.
- Diciamo che il problema $P$ è calcolabile se è calcolabile da una
+ è in $\mathcal{A}$ e $M$ rifiuta $w$ se e solo $w$ non è in $\mathcal{A}$.
+ Diciamo che il problema $\mathcal{A}$ è calcolabile se è calcolabile da una
  macchina di Turing.
 \end{definizione}
 
-Esistono varianti della definizione di macchina di Turing che, pur non cambiano
+Esistono varianti della definizione di macchina di Turing che, pur non cambiando
 l'insieme dei problemi calcolabili, sono più semplici da adoperare in alcuni
 casi. Una variante utile sono le
 \emph{macchine di Turing a $k$ nastri}. Queste funzionano esattamente come le
@@ -154,13 +154,13 @@ macchine di Turing standard ma ad ogni passaggio leggono e scrivono contemporane
 tutti e $k$ i nastri. La funzione di transizione sarà dunque del tipo
 $\delta:  Q \times \Gamma^k \to Q \times ((\Gamma \setminus \{b\}) \times \{\texttt{L},\texttt{R},\texttt{S}\})^k$.
 Una macchina di Turing a $k$ nastri può chiaramente simulare una macchina di Turing
-a un solo nastro. Vale anche il viceversa:
+a un solo nastro. Vale anche il viceversa, come descritto dal seguente risultato.
 
 \begin{fatto}
 Una macchina di Turing a un solo nastro può simulare una macchina di Turing
 a $k$ nastri.
 In particolare tutti i problemi calcolabili da una macchina
-di Turing a k nastri sono calcolabili anche da una macchina di Turing ad un nastro.
+di Turing a $k$ nastri sono calcolabili anche da una macchina di Turing a un solo nastro.
 \end{fatto}
 
 Il modello di macchina di Turing che useremo più spesso è quello di una macchina di Turing
@@ -240,7 +240,7 @@ modifichiamo come segue.
   in uno stato rifiutante.
  \end{itemize}
 \end{definizione}
-Possiamo infine definire cosa vuol dire che una macchina di Turing alternante
+Possiamo infine definire cosa significa che una macchina di Turing alternante
 $M$ accetti un input $w$ allo stesso modo della Definizione \ref{def:accept-input}.
 
 \begin{definizione}
@@ -260,7 +260,7 @@ il grafo delle configurazioni $G_M$:
 \begin{definizione}
  Data una macchina di  Turing alternante $M$ con un unico stato accettante,
  il grafo delle configurazioni $G_M$
- è la struttura nel linguaggio $L=\langle E, G_\exists, G_\forall, t\rangle$
+ è la struttura sul linguaggio $L=\langle E, G_\exists, G_\forall, t\rangle$
  definita da:
  \begin{itemize}
   \item l'insieme $V$ dei vertici del grafo coincide con l'insieme di tutte le
@@ -270,14 +270,14 @@ il grafo delle configurazioni $G_M$:
   \item $G_\exists \subseteq V$ è un'etichetta dei nodi che indica le configurazioni
   con stato esistenziale;
   \item $G_\forall \subseteq V$ è un'etichetta dei nodi che indica le configurazioni
-  con stato universale.
+  con stato universale;
   \item $t \in V$ è una costante che indica l'unica configurazione avente nastro
   vuoto e stato accettante.
  \end{itemize}
 \end{definizione}
 Questo grafo descrive completamente tutte le possibili computazioni di $M$ con
 input qualsiasi. Spesso siamo interessati a una particolare computazione
-con input $w$ fissato:
+con input $w$ fissato, per cui diamo anche la seguente definizione.
 \begin{definizione}
  Il grafo $G_{M,w}$
  della computazione di $M$ con input $w$ è dato dalla
@@ -295,9 +295,8 @@ solo il grafo.
  più piccola (rispetto all'inclusione) relazione binaria su $G_{M,w}$ tale che
  \[
   \Ealt(x,y) \longleftrightarrow (x=y) \lor \exists z 
-  \left[ E(x,z) \land \Ealt(z,y) \land (G_\forall(x) \rightarrow \forall z\left(E(x,z) \rightarrow \Ealt(z,y)\right)\right]
+  \Big[ E(x,z) \land \Ealt(z,y) \land \Big(G_\forall(x) \rightarrow \forall z\left(E(x,z) \rightarrow \Ealt(z,y)\right)\Big) \Big]
  \]
- \mytodo{Divertiti a renderla leggibile Giove!}
 \end{definizione}
 Che esista una minima tale relazione può essere verificato facilmente a mano, o
 lo si può dedurre dal più generale Corollario \ref{cor-f-phi}.
@@ -321,13 +320,13 @@ $\{1,\ldots,n\} \subseteq \N$.
   Sia $A$ una $L$-struttura, con $|A| = n < +\infty$.
   Se $R \subseteq A^k$ è una relazione,
   definiamo $\bin(R): |A|^k \to \{0,1\}$ come:
-  \[\bin(R)(a_1 + a_2 \cdot n + a_k \cdot n^{k-1}):=
+  \[\bin(R)(a_1 + a_2 \cdot n + \ldots + a_k \cdot n^{k-1}):=
     \begin{cases}
       1 \mbox{ se } R(a_1,\ldots,a_k) \\
       0 \mbox{ altrimenti}
     \end{cases}
   \]
-  Se $a$ è un elemento di $A=\{1,\ldots,n\}$, definiamo $\bin(a)$ essere la
+  Se $a$ è un elemento di $A=\{1,\ldots,n\}$, definiamo $\bin(a)$ come la
   scrittura binaria del numero $a$, con eventualmente aggiunti degli zeri a
   sinistra affinché abbia lunghezza esattamente $\lceil \log_2(n) \rceil$.
   Definiamo infine
@@ -338,9 +337,9 @@ $\{1,\ldots,n\} \subseteq \N$.
 \label{oss-bin}
  Detta $n$ la cardinalità di $A$, la lunghezza della codifica è
  \[ |\bin(A)|=n^{a_1} + \ldots + n^{a_s} + l \cdot \lceil \log_2(n) \rceil, \]
- e in particolare è polinomiale in $n$. Inoltre dato che la parte a destra è
- strettamente crescente in $n$, questo ci dice che, conoscendo solo il linguaggio,
- e $\bin(A)$, possiamo ricavare $n$ e più in generale possiamo ricostruire tutto $A$.
+ e in particolare è polinomiale in $n$. Inoltre, dato che il membro di destra è
+ strettamente crescente in $n$, conoscendo solamente il linguaggio $L$ e la codifica $\bin(A)$
+ possiamo ricavare $n$ e più in generale possiamo ricostruire tutta la struttura $A$.
  Infatti avremo che vale $R_i^A(x_1,\ldots, x_{a_i})$ se e solo se
  $\bin(A)(n^{a_1} + \ldots + n^{a_{i-1}} + x_1 + x_2 \cdot n + \ldots + x_{a_i} \cdot n^{a_i-1}) = 1$.
 \end{osservazione}
@@ -357,9 +356,9 @@ leggere il valore di una costante sarà indicata con $\decode_{c_i} (\bin(A))$.
 
 \begin{definizione}
 \label{def:problem-struct}
-Fissato un linguaggio $L$ ci riferiremo a un insieme $\mathcal{B}$ di $L$-strutture finite
+Fissato un linguaggio $L$ ci riferiremo a un insieme $\mathcal{A}$ di $L$-strutture finite
 come a un \emph{problema decisionale}, intendendo con questo che consideriamo il corrispondente
-problema $\bin(\mathcal{B}) = \{\bin(A) \mid A \in \mathcal{B}\}$ nel senso della Definizione \ref{def:problem}.
+problema $\bin(\mathcal{A}) = \{\bin(A) \mid A \in \mathcal{A}\}$ nel senso della Definizione \ref{def:problem}.
 \end{definizione}
 % In particolare $\Ralt$ (cfr. Definizione \ref{def:Ralt}) è un problema, ed ha
 % dunque senso chiedersi se sia calcolabile e con quale complessità
