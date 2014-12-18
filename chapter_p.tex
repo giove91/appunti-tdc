@@ -9,13 +9,13 @@
  numero pari di negazioni. Più precisamente, per induzione sulla complessità
  della formula:
  \begin{itemize}
-  \item $S$ è in posizione positiva in tutte le formule atomiche (che la contengano o no)
-  \item Se $S$ compare in posizione positiva in $\phi$ e $\theta$, allora compare
+  \item $S$ è in posizione positiva in tutte le formule atomiche (che la contengano o no);
+  \item se $S$ compare in posizione positiva in $\phi$ e $\theta$, allora compare
   in posizione positiva in $\phi \land \theta$, $\phi \lor \theta$, $\exists x \phi(x)$,
-  $\forall x \phi(x)$.
-  \item Se $S$ compare in posizione positiva in $\phi$ allora compare in posizione
-  negativa in $\lnot \psi$, $\psi \to \phi$ e in $\lnot \psi \land \phi$.
-  \item Se $S$ compare in posizione positiva in $\phi$ allora compare in posizione
+  $\forall x \phi(x)$;
+  \item se $S$ compare in posizione positiva in $\phi$ allora compare in posizione
+  negativa in $\lnot \psi$, $\psi \to \phi$ e in $\lnot \psi \land \phi$;
+  \item se $S$ compare in posizione positiva in $\phi$ allora compare in posizione
   negativa in $\lnot \phi$ e viceversa se $S$ compare in posizione negativa in $\phi$
   allora compare in posizione
   positiva in $\lnot \phi$.
@@ -34,19 +34,19 @@
 
 Semanticamente vogliamo interpretare $\LFP_{S,x,y} \phi(S,x,y)$ come la più
 piccola (rispetto all'inclusione) relazione binaria $R$ tale che $R(x,y) \leftrightarrow \phi(R,x,y)$, ma dobbiamo
-prima verificare che esiste una tale relazione.
+prima verificare che una tale relazione esista.
 
 \begin{teorema}[Tarski-Knaster]
 \label{teo-tarski-knaster}
  Sia $A$ un insieme finito e sia $f: \powerset(A^k) \to \powerset(A^k)$ una
  funzione monotona rispetto all'inclusione
  (i.e. se $S \subseteq S'$ allora $f S \subseteq f S'$). Allora esiste un minimo
- punto fisso di $f$, che indicheremo con $\LFP f$ e per la precisione
+ punto fisso di $f$, che indicheremo con $\LFP f$, e per la precisione
  questo è dato da $f^{|A|^k}(\varnothing)$.
 \end{teorema}
 
 \begin{proof}
- Dato che $f$ è monotona e $A$ è finito, deve esistere $n$ in $\N$ tale che
+ Dato che $f$ è monotona e $A$ è finito, deve esistere un $n\in\N$ tale che
  $f^n(\varnothing) = f^{n+1}(\varnothing)$, e inoltre tale $n$ può essere preso
  minore di $|A|^k$. Indichiamo $f^n(\varnothing)$ con $\bar{S}$.
  Per definizione $\bar{S}$ è un punto fisso di $f$.
@@ -65,7 +65,7 @@ prima verificare che esiste una tale relazione.
  Il suo più piccolo punto fisso $\LFP f_{\phi,A}$ è la più piccola relazione
  $R \subseteq A \times A$ tale che $R(a,b) \leftrightarrow \semantic{\phi(S,x,y)}^{A,R,a,b}$.
 \end{corollario}
-\mytodo{Dimostrazione}
+% \mytodo{Dimostrazione}
 
 \begin{definizione}
  Usando le notazioni del Corollario \ref{cor-f-phi}, estendiamo la funzione
@@ -76,15 +76,15 @@ prima verificare che esiste una tale relazione.
 \section{\texorpdfstring{$\FOLFP$}{FO(LFP)} equivale a \texorpdfstring{$\P$}{P}}
 
 \begin{lemma}
- $\FO \subseteq \P$, ovvero, per ogni $L$-formula chiusa $\phi$ in $\FO$ esiste
+ $\FO \subseteq \P$. In altre parole, per ogni $L$-formula chiusa $\phi$ in $\FO$ esiste
  una macchina di Turing $T_\phi$ in $\P$ tale che, data una $L$-struttura $A$,
- si ha $A \models \phi$ se e solo se $T_\phi(\bin(A))\downarrow$. Inoltre
+ si ha $A \models \phi$ se e solo se $T_\phi(\bin(A))\accepts$. Inoltre
  le $T_\phi$ possono essere costruite in modo che siano logaritmiche nello spazio.
 \end{lemma}
 \begin{proof}
  Procediamo per induzione strutturale sulla complessità della formula $\phi$.
  
- Sia $\phi$ atomica nel linguaggio $L=\{ R^{a_1},\ldots,R^{a_k},c_1,\ldots,c_l \}$,
+ Sia $\phi$ atomica nel linguaggio $L=\{ R^{a_1},\ldots,R^{a_k},c_1,\ldots,c_l \}$;
  allora $\phi$ deve essere nella forma $c_1=c_2$ oppure nella forma $R_s(c_1,\ldots, c_k)$,
  dove i $c_i$ sono simboli di costante. La macchina di Turing $T_\phi$ come
  prima cosa leggerà dal nastro di
@@ -96,7 +96,7 @@ prima verificare che esiste una tale relazione.
  
  Se $\phi$ è combinazione booleana di formule $\phi_i$,
  la macchina di Turing corrispondente si ottiene facilmente mettendo insieme le
- macchiene di Turing delle singole $\phi_i$.
+ macchine di Turing delle singole $\phi_i$.
  
  Sia infine $\phi$ nella forma $\exists x \theta(x)$. Detto $L'$ il linguaggio
  ottenuto aggiungendo a $L$ un simbolo di costante $c$,
@@ -106,7 +106,7 @@ prima verificare che esiste una tale relazione.
  Notiamo che, dato $x \in \{0,\ldots, n-1\}$, possiamo trasformare $A$ in una $L'$
  struttura $(A,x)$ interpretando la costante $c$ con $x$.
  Costruiamo allora la macchina di Turing $T_\phi$ in modo che $T_\phi(\bin(A))$
- accetti se e solo se $T_{\theta(c)}(\bin(A=\string^\bin(x))$ accetta per qualche $x$.
+ accetti se e solo se $T_{\theta(c)}(\bin(A)\string^\bin(x))$ accetta per qualche $x$.
  Più concretamente, per ogni $x \in \{0,\ldots,n-1\}$
  scriviamo su un nastro a parte $\bin(A)\string^\bin(x)$ e lanciamo la macchina
  $T_\theta(c)$ usando questo come nastro di input. Se $T_\theta(c)$ accetta,
@@ -117,7 +117,7 @@ prima verificare che esiste una tale relazione.
 \label{prop:FO(LFP)-subset-P}
  $\FOLFP \subseteq \P$. In altre parole, per ogni $L$-formula chiusa $\phi$ in $\FOLFP$ esiste
  una macchina di Turing $T_\phi$ in $\P$ tale che, data una $L$-struttura $A$,
- si ha $A \models \phi$ se e solo se $T_\phi(\bin(A))\downarrow$.
+ si ha $A \models \phi$ se e solo se $T_\phi(\bin(A))\accepts$.
 \end{proposizione}
 \begin{proof}
   Rispetto al lemma precedente dobbiamo solo considerare in più il caso
@@ -127,7 +127,7 @@ prima verificare che esiste una tale relazione.
   dunque, sfruttando l'ipotesi induttiva, ha senso considerare la macchina di
   Turing $T_{\theta(S,x,y)}$ ad essa
   corrispondente. Inoltre, usando le notazioni del Corollario \ref{cor-f-phi},
-  si ha $T_{\theta(S,x,y)}(\bin(A,R,a,b))\downarrow$
+  si ha $T_{\theta(S,x,y)}(\bin(A,R,a,b))\accepts$
   se e solo se $(a,b) \in f_{\theta,A}(R)$. Questa osservazione, insieme alla
   dimostrazione del Teorema \ref{teo-tarski-knaster}, suggeriscono il seguente
   algoritmo per $T_\phi$ e ne dimostrano la correttezza.
@@ -141,7 +141,7 @@ prima verificare che esiste una tale relazione.
     \State $R\gets 0$
     \For {$i < max^2$}
       \For {$h,k = 0..max$}
-      \If {$T_{\theta(S,x,y)}(\bin(A)\string^\bin(h)\string^\bin(k))\downarrow$}
+      \If {$T_{\theta(S,x,y)}(\bin(A)\string^\bin(h)\string^\bin(k))\accepts$}
 	\State $R[a*max + b] \gets 1$
       \EndIf
       \EndFor
@@ -154,11 +154,11 @@ prima verificare che esiste una tale relazione.
 \end{proof}
 
 Dimostriamo ora l'inclusione inversa, ovvero $\P \subseteq \FOLFP$. La
-dimostrazione si basa sui seguenti claim:
+dimostrazione si basa sui seguenti claim.
 \begin{description}
- \item[Claim 1]\label{p_eq_a} $\P = \ASPACE(\log(n))$;
- \item[Claim 2]\label{ralt_in_p} $\Ralt \in \FOLFP$;
- \item[Claim 3]\label{reduct_fo} Se $S$ è un problema in $\ASPACE(\log(n))$, allora $S \leq_{\FO} \Ralt$.
+ \item[Claim 1]\label{p_eq_a} $\P = \ASPACE(\log(n))$.
+ \item[Claim 2]\label{ralt_in_p} $\Ralt \in \FOLFP$.
+ \item[Claim 3]\label{reduct_fo} Se $\mathcal{A}$ è un problema in $\ASPACE(\log(n))$, allora $\mathcal{A} \leq_{\FO} \Ralt$.
 \end{description}
 Dimostrati questi tre claim, per concludere, basta notare che un problema che si
 riduce $\FO$ a un problema in $\FOLFP$ è a sua volta in $\FOLFP$.
@@ -171,17 +171,17 @@ Dimostriamo dunque gli altri due.
 \begin{proof}
  La relazione $\Ealt(x,y)$ è più piccolo punto fisso della formula
  \[ \phi(S,x,y) :\equiv (x=y) \lor \exists z 
-  \left[ E(x,z) \land S(z,y) \land (G_\forall(x) \rightarrow \forall z\left(E(x,z) \rightarrow S(z,y)\right)\right]
+  \Big[ E(x,z) \land S(z,y) \land \Big(G_\forall(x) \rightarrow \forall z\left(E(x,z) \rightarrow S(z,y)\right) \Big) \Big]
  \]
  (cfr. Definizione \ref{def:Ealt}). Dato che $S$ compare in posizione positiva,
- possiamo scrivere $\Ealt(a,b) :\equiv (\LFP_{S,x,y} \phi(S,x,y))(a,b)$,
- in particolare $\Ealt$ è definibile in $\FOLFP$ da cui segue facilmente
+ possiamo scrivere $\Ealt(a,b) :\equiv (\LFP_{S,x,y} \phi(S,x,y))(a,b)$.
+ In particolare $\Ealt$ è definibile in $\FOLFP$, da cui segue facilmente
  la tesi.
 \end{proof}
 
 \begin{proposizione}
- Se $S$ è un problema in $\ASPACE(\log(n))$, allora $S \leq_{\FO} \Ralt$.
- In particolare, $\Ralt$ è un problema $P$-completo.
+ Se $\mathcal{A}$ è un problema in $\ASPACE(\log(n))$, allora $\mathcal{A} \leq_{\FO} \Ralt$.
+ In particolare, $\Ralt$ è un problema $\P$-completo.
 \end{proposizione}
 \begin{proof}
  Sia $\sigma = \{R^{a_1}_1,\ldots,R^{a_r}_r,c_1, \ldots, c_s\}$ un linguaggio
@@ -192,7 +192,7 @@ Dimostriamo dunque gli altri due.
  definibile al primo ordine in $A$, tale che:
  \[ M(\bin(A)) \iff I(A) \in \Ralt. \]
  L'idea è di associare alla struttura $A$ il grafo della computazione
- di $M$ su input $\bin(A)$, in questo modo la nostra richiesta sarà
+ di $M$ su input $\bin(A)$; in questo modo la nostra richiesta sarà
  automaticamente soddisfatta.
  A tal fine identifichiamo il dominio di $A$ con l'insieme $\{1,2,\ldots, n\}$ e
  scegliamo come insieme di vertici $V^A$ l'insieme $A^{4+a+c}$,
@@ -201,7 +201,7 @@ Dimostriamo dunque gli altri due.
  minori di $n$:
  \[\ID=\langle p_1, \ldots, p_4, r_1, \ldots, r_a, w_1, \ldots, w_c \rangle\]
  Ciascuna di queste tuple rappresenterà una possibile configurazione della
- macchina $M$, per la precesione:
+ macchina $M$. Per la precesione:
  \begin{itemize}
   \item $p_1 \in \{1,\ldots, r\}$ rappresenta la relazione che la
   macchina sta leggendo sul nastro di input, come verrà spiegato più tardi;
@@ -239,11 +239,11 @@ Dimostriamo dunque gli altri due.
   lo spostamento sul nastro di input.
   Associamo a $R$ la relazione
   \begin{align*}
-  C_R(\ID, \ID') :\equiv  \bigwedge_{1 \leq i \leq r} [ & p_1=i \land p_2=q \land p_4=g(q)
+  C_R(\ID, \ID') :\equiv  \bigwedge_{1 \leq i \leq r} \Big[ & p_1=i \land p_2=q \land p_4=g(q)
     \land \BIT(\vec{w},p_3)^{\gamma_w} \land R_i(r_1,\ldots,r_{a_i})^{\gamma_i} \\
     & \rightarrow p_2'=q' \land p_4'=g(q') \land p_3'=p_3 + \delta_w \land
     \BIT(\vec{w}', p_3')^{\gamma_o} \\
-    & \phantom{\rightarrow} \land \forall p \neq p_3 (\BIT(\vec{w}',p) \leftrightarrow \BIT(\vec{w},p))]
+    & \phantom{\rightarrow} \land \, \forall p \neq p_3 (\BIT(\vec{w}',p) \leftrightarrow \BIT(\vec{w},p)) \Big]
   \end{align*}
   dove $\BIT(\vec{w},p)$ è vera se e solo se il $p$-esimo bit del numero
   $w_1 + w_2 \cdot \max + \ldots + w_c \cdot \max^{c-1}$ è 1.
@@ -255,21 +255,21 @@ Dimostriamo dunque gli altri due.
 \end{proof}
 
 \begin{osservazione}
-  Nella dimostrazione precedente potevamo
-  memorizzare tutte le possibili configurazione del nastro di lavoro all'interno
+  Nella dimostrazione precedente avremmo potuto
+  memorizzare tutte le possibili configurazioni del nastro di lavoro all'interno
   del grafo grazie all'ipotesi $M \in \ASPACE(c \log(n))$, ma non possiamo
   fare lo stesso per il nastro di input che ha lunghezza
-  polinomiale in $n$ (e quindi il numero di possibili configurazioniè esponenziale in $n$).
+  polinomiale in $n$ (e quindi il numero di possibili configurazioni è esponenziale in $n$).
   Tuttavia, come visto, possiamo limitarci a memorizzare soltanto la posizione
   della testina sul nastro di input.
 \end{osservazione}
 
 \begin{corollario}
 \label{cor:P-subset-FO(LFP)}
- $\P \subseteq \FOLFP$, ovvero, per ogni macchina di Turing $M$ che accetta o
+ $\P \subseteq \FOLFP$. In altre parole, per ogni macchina di Turing $M$ che accetta o
  rifiuta una $\sigma$-struttura $A$ in tempo polinomiale, esiste una
  $\sigma$-formula $\phi$ in $\FOLFP$ tale che
- $A \models \phi$ se e solo se $M(\bin(A))\downarrow_y$
+ $A \models \phi$ se e solo se $M(\bin(A))\accepts$
 \end{corollario}
 
 
