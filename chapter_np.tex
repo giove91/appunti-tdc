@@ -2,7 +2,7 @@
 
 \section{\texorpdfstring{$\NP$}{NP} equivale ad \texorpdfstring{$\ESO$}{ESO}}
 
-La dimostrazione seguente fa uso della caratterizzazione di $\NP$ data in
+La dimostrazione seguente fa uso della caratterizzazione di $\NP$ data
 nel Corollario \ref{cor:caratterizzazione-np} e della caratterizzazione di $\P$
 ottenuta nel capitolo precedente, nonchè del fatto seguente. Per la dimostrazione
 svolta a lezione si guardi invece~\cite[7.2]{immerman1999descriptive}.
@@ -16,13 +16,13 @@ svolta a lezione si guardi invece~\cite[7.2]{immerman1999descriptive}.
   $\NP = \ESO$.
 \end{teorema}
 \begin{proof}
- Sia $\B$ un problema in $\NP$. Per il Corollario \ref{cor:caratterizzazione-np}
+ Sia $\A$ un problema in $\NP$. Per il Corollario \ref{cor:caratterizzazione-np}
  esiste una macchina di Turing $M$ in $P$ e un $k \in \N$ tale che
- $A \in \B$ se e solo se $M(\bin(A)\string^\bin(R))\downarrow_y$ per una qualche
+ $A \in \A$ se e solo se $M(\bin(A)\string^\bin(R))\accepts$ per una qualche
  relazione $R$ di arietà $k$ su $A$.
  Per il Corollario \ref{cor:P-subset-FO(LFP)}, esiste una formula $\phi$
- in $\FOLFP$ tale che $M(\bin(A)\string^\bin(R))\downarrow_y$ se e solo se
- $A,R \models \phi$. Dunque vale $A \in \B$ se e solo se
+ in $\FOLFP$ tale che $M(\bin(A)\string^\bin(R))\accepts$ se e solo se
+ $A,R \models \phi$. Dunque vale $A \in \A$ se e solo se
  $A \models \exists R^{(k)} \phi$. Concludiamo applicando il 
  Fatto \ref{fact:ESO(LFP)-equals-ESO} alla formula $\exists R^{(k)} \phi$.
  
