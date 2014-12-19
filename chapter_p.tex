@@ -243,10 +243,13 @@ Dimostriamo dunque gli altri due.
     \land \BIT(\vec{w},p_3)^{\gamma_w} \land R_i(r_1,\ldots,r_{a_i})^{\gamma_i} \\
     & \rightarrow p_2'=q' \land p_4'=g(q') \land p_3'=p_3 + \delta_w \land
     \BIT(\vec{w}', p_3')^{\gamma_o} \\
-    & \phantom{\rightarrow} \land \, \forall p \neq p_3 (\BIT(\vec{w}',p) \leftrightarrow \BIT(\vec{w},p)) \Big]
+    & \phantom{\rightarrow} \land \, \forall p \neq p_3 (\BIT(\vec{w}',p) \leftrightarrow \BIT(\vec{w},p))\\
+    & \phantom{\rightarrow} \land \, (\text{spostamento testina di input})
+    \Big]
   \end{align*}
   dove $\BIT(\vec{w},p)$ è vera se e solo se il $p$-esimo bit del numero
-  $w_1 + w_2 \cdot \max + \ldots + w_c \cdot \max^{c-1}$ è 1.
+  $w_1 + w_2 \cdot \max + \ldots + w_c \cdot \max^{c-1}$ è 1 ($\BIT$ è definibile
+  in $\FO_{\leq,\cdot,+}$, si veda ad esempio \cite[1.17]{immerman1999descriptive}).
   Notiamo che vale $C_R(\ID, \ID')$ se e solo se la configurazione corrispondente
   a $\ID$ può passare alla configurazione corrispondente a $\ID'$ mediante la regola
   $R$. Per concludere definiamo allora
