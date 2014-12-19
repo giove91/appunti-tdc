@@ -228,14 +228,16 @@ modifichiamo come segue.
   \item il suo stato è accettante;
   \item il suo stato è esistenziale e la configurazione può fare una transizione
   in una configurazione accettante;
-  \item il suo stato è universale e ogni transizione che la configurazione può fare
-  finisce in una configurazione accettante.
+  \item il suo stato è universale, la configurazione può fare almeno una transizione
+  e ogni transizione che la configurazione può fare finisce in una configurazione
+  accettante.
  \end{itemize}
  Viceversa si dice rifiutante se vale una delle seguenti:
  \begin{itemize}
   \item il suo stato è rifiutante;
-  \item il suo stato è esistenziale e ogni transizione che la configurazione può fare
-  finisce in una configurazione rifiutante;
+  \item il suo stato è esistenziale, la configurazione può fare almeno una transizione
+  e ogni transizione che la configurazione può fare finisce in una configurazione
+  rifiutante;
   \item il suo stato è universale e la configurazione può fare una transizione
   in una configurazione rifiutante.
  \end{itemize}
@@ -285,14 +287,15 @@ con input $w$ fissato, per cui diamo anche la seguente definizione.
  con una costante $s$, che denota la configurazione iniziale con input $w$.
  Se non c'è ambiguità al posto di $G_{M,w}$ scriveremo semplicemente $G_w$.
 \end{definizione}
-Dato $G_w$, è interessante trovare un modo per capire se una configurazione
+Dato $G_{M,w}$, è interessante trovare un modo per capire se una configurazione
 è accettante, in particolare se lo è la configurazione iniziale $s$, guardando
 solo il grafo.
 \begin{definizione}
 \label{def:Ealt}
- Dato $G_{M,w}$ il grafo di una computazione,
+ Data un grafo alternante $G$, ovvero una struttura nel linguaggio
+ $L=\{E, G_\exists, G_\forall,s,t\}$,
  definiamo $\Ealt(x,y)$ essere la
- più piccola (rispetto all'inclusione) relazione binaria su $G_{M,w}$ tale che
+ più piccola (rispetto all'inclusione) relazione binaria su $G$ tale che
  \[
   \Ealt(x,y) \longleftrightarrow (x=y) \lor \exists z 
   \Big[ E(x,z) \land \Ealt(z,y) \land \Big(G_\forall(x) \rightarrow \forall z\left(E(x,z) \rightarrow \Ealt(z,y)\right)\Big) \Big]
@@ -300,11 +303,16 @@ solo il grafo.
 \end{definizione}
 Che esista una minima tale relazione può essere verificato facilmente a mano, o
 lo si può dedurre dal più generale Corollario \ref{cor-f-phi}.
+\begin{osservazione}
+\label{oss:Ealt-accepts}
+ Data una macchina di Turing alternante $M$ e un input $w$, si ha che $M$
+ accetta l'input $w$ se e solo se $G_{M,w} \models \Ealt(s,t)$.
+\end{osservazione}
+
 \begin{definizione}
 \label{def:Ralt}
- Fissata una macchina di Turing $M$,
- l'insieme dei grafi $G_w$ tali che $M$ accetta l'input $w$ verrà denotato da
- $\Ralt := \{G_w | \Ealt(s,t) \}$
+ Indichiamo con $\Ralt$ l'insieme dei grafi alternanti finiti $G$
+ tali che $G \models \Ealt(s,t)$.
 \end{definizione}
 
 

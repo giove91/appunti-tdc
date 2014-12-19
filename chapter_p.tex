@@ -191,9 +191,10 @@ Dimostriamo dunque gli altri due.
  $I(A) = (V^A, G_\exists^A, G_\forall^a, E^a, s^A,t^A)$,
  definibile al primo ordine in $A$, tale che:
  \[ M(\bin(A)) \iff I(A) \in \Ralt. \]
- L'idea è di associare alla struttura $A$ il grafo della computazione
- di $M$ su input $\bin(A)$; in questo modo la nostra richiesta sarà
- automaticamente soddisfatta.
+ L'idea è di associare alla struttura $A$ il sottografo del grafo della computazione
+ di $M$ su input $\bin(A)$ dato dalle configurazioni di $M$ in cui la testina del nastro
+ di lavoro ha distanza dall'origine minore di $c \log(n)$; in questo modo la nostra richiesta sarà
+ automaticamente soddisfatta (cfr. Definizione~\ref{def:TM-space}).
  A tal fine identifichiamo il dominio di $A$ con l'insieme $\{1,2,\ldots, n\}$ e
  scegliamo come insieme di vertici $V^A$ l'insieme $A^{4+a+c}$,
  con $a=\max(a_1, \ldots, a_r)$. In questo modo
@@ -204,7 +205,7 @@ Dimostriamo dunque gli altri due.
  macchina $M$. Per la precesione:
  \begin{itemize}
   \item $p_1 \in \{1,\ldots, r\}$ rappresenta la relazione che la
-  macchina sta leggendo sul nastro di input, come verrà spiegato più tardi;
+  macchina sta leggendo sul nastro di input;
   \item $p_2 \in Q_M$ rappresenta lo stato in cui si trova la macchina di Turing;
   \item $p_3 \in \{0, \ldots, c \log(n)\}$ rappresenta la posizione della testina
   sul nastro di lavoro;
