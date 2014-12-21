@@ -174,7 +174,7 @@ Nel resto di questo capitolo dimostreremo le inclusioni e le uguaglianze rimanen
  abbiamo già verificato che quel nodo è accettante, non accettante oppure
  se ancora non lo sappiamo.
  
- Si noti che, in particolare, non viene tenuto in memoria il percorso da $c_0$ a $c$.
+ Si noti che, in particolare, non vengono tenute in memoria tutte le configurazioni lungo il percorso da $c_0$ a $c$.
  Di conseguenza, ogniqualvolta si debba passare da un nodo $c$ al suo padre,
  risulta necessario percorrere nuovamente il cammino da $c_0$ a $c$ (che può essere
  ricostruito grazie alla stringa binaria $P$).
@@ -195,10 +195,10 @@ Nel resto di questo capitolo dimostreremo le inclusioni e le uguaglianze rimanen
   
   \item Se $D$ è in $\{\texttt{S}, \texttt{N}\}$ e $P=\langle b_1, b_2, \ldots, b_n\rangle$ con $n\geq 1$, abbiamo determinato se il nodo corrente $c$ è accettante e dobbiamo continuare la visita dell'albero di computazione.
   \begin{enumerate}
-    \item Se $c$ corrisponde ad uno stato esistenziale e $D=\texttt{S}$, allora il padre di $c$ non può che essere accettante, per cui passiamo nello stato
+    \item Se il padre di $c$ corrisponde ad uno stato esistenziale e $D=\texttt{S}$, allora il padre di $c$ non può che essere accettante, per cui passiamo nello stato
     \[ P := \langle b_1, b_2, \ldots, b_{n-1} \rangle, \quad D := \texttt{S}, \quad c := \text{padre di $c$}. \]
     
-    \item Analogamente se $c$ corrisponde ad uno stato universale e $D=\texttt{N}$, il padre di $c$ è sicuramente non accettante, dunque passiamo nello stato
+    \item Analogamente se il padre di $c$ corrisponde ad uno stato universale e $D=\texttt{N}$, il padre di $c$ è sicuramente non accettante, dunque passiamo nello stato
     \[ P := \langle b_1, b_2, \ldots, b_{n-1} \rangle, \quad D := \texttt{N}, \quad c := \text{padre di $c$}. \]
     
     \item Se $b_n=0$ (ovvero $c$ è un figlio sinistro) e non ci troviamo in nessuno dei primi due casi,
@@ -235,11 +235,26 @@ Nel resto di questo capitolo dimostreremo le inclusioni e le uguaglianze rimanen
   e determina se $w$ sia o meno accettante per $M$. La dimensione del grafo $G_w$ è $O(1)^{t(n)}$,
   perché il numero di configurazioni accessibili da una singola configurazione è limitato da una costante che dipende
   solo da $M$, e non da $w$.
-  Effettuiamo la visita del grafo in modo simile a quanto descritto nella dimostrazione del Teorema~\ref{thm:atime-dspace}, tenendo però scritta in un apposito nastro la descrizione di tutti i nodi del percorso dalla radice $c_0$ al nodo corrente $c$.
-  Passare da un nodo a uno dei figli richiede di scrivere sul nastro la descrizione del nodo figlio, mentre tornare da un nodo al suo padre richiede di cancellare la descrizione del nodo stesso dal nastro.
-  Ogni procedura di scrittura o cancellazione di un nodo richiede tempo $O(t(n))$.
-  Pertanto la macchina $N$ lavora in tempo
+  Effettuiamo la visita del grafo in modo simile a quanto descritto nella dimostrazione del Teorema~\ref{thm:atime-dspace}, salvando in un nastro i nodi incontrati nel percorso dalla radice fino al nodo corrente, e in un altro nastro la lista di \emph{tutti} i nodi già visitati.
+  Per ciascun nodo già visitato $c$ salviamo anche un'etichetta $D_c$, appartenente all'insieme $\{\texttt{S}, \texttt{N}, \texttt{?}\}$, che indica se la corrispondente configurazione è accettante, rifiutante oppure non ancora determinata (quest'ultima possibilità accade se la visita ricorsiva dei figli non si è ancora conclusa).
+  Quando inizia la visita di un nuovo nodo $c$, la macchina $N$ esegue le seguenti operazioni.
+  \begin{itemize}
+    \item Controlla se $c$ è già stato visitato, scandendo l'intera lista dei nodi visitati.
+    
+    \item Se $c$ è già stato visitato e ha etichetta $D_c=\texttt{S}$ oppure $D_c=\texttt{N}$, si ritorna al padre di $c$ e si continua la visita.
+    
+    \item Se $c$ è già stato visitato e ha etichetta $D_c=\texttt{?}$, ciò significa che $c$ era già stato incontrato nel percorso dalla radice a $c$. Osserviamo che tale eventualità può effettivamente accadere anche se $M$ termina su input $w$: infatti, affinché una macchina alternante termini, non è necessario che tutti i rami della computazione terminino (cfr. Definizione~\ref{def:accettante-rifiutante}).
+    Sicuramente però, ai fini del determinare se la configurazione $c$ è accettante, percorrere un ciclo nel grafo $G_w$ è inutile.
+    Di conseguenza, se ci si trova in questo caso, si ritorna al padre di $c$ come se $c$ fosse rifiutante (ma senza modificare l'etichetta $D_c=\texttt{?}$, perché nel seguito della computazione si potrebbe scoprire che in realtà $c$ è accettante).
+    
+    \item Se $c$ non è stato ancora visitato, lo aggiungiamo alla lista dei nodi visitati ponendo $D_c=\texttt{?}$, e visitiamo ricorsivamente i figli di $c$.
+  \end{itemize}
+
+  Il numero di visite ai nodi del grafo è dell'ordine del numero di archi, il quale è proporzionale al numero di nodi (perché il grado di ogni nodo è $O(1)$).
+  Osserviamo che nella visita di ciascun nodo l'operazione più costosa è data dalla scansione della lista dei nodi visitati, la quale ha lunghezza
   \[ O(1)^{t(n)} \cdot O(t(n)) = O(1)^{ t(n) + O(\log t(n)) } = O(1)^{t(n)}. \]
+  In conclusione, il tempo impiegato dalla macchina $N$ è
+  \[ O(1)^{t(n)} \cdot O(1)^{t(n)} = O(1)^{t(n)}. \]
   
   Dimostriamo ora l'inclusione $\DTIME(O(1)^{t(n)}) \subseteq \ASPACE(t(n))$.
   Sia $M$ una macchina di Turing che lavora in $\DTIME(c^{t(n)})$ per qualche $c>0$; vogliamo definire una macchina di Turing $N$ che lavori in $\ASPACE(t(n))$, accettando gli stessi input che accetta $M$.
